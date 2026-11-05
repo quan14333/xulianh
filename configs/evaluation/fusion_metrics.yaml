@@ -1,0 +1,21 @@
+schema_version: 1
+evaluation:
+  metrics:
+    - EN
+    - SD
+    - SCD
+    - MS_SSIM
+  input_channel: REPLACE_WITH_Y_GRAYSCALE_OR_RGB
+  require_matching_ids: true
+  require_matching_shapes: true
+  cast_before_subtraction: float64
+reporting:
+  statistics:
+    - mean
+    - std
+    - median
+    - valid_count
+  paired_comparison: true
+validation_status:
+  SCD: needs_formula_verification
+  MS_SSIM: needs_multiscale_and_source_aggregation_verification

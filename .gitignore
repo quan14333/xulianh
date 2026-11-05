@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+kaggle.json
+*.pem
+*.key
+
+# Notebooks: keep sources, discard generated checkpoints
+.ipynb_checkpoints/
+
+# Datasets (keep documentation, manifests, audits, examples)
+data/raw/**
+data/processed/**
+!data/raw/.gitkeep
+!data/raw/FMB/
+!data/raw/FMB/.gitkeep
+!data/processed/.gitkeep
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Model artifacts and large arrays
+checkpoints/pretrained/**
+checkpoints/experiments/**
+!checkpoints/pretrained/.gitkeep
+!checkpoints/experiments/.gitkeep
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.npy
+*.npz
+
+# Experiment outputs: only README files are versioned by default
+runs/**
+!runs/README.md
+outputs/**
+!outputs/README.md
+
+# Kaggle runtime artifacts
+/input/
+/working/
+wandb/
+lightning_logs/
+
+# Reports: allow small source tables/figures only after explicit review
+reports/weekly/**
+reports/experiments/**
+reports/tables/**
+reports/figures/**
+reports/final/**
+reports/slides/**
+!reports/weekly/.gitkeep
+!reports/experiments/.gitkeep
+!reports/tables/.gitkeep
+!reports/figures/.gitkeep
+!reports/final/.gitkeep
+!reports/slides/.gitkeep

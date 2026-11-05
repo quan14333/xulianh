@@ -1,0 +1,19 @@
+schema_version: 1
+experiment:
+  name: sage_fmb_pretrained_student
+  seed: 42
+model:
+  implementation: external/SAGE_IVIF
+  checkpoint: checkpoints/pretrained/REPLACE_WITH_REAL_CHECKPOINT.pth
+  mode: pretrained_student_inference
+data:
+  dataset: FMB
+  manifest: data/manifests/REPLACE_WITH_VERIFIED_MANIFEST.csv
+  root: data/raw/FMB
+  preprocessing_status: needs_verification
+output:
+  run_root: runs
+  run_id: REPLACE_WITH_UNIQUE_RUN_ID
+notes:
+  - This is a configuration template, not evidence that inference has run.
+  - Verify image size and RGB/YCbCr/IR preprocessing before use.
