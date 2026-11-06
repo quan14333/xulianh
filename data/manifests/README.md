@@ -31,7 +31,7 @@ VIS (Hamming ≤ 5) rồi xem bằng mắt. Cách chia này chưa được nhóm
 ## Tạo lại
 
 ```bash
-python src/data/build_fmb_manifests.py --audit-dir <audit> --out data/manifests --root <FMB>
+python src/data/build_fmb_manifests.py --audit-dir <audit> --out data/manifests     --check-dir data/audit --root data/raw/FMB
 ```
 
 `--root` là thư mục chứa `train/` và `test/`. Script nhận cả kiểu `train/Visible` và kiểu
@@ -39,4 +39,5 @@ python src/data/build_fmb_manifests.py --audit-dir <audit> --out data/manifests 
 `train/train/`, cần đổi đường dẫn khi đọc. Không có `--root` thì script chỉ kiểm tra danh sách,
 đuôi `.png` là giả định và cột `ir_md5`, `label_md5` để trống.
 
-Kết quả kiểm tra trên FMB thật nằm ở `kiem_tra_dev_gan_train.csv` và `kiem_tra_lop_theo_tap.csv`.
+Kết quả kiểm tra trên FMB thật nằm ở `data/audit/kiem_tra_dev_gan_train.csv` và
+`data/audit/kiem_tra_lop_theo_tap.csv`.

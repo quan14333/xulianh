@@ -4,7 +4,7 @@ Chạy nhanh, không cần ảnh (chưa kiểm tra file, cột md5 của IR/labe
     python src/data/build_fmb_manifests.py --audit-dir fmb_audit_final --out data/manifests
 
 Chạy đầy đủ, có ảnh (bản chính thức để commit):
-    python src/data/build_fmb_manifests.py --audit-dir <audit> --out <out> --root <FMB>
+    python src/data/build_fmb_manifests.py --audit-dir <audit> --out data/manifests         --check-dir data/audit --root data/raw/FMB
 
 Cách chia dev: xem data/manifests/README.md. Kết quả không phụ thuộc seed: chạy lại
 luôn ra cùng danh sách.
@@ -137,7 +137,7 @@ def kiem_tra_danh_sach(tap: dict[str, list], leak: set[str], dev_ids: set[int]) 
     return loi
 
 
-def kiem_tra_file(tap: dict[str, list], root: Path, out: Path) -> list[str]:
+def kiem_tra_file(tap: dict[str, list], root: Path, check_dir: Path) -> list[str]:
     """Dò đuôi file thật, kiểm tra ảnh, điền md5, tìm ảnh gần trùng giữa dev và train."""
     import numpy as np
     from PIL import Image
@@ -193,7 +193,7 @@ def kiem_tra_file(tap: dict[str, list], root: Path, out: Path) -> list[str]:
                 hash_vis[split][d["image_id"]] = dhash(duong_dan["vis"])
                 duong_dan_vis[d["image_id"]] = duong_dan["vis"]
 
-    with (out / "kiem_tra_lop_theo_tap.csv").open("w", encoding="utf-8", newline="") as f:
+    with (check_dir / "kiem_tra_lop_theo_tap.csv").open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(["class_id", "so_anh_train", "so_anh_dev", "so_anh_test"])
         for lop in range(15):
@@ -208,7 +208,7 @@ def kiem_tra_file(tap: dict[str, list], root: Path, out: Path) -> list[str]:
             for j in np.flatnonzero(hamming <= NGUONG_DHASH):
                 gan.append((id_dev, id_train[j], int(hamming[j])))
     gan.sort(key=lambda t: t[2])
-    with (out / "kiem_tra_dev_gan_train.csv").open("w", encoding="utf-8", newline="") as f:
+    with (check_dir / "kiem_tra_dev_gan_train.csv").open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(["anh_dev", "anh_train", "hamming_vis"])
         w.writerows(gan)
@@ -220,7 +220,9 @@ def kiem_tra_file(tap: dict[str, list], root: Path, out: Path) -> list[str]:
             cap = [Image.open(duong_dan_vis[i]).convert("RGB").resize((320, 240))
                    for i in (id_dev, id_train)]
             hang.append(np.hstack([np.asarray(a) for a in cap]))
-        Image.fromarray(np.vstack(hang)).save(out / "kiem_tra_dev_gan_train.png")
+        Image.fromarray(np.vstack(hang)).save(
+            check_dir / "kiem_tra_dev_gan_train.png"
+        )
     return loi
 
 
@@ -237,8 +239,11 @@ def main() -> int:
     ap.add_argument("--audit-dir", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--root", type=Path, help="thư mục FMB; có thì kiểm tra file và điền md5")
+    ap.add_argument("--check-dir", type=Path, help="nơi ghi file kiểm tra; mặc định là --out")
     args = ap.parse_args()
+    check_dir = args.check_dir or args.out
     args.out.mkdir(parents=True, exist_ok=True)
+    check_dir.mkdir(parents=True, exist_ok=True)
 
     audit = doc_csv(args.audit_dir / "3_thong_tin_tung_anh.csv")
     leak = set((args.audit_dir / "5_anh_test_ro.txt").read_text(encoding="utf-8").split())
@@ -255,7 +260,7 @@ def main() -> int:
 
     if args.root:
         print(f"Kiểm tra file trong {args.root}:")
-        loi_file = kiem_tra_file(tap, args.root, args.out)
+        loi_file = kiem_tra_file(tap, args.root, check_dir)
         print(f"  Lỗi file: {len(loi_file)}")
         print("\n".join(f"  - {x}" for x in loi_file[:20]))
         loi += loi_file
