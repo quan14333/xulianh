@@ -72,6 +72,11 @@ reports/final/**
 reports/slides/**
 !reports/weekly/.gitkeep
 !reports/experiments/.gitkeep
+!reports/experiments/sage_fmb_baseline/
+!reports/experiments/sage_fmb_baseline/*.md
+!reports/experiments/sage_fmb_baseline/*.json
+!reports/experiments/sage_fmb_baseline/*.csv
+!reports/experiments/sage_fmb_baseline/preview_ir_vis_fused.png
 !reports/tables/.gitkeep
 !reports/figures/.gitkeep
 !reports/final/.gitkeep
