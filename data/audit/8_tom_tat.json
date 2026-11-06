@@ -1,0 +1,77 @@
+{
+  "root": "/content/FMB",
+  "so_cap_theo_split": {
+    "test/test": 280,
+    "train/train": 1220,
+    "TỔNG": 1500
+  },
+  "so_loi_ghep_cap": 0,
+  "anh_hong": 0,
+  "cap_lech_kich_thuoc": 0,
+  "kich_thuoc_pho_bien_vis_wxh": [
+    800,
+    600
+  ],
+  "ir_3_kenh_giong_nhau": "1500/1500",
+  "gia_tri_label": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "color_la_nhan_to_mau": true,
+  "lop_thieu_giua_cac_split": {
+    "co_o_train/train_khong_co_o_test/test": [
+      "bicycle"
+    ]
+  },
+  "lop_hiem_duoi_0_5pct_pixel": [
+    "traffic_light",
+    "traffic_sign",
+    "truck",
+    "motorcycle",
+    "bicycle"
+  ],
+  "ro_du_lieu": {
+    "trung_tuyet_doi_train_test": 0,
+    "anh_test_ro_chot_bang_mat": [
+      "00587",
+      "00588",
+      "00589",
+      "00590",
+      "00631",
+      "00632",
+      "00633"
+    ],
+    "ty_le_test_ro_pct": 2.5,
+    "so_anh_test_sau_khi_bo": 273
+  },
+  "can_chinh_IR_VIS": {
+    "so_cap": 300,
+    "trung_vi_dx_tin_cay_cao": 1.06,
+    "trung_vi_dy_tin_cay_cao": 0.96,
+    "trung_vi_lech_px_tin_cay_cao": 3.15,
+    "P90_lech_px_tin_cay_cao": 6.14,
+    "pct_tren_10px_tin_cay_cao": 1.33,
+    "trung_vi_lech_px_tat_ca": 3.67,
+    "tuong_quan_tin_cay_do_sang": 0.41
+  },
+  "anh_minh_hoa": [
+    "train/train/00598",
+    "train/train/00439",
+    "test/test/00518",
+    "train/train/01132",
+    "test/test/00089"
+  ]
+}
