@@ -1,0 +1,4 @@
+split,VIS,IR,Label,Cặp đủ,Lỗi ghép cặp
+test/test,280,280,280,280,0
+train/train,1220,1220,1220,1220,0
+TỔNG,1500,1500,1500,1500,0
