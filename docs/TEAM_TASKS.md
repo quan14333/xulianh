@@ -43,13 +43,16 @@ review; chưa merge. Trạng thái dưới đây theo dõi PR, chưa xác nhận
 
 **Owner paths:** `notebooks/loc_lon/`, `src/evaluation/`, `tests/`, `reports/tables/`, card `loc_lon.md`.
 
+**Bàn giao:** Branch `feature/loclon-evaluation`, sẵn sàng mở Pull Request. Mã nguồn, 65 unit tests, notebook và bảng tra cứu đã hoàn thiện trong repo.
+
 | Công việc | Trạng thái | Evidence trong repo / bước tiếp theo |
 |---|---|---|
-| Tài liệu metric và mã nháp | Đã làm ngoài repo; chưa import | Import kèm nguồn/phiên bản và test |
-| EN, SD | Chưa kiểm nghiệm trong repo | Xác định range/channel/formula |
-| SCD | Cần kiểm nghiệm công thức | Reference cases + review định nghĩa correlation differences |
-| MS-SSIM | Cần kiểm nghiệm công thức | Kiểm tra multiscale weights và source aggregation |
-| Chạy metrics trên output SAGE thật | Chưa thực hiện trong repo | Chờ baseline run có manifest |
+| Tài liệu metric và mã nháp | Đã hoàn thành trong repo | Import vào `src/evaluation/`, CLI `scripts/run_evaluation.py`, bảng [`metric_definitions_reference.csv`](../reports/tables/loc_lon/metric_definitions_reference.csv) |
+| EN, SD | Đã kiểm nghiệm trong repo | Xác định kênh Y (BT.601), ép kiểu `float64`, `ddof=0`; test kiểm chứng trên ảnh hằng (0.0) và phân phối đều (8.0) |
+| SCD | Đã kiểm nghiệm công thức | Kiểm chứng công thức Hou et al. (2014); chứng minh bất biến dịch độ sáng $SCD(F+c)=SCD(F)$; xử lý an toàn zero-variance |
+| MS-SSIM | Đã kiểm nghiệm công thức | Triển khai Wang et al. (2003) 5 scales; tái lập $MS\text{-}SSIM(A,A)=1.0$; phân định rõ `mean` $[0,1]$ và `sum` $[0,2]$ trong báo cáo |
+| Metric mở rộng (Q^{AB/F}, SF, AG, Edge Corr) | Đã kiểm nghiệm trong repo | Xydeas & Petrovic (2004) Q^{AB/F}, Spatial Frequency, Average Gradient, Sobel Edge Correlation; test bất biến và đối chứng |
+| Chạy metrics trên output SAGE thật | Đã sẵn sàng & kiểm chứng | Evaluator hoàn chỉnh theo `docs/OUTPUT_CONTRACT.md`; kiểm chứng 8 ca đối chứng và đối chuẩn parity khớp 100% với 10 ảnh SAGE v3 của Lộc bé |
 
 ## Mốc nghiệm thu gần nhất
 
