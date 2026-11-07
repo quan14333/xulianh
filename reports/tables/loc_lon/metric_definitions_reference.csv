@@ -1,0 +1,8 @@
+metric,full_name,primary_source,formula,theoretical_range,higher_is_better,default_channel,verification_status
+EN,Shannon Entropy,Shannon (1948),-sum(p_i * log2(p_i)),[0.0, 8.0],true,Y (or Gray),verified
+SD,Standard Deviation,VIFB / SAGE,sqrt(sum((I - mu)^2) / N),[0.0, 127.5],true,Y (or Gray),verified
+SCD,Sum of Correlation Differences,Hou et al. (2014) / Aslan (2015),r(F - VIS, IR) + r(F - IR, VIS),[-2.0, 2.0],true,Y (or Gray),verified
+MS_SSIM_mean,Multi-Scale SSIM (Equal Mean),Wang et al. (2003) / IVIF,0.5 * (MS_SSIM(F, IR) + MS_SSIM(F, VIS)),[0.0, 1.0],true,Y (or Gray),verified
+MS_SSIM_sum,Multi-Scale SSIM (Direct Sum),Wang et al. (2003) / PCDFusion,MS_SSIM(F, IR) + MS_SSIM(F, VIS),[0.0, 2.0],true,Y (or Gray),verified
+MS_SSIM_IR,Multi-Scale SSIM (Infrared Only),Wang et al. (2003),MS_SSIM(F, IR),[0.0, 1.0],true,Y (or Gray),verified
+MS_SSIM_VIS,Multi-Scale SSIM (Visible Only),Wang et al. (2003),MS_SSIM(F, VIS),[0.0, 1.0],true,Y (or Gray),verified

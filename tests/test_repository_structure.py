@@ -19,5 +19,12 @@ def test_validator_accepts_repository() -> None:
 
 def test_no_tracked_large_artifact_extensions_in_scaffold() -> None:
     forbidden = {".pt", ".pth", ".ckpt", ".npy", ".npz", ".zip"}
-    found = [path for path in ROOT.rglob("*") if path.is_file() and path.suffix in forbidden]
+    ignored_parts = {".git", ".venv", "venv", "__pycache__"}
+    found = [
+        path
+        for path in ROOT.rglob("*")
+        if path.is_file()
+        and path.suffix in forbidden
+        and not any(part in ignored_parts for part in path.parts)
+    ]
     assert found == []

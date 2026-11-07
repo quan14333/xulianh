@@ -5,10 +5,12 @@ evaluation:
     - SD
     - SCD
     - MS_SSIM
-  input_channel: REPLACE_WITH_Y_GRAYSCALE_OR_RGB
+  input_channel: Y
   require_matching_ids: true
   require_matching_shapes: true
   cast_before_subtraction: float64
+  ms_ssim_aggregation: mean
+  data_range: 255.0
 reporting:
   statistics:
     - mean
@@ -17,5 +19,7 @@ reporting:
     - valid_count
   paired_comparison: true
 validation_status:
-  SCD: needs_formula_verification
-  MS_SSIM: needs_multiscale_and_source_aggregation_verification
+  EN: verified
+  SD: verified
+  SCD: verified
+  MS_SSIM: verified

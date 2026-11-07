@@ -1,0 +1,6 @@
+case_name,MS_SSIM_mean,MS_SSIM_sum,MS_SSIM_var_weighted,weight_IR,weight_VIS,rationale
+Uniform_Random_Mixture,0.7320,1.4641,0.7320,0.502,0.498,Balanced equal variance sources
+Identity_IR_Only,0.5576,1.1153,0.5591,0.502,0.498,F=IR; mean weights VIS equally despite absent VIS content
+Linear_50_50_Mixture,0.7586,1.5172,0.7586,0.501,0.499,Balanced mixture with equal contributions
+High_Contrast_VIS_Dominant,0.6108,1.2216,0.8427,0.004,0.996,VIS variance dominates; weighted aligns with high VIS fidelity
+Thermal_Hotspot_Salient_Max,0.6462,1.2924,0.7558,0.957,0.043,Thermal target variance dominates; weighted preserves IR fidelity

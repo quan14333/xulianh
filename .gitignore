@@ -76,3 +76,9 @@ reports/slides/**
 !reports/figures/.gitkeep
 !reports/final/.gitkeep
 !reports/slides/.gitkeep
+
+# Reviewed Loc lon evaluation: reference tables and verification reports only.
+!reports/tables/loc_lon/
+!reports/tables/loc_lon/*.csv
+!reports/tables/loc_lon/README.md
+!reports/weekly/loc_lon_2026-11-08.md
