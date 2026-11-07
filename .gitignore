@@ -76,3 +76,10 @@ reports/slides/**
 !reports/figures/.gitkeep
 !reports/final/.gitkeep
 !reports/slides/.gitkeep
+
+# Reviewed Loc be handoff: source tables and the Nov 8 report only.
+!reports/tables/loc_be/
+!reports/tables/loc_be/*.csv
+!reports/tables/loc_be/*.json
+!reports/tables/loc_be/README.md
+!reports/weekly/loc_be_2026-11-08.md

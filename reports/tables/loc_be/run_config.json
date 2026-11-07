@@ -1,0 +1,59 @@
+{
+  "run_id": "sage_pcdfusion_08nov_20261106_170517",
+  "created_utc": "2026-11-06T17:06:45.902000+00:00",
+  "purpose": "Frozen pretrained SAGE versus PCDFusion; 10 identical FMB/test-repackaged image IDs",
+  "ids": [
+    "00014",
+    "00024",
+    "00061",
+    "00064",
+    "00071",
+    "00075",
+    "00104",
+    "00109",
+    "00112",
+    "00145"
+  ],
+  "dataset_tar": "fmb-test-00000.tar",
+  "sage_source": "SAGE_LocBe_pretrained_inference_results/fused_png",
+  "pcdfusion_repository": "https://github.com/BIT-RuiLiu/PCDFusion.git",
+  "pcdfusion_commit": "4285bdca266607a29a560904faa37425e8014e6c",
+  "pcdfusion_weights_sha256": "1c105152cbd31c142867e1ef97035e8fb1a4d4619b7ac0043166f4b05d4a0a61",
+  "pcdfusion_infer_args": [
+    "python",
+    "<PCDFUSION_SOURCE>/infer.py",
+    "--root_dir",
+    "dataset/FMB",
+    "--phase",
+    "test",
+    "--ckpt",
+    "<PCDFUSION_SOURCE>/weights/best.pth",
+    "--out_dir",
+    "fused/PCDFusion",
+    "--device",
+    "cuda",
+    "--pad_multiple",
+    "32",
+    "--num_workers",
+    "0"
+  ],
+  "pcdfusion_wall_clock_seconds_includes_loading": 25.560385,
+  "measurements": {
+    "EN": "RGB2GRAY 8-bit Shannon entropy, 256 levels",
+    "SD": "RGB2GRAY population std in pixel units 0-255",
+    "SCD": "corr(F-IR,VIS_Y)+corr(F-VIS_Y,IR) float64",
+    "MS_SSIM_sum": "pytorch_msssim.ms_ssim(F,IR)+ms_ssim(F,VIS_Y), [0,1]",
+    "region_mask": "IR>=image P85 AND VIS_Y<=image P50 AND IR-VIS_Y>=20 (uint8 0..255)",
+    "local_IR_retention": "(mean(F,ROI)-mean(F,ring))/(mean(IR,ROI)-mean(IR,ring)); ring dilation 15x15; source contrast>5",
+    "local_IR_abs_error": "abs(fused local contrast - infrared local contrast), lower is better"
+  },
+  "cautions": [
+    "Results are 10 image exploratory results, not official FMB full test.",
+    "Region mask is pixel heuristic, not person/semantic ground truth.",
+    "MS-SSIM/SCD not proven exactly parity with authors official protocol.",
+    "Test IDs were used previously for exploratory analysis; do not tune proposals on test.",
+    "Total PCDFusion subprocess time is NOT comparable to SAGE forward latency.",
+    "Paper reported results never substituted for measured 10-image scores."
+  ],
+  "sanitization": "Absolute runtime/account paths replaced with portable artifact-relative paths; measurements unchanged."
+}

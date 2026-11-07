@@ -1,0 +1,10 @@
+image_id,roi_id,description,IR_salient_all_6,SAGE_below_VIS_all_6,PCDFusion_below_VIS_all_6,SAGE_closer_to_IR_count_6,PCDFusion_closer_to_IR_count_6,SAGE_higher_contrast_count_6,PCDFusion_higher_contrast_count_6,primary_IR_contrast,primary_VIS_contrast,primary_SAGE_contrast,primary_PCDFusion_contrast
+00064,R1,Người đi bộ gần xe phía phải,True,False,False,2,4,6,0,72.1179,-3.3088,86.33,57.7616
+00064,R2,Nhóm người đi bộ ở xa,True,False,False,3,3,6,0,41.2512,-0.6846,40.2624,32.9863
+00104,R3,Hai người đi bộ gần camera bên trái,True,False,False,6,0,6,0,53.5927,-5.8349,54.627,33.5863
+00104,R4,Nhóm người đi bộ gần bên trái,False,False,False,3,1,4,0,29.0892,-5.88,20.4427,17.1449
+00109,R5,Người đi bộ gần mép trái,True,False,False,3,3,6,0,31.225,-4.3569,33.0545,21.904
+00109,R6,Nhóm người đi bộ ở xa,True,False,False,3,1,6,0,30.6536,-7.0247,32.7968,19.6385
+00112,R7,Người đi bộ ở giữa đường,True,False,False,3,3,3,3,24.6495,-5.7578,19.8141,13.7814
+00112,R8,Hai người ở xa phía trái,False,False,False,4,0,5,0,13.3903,-8.8721,6.8496,3.458
+00145,R9,Xe máy gần camera,True,False,False,6,0,6,0,32.5795,-46.773,6.8061,-23.7718

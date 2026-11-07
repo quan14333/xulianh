@@ -1,0 +1,130 @@
+{
+  "source_run_id": "sage_pcdfusion_08nov_20261106_170517",
+  "files": {
+    "reports/tables/loc_be/file_provenance.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/file_provenance.csv",
+      "source_sha256": "b587be7dc4a251e806351d1d70ed6d491d49ac623651602ed2cf15c09d75d2ef",
+      "transformation": "none; normalize line endings to LF per .gitattributes",
+      "repository_sha256": "3bee870267f9ce391c5e6a77696ca2a49eab3acb334a465f99127220d35c3332"
+    },
+    "reports/tables/loc_be/paired_key_deltas.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/paired_key_deltas.csv",
+      "source_sha256": "84999ae0f8891bdffef45d5e29fdd5f1c95b7ee5c8e00d0e9aa891c037740b93",
+      "transformation": "none",
+      "repository_sha256": "84999ae0f8891bdffef45d5e29fdd5f1c95b7ee5c8e00d0e9aa891c037740b93"
+    },
+    "reports/tables/loc_be/paired_summary_verified.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/paired_summary_verified.csv",
+      "source_sha256": "133186466d92e7f4a079ba45d0645573f061ba71622ecfdd308f990de393d3c4",
+      "transformation": "none",
+      "repository_sha256": "133186466d92e7f4a079ba45d0645573f061ba71622ecfdd308f990de393d3c4"
+    },
+    "reports/tables/loc_be/pcdfusion_paired_comparison.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/pcdfusion_paired_comparison.csv",
+      "source_sha256": "adf6d57f61144c19b13ac9829ed421bc8069472614f1bef4d797e7a1e57b4ab4",
+      "transformation": "none",
+      "repository_sha256": "adf6d57f61144c19b13ac9829ed421bc8069472614f1bef4d797e7a1e57b4ab4"
+    },
+    "reports/tables/loc_be/pcdfusion_per_image.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/pcdfusion_per_image.csv",
+      "source_sha256": "d4a99b7def0240ec8cab726e79bfbc824ebcc9f0da792bdcadf9c2b8ac51477f",
+      "transformation": "none",
+      "repository_sha256": "d4a99b7def0240ec8cab726e79bfbc824ebcc9f0da792bdcadf9c2b8ac51477f"
+    },
+    "reports/tables/loc_be/pcdfusion_summary.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/pcdfusion_summary.csv",
+      "source_sha256": "0ca549b15d0412ed5e2ec1543a77dd606e172042ae8381e4650ce038a0fadb10",
+      "transformation": "Flattened pandas metric/statistic headers into method,metric,mean,std,median,count; original numeric strings preserved. std is sample standard deviation (ddof=1).; normalize line endings to LF per .gitattributes",
+      "repository_sha256": "48ae682d8f58c0ba29d4d9eb211ed2558481773cbb7a71be4406fb00c431893f"
+    },
+    "reports/tables/loc_be/roi_near_white_clipping.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/roi_near_white_clipping.csv",
+      "source_sha256": "aa8428a082e40f4f0801a6feec8df7000fee1459c4aa07e6626b360c7fb09098",
+      "transformation": "none; normalize line endings to LF per .gitattributes",
+      "repository_sha256": "841fe0e116bf9d2a066bfe96d70f4fb41160e8e68c2b62a340933b0958e12a32"
+    },
+    "reports/tables/loc_be/roi_primary.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/roi_primary.csv",
+      "source_sha256": "bf7a8083bd091b60296c2a3638503a673c4ca8fd81ee1673dc7031f9c022fe6c",
+      "transformation": "none; normalize line endings to LF per .gitattributes",
+      "repository_sha256": "6669650d3bace765f1bd836f208fdddfdf263a3c19fac29255e7ac30c153a93b"
+    },
+    "reports/tables/loc_be/roi_robustness_flags.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/roi_robustness_flags.csv",
+      "source_sha256": "b60ea4da0a879f3ea3b0ba562c94be70e7799801c448713d16c1808393077360",
+      "transformation": "none; normalize line endings to LF per .gitattributes",
+      "repository_sha256": "45d9a867ce51a255ec26c43ab360caef2550f2925d905e78be752422fa87deb2"
+    },
+    "reports/tables/loc_be/roi_sensitivity_all.csv": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/roi_sensitivity_all.csv",
+      "source_sha256": "ec5e165dcf3298abf4b666e5e510225a3d54cfab3c9f6d88728855b036ed38a9",
+      "transformation": "none; normalize line endings to LF per .gitattributes",
+      "repository_sha256": "159ba0167c9e573c2d5cad5588b00c6aca30df4500fafe7c4909e991fa177dde"
+    },
+    "reports/tables/loc_be/roi_summary.json": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/roi_summary.json",
+      "source_sha256": "034994802b21e1f9bc279a2cf5e0cb0d3aab7f7aca1a3b1acec3b5111406066d",
+      "transformation": "none",
+      "repository_sha256": "034994802b21e1f9bc279a2cf5e0cb0d3aab7f7aca1a3b1acec3b5111406066d"
+    },
+    "reports/tables/loc_be/roi_validation_checks.json": {
+      "handoff_file": "repo_candidates/reports/tables/loc_be/roi_validation_checks.json",
+      "source_sha256": "a00cf94833eb6d521f4cba9cda093dc91d3a6fd3966bb5c1fa72ea944620f13a",
+      "transformation": "none",
+      "repository_sha256": "a00cf94833eb6d521f4cba9cda093dc91d3a6fd3966bb5c1fa72ea944620f13a"
+    },
+    "notebooks/loc_be/SAGE_08Nov_ThreeWay_Comparison.ipynb": {
+      "handoff_file": "repo_candidates/notebooks/loc_be/SAGE_08Nov_ThreeWay_Comparison.ipynb",
+      "source_sha256": "298f72d562977a922cd264addea5a2db153239862feae74e73bf94c91768b6e5",
+      "transformation": [
+        "JSON formatting only; cells unchanged",
+        "Normalize line endings to LF per .gitattributes"
+      ],
+      "repository_sha256": "298f72d562977a922cd264addea5a2db153239862feae74e73bf94c91768b6e5"
+    },
+    "notebooks/loc_be/SAGE_LocBe_Inference_V4.ipynb": {
+      "handoff_file": "repo_candidates/notebooks/loc_be/SAGE_LocBe_Inference_V4.ipynb",
+      "source_sha256": "ff20ffd2e2853700831089f68139cd7b7c046eb802b5ab0e413472d152183dd3",
+      "transformation": [
+        "Pin SAGE source and checkpoint to the supplied measured run",
+        "Correct V4 output directory/archive documentation; V4 GPU replay remains unrun",
+        "Normalize line endings to LF per .gitattributes"
+      ],
+      "repository_sha256": "68a51c3766a9fa3c18f642c72edb1c6b8ae1b987313d4d84be7efc07d214d15a"
+    },
+    "notebooks/loc_be/SAGE_PCDFusion_RegionAudit.ipynb": {
+      "handoff_file": "repo_candidates/notebooks/loc_be/SAGE_PCDFusion_RegionAudit.ipynb",
+      "source_sha256": "ebab036a65d1e1a8c48d76feb0a2693a070630e2e4055951446d6657e72a93a4",
+      "transformation": [
+        "Remove account-specific dataset reference in cell 0",
+        "Remove account-specific dataset reference in cell 6",
+        "Normalize line endings to LF per .gitattributes"
+      ],
+      "repository_sha256": "f368d15b3a095db1c2bf70bec3d575554610910c204b7f9ec0ea0360b3bafb80"
+    },
+    "reports/tables/loc_be/run_config.json": {
+      "handoff_file": "reference_only/pcdfusion_run_config.json",
+      "source_sha256": "1f7d605f09b782bb787ecc938965abe128d7d6fee825fcbcf868953dc10df640",
+      "transformation": "Absolute runtime/account paths sanitized; measurements unchanged; normalize line endings to LF per .gitattributes",
+      "repository_sha256": "a207cd1c108061cf608fa2b0b377d990545ac36fcb680f4609bc110bc74f7479"
+    },
+    "reports/tables/loc_be/pcdfusion_environment.json": {
+      "handoff_file": "reference_only/pcdfusion_environment.json",
+      "source_sha256": "ba1bb450b2707171cfa195fb20340f5129526e5ad7e98a84499565d83b07106d",
+      "transformation": "JSON formatting only; normalize line endings to LF per .gitattributes",
+      "repository_sha256": "47af9b53ccf9a17dfb8e60a1276d579cec2d2b61e5deb7d6b83621390a71d726"
+    },
+    "reports/tables/loc_be/sage_environment.json": {
+      "handoff_file": "reference_only/sage_environment.json",
+      "source_sha256": "6dd392c7bfa3fb158a102b5b75a0ad0daba24ece82ed280f5fa2851acc4d6380",
+      "transformation": "Absolute runtime/account paths sanitized; measurements unchanged; normalize line endings to LF per .gitattributes",
+      "repository_sha256": "ee10ad9348b1f0b3adc34268184fc175220ff8b61e41336d93e7afb19f723b2d"
+    },
+    "reports/tables/loc_be/manifest.csv": {
+      "handoff_file": "reference_only/pcdfusion_manifest.csv",
+      "source_sha256": "e37cb027bedc6f69cb720bc866be730ff8e2f03db2fe82060f97a2b4b1719975",
+      "transformation": "none; portable archive-member names and checksums only",
+      "repository_sha256": "e37cb027bedc6f69cb720bc866be730ff8e2f03db2fe82060f97a2b4b1719975"
+    }
+  }
+}
