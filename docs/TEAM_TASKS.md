@@ -29,12 +29,15 @@
 
 **Owner paths:** `notebooks/loc_be/`, `src/analysis/`, `src/methods/`, card `loc_be.md`.
 
+**Bàn giao:** [PR #5](https://github.com/quan14333/xulianh/pull/5) đã gửi, đang chờ
+review; chưa merge. Trạng thái dưới đây theo dõi PR, chưa xác nhận đã tích hợp vào `main`.
+
 | Công việc | Trạng thái | Evidence trong repo / bước tiếp theo |
 |---|---|---|
-| Notebook smoke inference SAGE trên Kaggle | Đã làm ngoài repo; chưa import | Import notebook đã dọn output, config và log thật |
-| Thử 10 ảnh fused | Đã làm ngoài repo; chưa import | Gắn manifest/run ID; không tự tạo ảnh hay số liệu thay thế |
-| Limitations, ablation, related work | Chờ bàn giao | Kiểm tra citation và phân biệt paper/team evidence |
-| Problem/solution và prototype | Chưa chốt | Hoàn thiện card, chờ quyết định 14/11 |
+| Notebook smoke inference SAGE trên Kaggle | Đã gửi PR, đang chờ review | 3 notebook sạch output, provenance thật; V4 chưa chạy lại GPU |
+| Thử 10 ảnh fused | Đã gửi PR, đang chờ review | Run `sage_pcdfusion_08nov_20261106_170517`; replay ROI khớp CSV, ảnh ngoài Git |
+| Limitations, ablation, related work | Evidence đã gửi PR, đang chờ review | Báo cáo giới hạn và 2 nguồn đã kiểm tra; ablation adapter chưa chạy, survey cần bổ sung |
+| Problem/solution và prototype | Draft / evidence-backed hypothesis | Chưa có prototype/phương pháp được phê duyệt; chờ quyết định 14/11 |
 
 ## Lộc lớn — Evaluation
 

@@ -1,0 +1,10 @@
+image_id,roi_id,description,box_xyxy,ring_radius_px,aggregate,roi_pixels,background_pixels,IR_contrast,VIS_contrast,SAGE_contrast,PCDFusion_contrast,IR_minus_VIS,SAGE_minus_VIS,PCDFusion_minus_VIS,SAGE_abs_IR_contrast_error,PCDFusion_abs_IR_contrast_error,SAGE_vs_PCD_contrast_delta,IR_salient_vs_VIS,SAGE_below_VIS,PCDFusion_below_VIS
+00064,R1,Người đi bộ gần xe phía phải,"270,291,321,376",24,mean,4335,8832,72.1179,-3.3088,86.33,57.7616,75.4268,89.6388,61.0704,14.2121,14.3563,28.5684,True,False,False
+00064,R2,Nhóm người đi bộ ở xa,"186,307,226,355",24,mean,1920,6528,41.2512,-0.6846,40.2624,32.9863,41.9358,40.947,33.6709,0.9888,8.2649,7.2761,True,False,False
+00104,R3,Hai người đi bộ gần camera bên trái,"33,303,77,362",24,mean,2596,7248,53.5927,-5.8349,54.627,33.5863,59.4275,60.4619,39.4212,1.0343,20.0064,21.0407,True,False,False
+00104,R4,Nhóm người đi bộ gần bên trái,"122,308,173,365",24,mean,2907,7488,29.0892,-5.88,20.4427,17.1449,34.9692,26.3227,23.0249,8.6465,11.9443,3.2978,True,False,False
+00109,R5,Người đi bộ gần mép trái,"26,266,65,334",24,mean,2652,7440,31.225,-4.3569,33.0545,21.904,35.5819,37.4114,26.2609,1.8295,9.321,11.1505,True,False,False
+00109,R6,Nhóm người đi bộ ở xa,"104,285,157,330",24,mean,2385,7008,30.6536,-7.0247,32.7968,19.6385,37.6783,39.8215,26.6632,2.1432,11.0151,13.1583,True,False,False
+00112,R7,Người đi bộ ở giữa đường,"175,281,197,328",24,mean,1034,5616,24.6495,-5.7578,19.8141,13.7814,30.4073,25.5719,19.5392,4.8354,10.8681,6.0327,True,False,False
+00112,R8,Hai người ở xa phía trái,"49,285,75,320",24,mean,910,5232,13.3903,-8.8721,6.8496,3.458,22.2624,15.7217,12.3301,6.5407,9.9323,3.3916,True,False,False
+00145,R9,Xe máy gần camera,"125,328,227,467",24,mean,14178,13872,32.5795,-46.773,6.8061,-23.7718,79.3525,53.5791,23.0012,25.7733,56.3513,30.5779,True,False,False
