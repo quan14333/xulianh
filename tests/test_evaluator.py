@@ -270,3 +270,62 @@ def test_loc_be_summary_parity() -> None:
             actual = loc_be_data[key]
             assert math.isclose(reported, actual, rel_tol=1e-4)
 
+
+def test_evaluator_paper_8metrics_benchmark(tmp_path: Path) -> None:
+    """Verify that evaluator computes all 8 paper metrics and outputs paper_benchmark."""
+    cfg = EvaluationConfig(
+        metrics=[
+            "EN",
+            "SD",
+            "SCD",
+            "MS_SSIM",
+            "PaQ_2_PiQ",
+            "MUSIQ",
+            "BRISQUE",
+            "NIQE",
+        ]
+    )
+    evaluator = FusionEvaluator(config=cfg)
+
+    rng = np.random.default_rng(999)
+    ir = rng.integers(10, 240, (128, 128), dtype=np.uint8)
+    vis = rng.integers(10, 240, (128, 128), dtype=np.uint8)
+    fused = ((ir.astype(float) + vis.astype(float)) / 2.0).astype(np.uint8)
+
+    rec = evaluator.evaluate_arrays(fused, ir, vis, image_id="benchmark_img_01")
+    assert rec["valid"] is True
+
+    # 4 Fusion metrics + scaled versions
+    for m in ("EN", "SD", "SCD", "MS_SSIM", "EN_scaled", "SD_scaled", "SCD_scaled", "MS_SSIM_scaled"):
+        assert m in rec
+        assert math.isfinite(rec[m])
+
+    # 4 NR-IQA metrics + scaled versions
+    for m in (
+        "PaQ_2_PiQ",
+        "MUSIQ",
+        "BRISQUE",
+        "NIQE",
+        "PaQ_2_PiQ_scaled",
+        "MUSIQ_scaled",
+        "BRISQUE_scaled",
+        "NIQE_scaled",
+    ):
+        assert m in rec
+        assert math.isfinite(rec[m])
+
+    # Test summary generation
+    summary = evaluator.compute_summary([rec], run_id="bench_test")
+    assert "paper_benchmark" in summary
+    bench = summary["paper_benchmark"]
+    assert bench["target_benchmark"] == "CVPR 2025 SAGE Figure 5"
+    assert "PaQ-2-PiQ↑" in bench["metrics"]
+    assert "MUSIQ↑" in bench["metrics"]
+    assert "BRISQUE↓" in bench["metrics"]
+    assert "NI-QE*10↓" in bench["metrics"]
+    assert "EN*5↑" in bench["metrics"]
+    assert "SD*0.5↑" in bench["metrics"]
+    assert "SCD*20↑" in bench["metrics"]
+    assert "MS-SSIM*20↑" in bench["metrics"]
+
+

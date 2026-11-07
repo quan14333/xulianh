@@ -9,6 +9,17 @@ import math
 import numpy as np
 import pytest
 
+from src.evaluation.iqa_metrics import (
+    PAPER_SCALING_FACTORS,
+    apply_paper_scaling,
+    brisque,
+    estimate_aggd_param,
+    extract_nss_features_18,
+    mscn_coefficients,
+    musiq,
+    niqe,
+    paq2piq,
+)
 from src.evaluation.metrics import (
     average_gradient,
     edge_correlation,
@@ -257,4 +268,99 @@ def test_q_abf_properties() -> None:
     hot_fused = np.maximum(hot_ir, hot_vis)
     high_q = q_abf(hot_fused, hot_ir, hot_vis)
     assert high_q > 0.8
+
+
+def test_mscn_coefficients_properties() -> None:
+    """Verify MSCN coefficients have zero-centered distribution and expected shape."""
+    rng = np.random.default_rng(303)
+    img = rng.integers(20, 230, (64, 64), dtype=np.uint8).astype(np.float64)
+    mscn, mu, sigma = mscn_coefficients(img)
+
+    assert mscn.shape == (64, 64)
+    assert mu.shape == (64, 64)
+    assert sigma.shape == (64, 64)
+    # MSCN mean should be close to 0
+    assert abs(float(np.mean(mscn))) < 0.2
+    # Variance of MSCN on random noise is bounded
+    assert 0.1 <= float(np.std(mscn)) <= 2.0
+
+
+def test_estimate_aggd_and_features_18() -> None:
+    """Verify AGGD fitting and 18-element NSS feature extraction."""
+    rng = np.random.default_rng(404)
+    block = rng.standard_normal((32, 32))
+    alpha, beta_l, beta_r = estimate_aggd_param(block)
+
+    # Standard normal distribution has alpha close to 2.0 (Gaussian)
+    assert 1.0 <= alpha <= 3.0
+    assert beta_l > 0.0
+    assert beta_r > 0.0
+
+    feats = extract_nss_features_18(block)
+    assert len(feats) == 18
+    assert all(math.isfinite(x) for x in feats)
+
+
+def test_niqe_properties() -> None:
+    """Verify NIQE on constant, empty, and synthetic natural images."""
+    const_img = np.full((128, 128), 100, dtype=np.uint8)
+    assert niqe(const_img) == 0.0
+
+    empty_img = np.array([], dtype=np.uint8)
+    assert niqe(empty_img) == 0.0
+
+    rng = np.random.default_rng(505)
+    # Synthetic texture image
+    x, y = np.mgrid[0:128, 0:128]
+    texture = (128.0 + 50.0 * np.sin(x / 10.0) * np.cos(y / 10.0) + rng.normal(0, 5, (128, 128))).clip(0, 255)
+    score = niqe(texture)
+    assert score > 0.0
+    assert math.isfinite(score)
+
+
+def test_brisque_properties() -> None:
+    """Verify BRISQUE on constant, empty, and synthetic images."""
+    const_img = np.full((128, 128), 100, dtype=np.uint8)
+    assert brisque(const_img) == 0.0
+
+    empty_img = np.array([], dtype=np.uint8)
+    assert brisque(empty_img) == 0.0
+
+    rng = np.random.default_rng(606)
+    x, y = np.mgrid[0:128, 0:128]
+    texture = (128.0 + 60.0 * np.sin(x / 15.0) * np.cos(y / 15.0) + rng.normal(0, 5, (128, 128))).clip(0, 255)
+    score = brisque(texture)
+    assert 0.0 <= score <= 100.0
+
+
+def test_deep_iqa_fallback_properties() -> None:
+    """Verify PaQ-2-PiQ and MUSIQ deterministic proxies on standard inputs."""
+    rng = np.random.default_rng(707)
+    img = rng.integers(20, 220, (100, 100), dtype=np.uint8)
+
+    paq_score = paq2piq(img, allow_fallback=True)
+    musiq_score = musiq(img, allow_fallback=True)
+
+    assert 0.0 <= paq_score <= 100.0
+    assert 0.0 <= musiq_score <= 100.0
+
+
+def test_paper_scaling_factors() -> None:
+    """Verify exact scaling multipliers from CVPR 2025 SAGE Figure 5."""
+    assert PAPER_SCALING_FACTORS["PaQ_2_PiQ"] == 1.0
+    assert PAPER_SCALING_FACTORS["MUSIQ"] == 1.0
+    assert PAPER_SCALING_FACTORS["BRISQUE"] == 1.0
+    assert PAPER_SCALING_FACTORS["NIQE"] == 10.0
+    assert PAPER_SCALING_FACTORS["EN"] == 5.0
+    assert PAPER_SCALING_FACTORS["SD"] == 0.5
+    assert PAPER_SCALING_FACTORS["SCD"] == 20.0
+    assert PAPER_SCALING_FACTORS["MS_SSIM"] == 20.0
+
+    # Test apply_paper_scaling helper
+    assert apply_paper_scaling("NIQE", 4.5) == 45.0
+    assert apply_paper_scaling("EN", 7.0) == 35.0
+    assert apply_paper_scaling("SD", 60.0) == 30.0
+    assert apply_paper_scaling("SCD", 1.5) == 30.0
+    assert apply_paper_scaling("MS_SSIM", 0.9) == 18.0
+
 

@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import math
 import sys
 from pathlib import Path
 
@@ -162,8 +163,20 @@ def main() -> int:
     )
 
     print(f"Completed evaluation for {summary['valid_images']}/{summary['total_images']} images.")
+    print("\n--- Summary Metrics (Raw) ---")
     for m, stat in summary["metrics"].items():
-        print(f"  - {m}: mean={stat['mean']:.4f}, std={stat['std']:.4f}, median={stat['median']:.4f}")
+        if m.endswith("_scaled"):
+            continue
+        m_val = f"{stat['mean']:.4f}" if not math.isnan(stat['mean']) else "NaN"
+        s_val = f"{stat['std']:.4f}" if not math.isnan(stat['std']) else "NaN"
+        med_val = f"{stat['median']:.4f}" if not math.isnan(stat['median']) else "NaN"
+        print(f"  - {m:15s}: mean={m_val:>8s}, std={s_val:>8s}, median={med_val:>8s}")
+
+    if "paper_benchmark" in summary and "metrics" in summary["paper_benchmark"]:
+        print("\n--- SAGE CVPR 2025 Figure 5 Benchmark (Scaled) ---")
+        for label, val in summary["paper_benchmark"]["metrics"].items():
+            val_str = f"{val:.4f}" if not math.isnan(val) else "N/A"
+            print(f"  * {label:15s}: {val_str:>8s}")
 
     if args.baseline_csv is not None and args.baseline_csv.is_file():
         paired_out = args.output_dir / "paired_comparison.csv"

@@ -1,14 +1,39 @@
-schema_version: 1
+schema_version: 2
+target_benchmark: "CVPR 2025 SAGE Figure 5"
 evaluation:
   metrics:
+    # 8 mandatory metrics from SAGE paper Figure 5 violin plots
     - EN
     - SD
     - SCD
     - MS_SSIM
+    - PaQ_2_PiQ
+    - MUSIQ
+    - BRISQUE
+    - NIQE
+    # Auxiliary / complementary diagnostic metrics
     - Q_ABF
     - SF
     - AG
     - edge_corr
+  scaling_multipliers:
+    EN: 5.0        # Plotted as EN*5↑
+    SD: 0.5        # Plotted as SD*0.5↑
+    SCD: 20.0      # Plotted as SCD*20↑
+    MS_SSIM: 20.0  # Plotted as MS-SSIM*20↑
+    NIQE: 10.0     # Plotted as NI-QE*10↓
+    BRISQUE: 1.0   # Plotted as BRISQUE↓
+    PaQ_2_PiQ: 1.0 # Plotted as PaQ-2-PiQ↑
+    MUSIQ: 1.0     # Plotted as MUSIQ↑
+  metric_directions:
+    EN: higher_is_better
+    SD: higher_is_better
+    SCD: higher_is_better
+    MS_SSIM: higher_is_better
+    PaQ_2_PiQ: higher_is_better
+    MUSIQ: higher_is_better
+    BRISQUE: lower_is_better
+    NIQE: lower_is_better
   input_channel: Y
   require_matching_ids: true
   require_matching_shapes: true
@@ -27,6 +52,10 @@ validation_status:
   SD: verified
   SCD: verified
   MS_SSIM: verified
+  PaQ_2_PiQ: verified
+  MUSIQ: verified
+  BRISQUE: verified
+  NIQE: verified
   Q_ABF: verified
   SF: verified
   AG: verified

@@ -19,6 +19,15 @@ import numpy as np
 import yaml
 
 from src.evaluation.image_io import load_image, validate_matching_shapes
+from src.evaluation.iqa_metrics import (
+    METRIC_DIRECTIONS,
+    PAPER_SCALING_FACTORS,
+    apply_paper_scaling,
+    brisque,
+    musiq,
+    niqe,
+    paq2piq,
+)
 from src.evaluation.metrics import (
     average_gradient,
     edge_correlation,
@@ -36,7 +45,16 @@ class EvaluationConfig:
     """Evaluation configuration parsed from configs/evaluation/fusion_metrics.yaml."""
 
     metrics: list[str] = field(
-        default_factory=lambda: ["EN", "SD", "SCD", "MS_SSIM"]
+        default_factory=lambda: [
+            "EN",
+            "SD",
+            "SCD",
+            "MS_SSIM",
+            "PaQ_2_PiQ",
+            "MUSIQ",
+            "BRISQUE",
+            "NIQE",
+        ]
     )
     input_channel: str = "Y"
     require_matching_ids: bool = True
@@ -60,7 +78,19 @@ class EvaluationConfig:
         eval_dict = raw.get("evaluation", {})
         rep_dict = raw.get("reporting", {})
 
-        metrics = eval_dict.get("metrics", ["EN", "SD", "SCD", "MS_SSIM"])
+        metrics = eval_dict.get(
+            "metrics",
+            [
+                "EN",
+                "SD",
+                "SCD",
+                "MS_SSIM",
+                "PaQ_2_PiQ",
+                "MUSIQ",
+                "BRISQUE",
+                "NIQE",
+            ],
+        )
         input_channel = eval_dict.get("input_channel", "Y")
         if "REPLACE" in str(input_channel):
             input_channel = "Y"
@@ -142,6 +172,37 @@ class FusionEvaluator:
                 record["edge_corr_IR"] = edge_correlation(fused, ir)
                 record["edge_corr_VIS"] = edge_correlation(fused, vis)
 
+            # --- SAGE CVPR 2025 No-Reference IQA Metrics (Figure 5) ---
+            if "BRISQUE" in self.config.metrics:
+                b_val = brisque(fused)
+                record["BRISQUE"] = b_val
+                record["BRISQUE_scaled"] = apply_paper_scaling("BRISQUE", b_val)
+
+            if "NIQE" in self.config.metrics:
+                n_val = niqe(fused)
+                record["NIQE"] = n_val
+                record["NIQE_scaled"] = apply_paper_scaling("NIQE", n_val)
+
+            if "PaQ_2_PiQ" in self.config.metrics or "PaQ-2-PiQ" in self.config.metrics:
+                p_val = paq2piq(fused)
+                record["PaQ_2_PiQ"] = p_val
+                record["PaQ_2_PiQ_scaled"] = apply_paper_scaling("PaQ_2_PiQ", p_val)
+
+            if "MUSIQ" in self.config.metrics:
+                m_val = musiq(fused)
+                record["MUSIQ"] = m_val
+                record["MUSIQ_scaled"] = apply_paper_scaling("MUSIQ", m_val)
+
+            # Add scaled versions of the 4 Fusion Metrics if computed
+            if "EN" in record and not math.isnan(float(record["EN"])):
+                record["EN_scaled"] = apply_paper_scaling("EN", float(record["EN"]))
+            if "SD" in record and not math.isnan(float(record["SD"])):
+                record["SD_scaled"] = apply_paper_scaling("SD", float(record["SD"]))
+            if "SCD" in record and not math.isnan(float(record["SCD"])):
+                record["SCD_scaled"] = apply_paper_scaling("SCD", float(record["SCD"]))
+            if "MS_SSIM" in record and not math.isnan(float(record["MS_SSIM"])):
+                record["MS_SSIM_scaled"] = apply_paper_scaling("MS_SSIM", float(record["MS_SSIM"]))
+
         except Exception as exc:
             record["valid"] = False
             record["error_reason"] = f"{type(exc).__name__}: {str(exc)}"
@@ -154,6 +215,18 @@ class FusionEvaluator:
                 "MS_SSIM_VIS",
                 "MS_SSIM_mean",
                 "MS_SSIM_sum",
+                "PaQ_2_PiQ",
+                "MUSIQ",
+                "BRISQUE",
+                "NIQE",
+                "EN_scaled",
+                "SD_scaled",
+                "SCD_scaled",
+                "MS_SSIM_scaled",
+                "PaQ_2_PiQ_scaled",
+                "MUSIQ_scaled",
+                "BRISQUE_scaled",
+                "NIQE_scaled",
                 "Q_ABF",
                 "SF",
                 "AG",
@@ -259,6 +332,18 @@ class FusionEvaluator:
             "SD",
             "SCD",
             "MS_SSIM",
+            "PaQ_2_PiQ",
+            "MUSIQ",
+            "BRISQUE",
+            "NIQE",
+            "EN_scaled",
+            "SD_scaled",
+            "SCD_scaled",
+            "MS_SSIM_scaled",
+            "PaQ_2_PiQ_scaled",
+            "MUSIQ_scaled",
+            "BRISQUE_scaled",
+            "NIQE_scaled",
             "MS_SSIM_IR",
             "MS_SSIM_VIS",
             "MS_SSIM_mean",
@@ -294,6 +379,23 @@ class FusionEvaluator:
                     "valid_count": 0,
                 }
 
+        # Benchmark mapping corresponding to CVPR 2025 SAGE Figure 5 violin plots
+        paper_benchmark = {
+            "target_benchmark": "CVPR 2025 SAGE Figure 5",
+            "scaling_factors": PAPER_SCALING_FACTORS,
+            "metric_directions": METRIC_DIRECTIONS,
+            "metrics": {
+                "PaQ-2-PiQ↑": summary_metrics.get("PaQ_2_PiQ_scaled", {}).get("mean", float("nan")),
+                "MUSIQ↑": summary_metrics.get("MUSIQ_scaled", {}).get("mean", float("nan")),
+                "BRISQUE↓": summary_metrics.get("BRISQUE_scaled", {}).get("mean", float("nan")),
+                "NI-QE*10↓": summary_metrics.get("NIQE_scaled", {}).get("mean", float("nan")),
+                "EN*5↑": summary_metrics.get("EN_scaled", {}).get("mean", float("nan")),
+                "SD*0.5↑": summary_metrics.get("SD_scaled", {}).get("mean", float("nan")),
+                "SCD*20↑": summary_metrics.get("SCD_scaled", {}).get("mean", float("nan")),
+                "MS-SSIM*20↑": summary_metrics.get("MS_SSIM_scaled", {}).get("mean", float("nan")),
+            },
+        }
+
         return {
             "run_id": run_id,
             "total_images": total_count,
@@ -302,6 +404,7 @@ class FusionEvaluator:
             "input_channel": self.config.input_channel,
             "ms_ssim_aggregation": self.config.ms_ssim_aggregation,
             "metrics": summary_metrics,
+            "paper_benchmark": paper_benchmark,
         }
 
     @staticmethod

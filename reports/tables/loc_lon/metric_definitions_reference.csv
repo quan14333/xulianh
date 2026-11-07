@@ -1,13 +1,17 @@
-metric,full_name,primary_source,formula,theoretical_range,higher_is_better,default_channel,verification_status
-EN,Shannon Entropy,Shannon (1948),-sum(p_i * log2(p_i)),[0.0, 8.0],true,Y (or Gray),verified
-SD,Standard Deviation,VIFB / SAGE,sqrt(sum((I - mu)^2) / N),[0.0, 127.5],true,Y (or Gray),verified
-SCD,Sum of Correlation Differences,Hou et al. (2014) / Aslan (2015),r(F - VIS, IR) + r(F - IR, VIS),[-2.0, 2.0],true,Y (or Gray),verified
-MS_SSIM_mean,Multi-Scale SSIM (Equal Mean),Wang et al. (2003) / IVIF,0.5 * (MS_SSIM(F, IR) + MS_SSIM(F, VIS)),[0.0, 1.0],true,Y (or Gray),verified
-MS_SSIM_sum,Multi-Scale SSIM (Direct Sum),Wang et al. (2003) / PCDFusion,MS_SSIM(F, IR) + MS_SSIM(F, VIS),[0.0, 2.0],true,Y (or Gray),verified
-MS_SSIM_IR,Multi-Scale SSIM (Infrared Only),Wang et al. (2003),MS_SSIM(F, IR),[0.0, 1.0],true,Y (or Gray),verified
-MS_SSIM_VIS,Multi-Scale SSIM (Visible Only),Wang et al. (2003),MS_SSIM(F, VIS),[0.0, 1.0],true,Y (or Gray),verified
-Q_ABF,Petrovic Edge Preservation,Xydeas & Petrovic (2004),sum(Q_AF * w_A + Q_BF * w_B) / sum(w_A + w_B),[0.0, 1.0],true,Y (or Gray),verified
-SF,Spatial Frequency,Eskicioglu & Fisher (1995),sqrt(RF^2 + CF^2),[0.0, inf),true,Y (or Gray),verified
-AG,Average Gradient,Cui et al. / IVIF,mean(sqrt((dx^2 + dy^2) / 2)),[0.0, inf),true,Y (or Gray),verified
-edge_corr_IR,Edge Correlation with IR,Sobel edge Pearson correlation,r(Sobel(F), Sobel(IR)),[-1.0, 1.0],true,Y (or Gray),verified
-edge_corr_VIS,Edge Correlation with VIS,Sobel edge Pearson correlation,r(Sobel(F), Sobel(VIS)),[-1.0, 1.0],true,Y (or Gray),verified
+metric,category,full_name,primary_source,formula,theoretical_range,higher_is_better,paper_scaling_factor,paper_plot_label,default_channel,verification_status
+PaQ_2_PiQ,No-Reference IQA,Patch-to-Picture IQA,Ying et al. (CVPR 2020),Deep CNN trained on LIVE-FB subjective scores,[0.0, 100.0],true,1.0,PaQ-2-PiQ↑,Y (or RGB),verified
+MUSIQ,No-Reference IQA,Multi-Scale Image Quality Transformer,Ke et al. (ICCV 2021),Multi-scale Vision Transformer accepting native aspect ratio,[0.0, 100.0],true,1.0,MUSIQ↑,Y (or RGB),verified
+BRISQUE,No-Reference IQA,Blind/Referenceless Image Spatial Quality Evaluator,Mittal et al. (IEEE TIP 2012),SVR regression on 36 multi-scale MSCN NSS features,[0.0, 100.0],false,1.0,BRISQUE↓,Y (or Gray),verified
+NIQE,No-Reference IQA,Natural Image Quality Evaluator,Mittal et al. (IEEE SPL 2013),Mahalanobis distance to pristine MVG natural scene model,[0.0, inf),false,10.0,NI-QE*10↓,Y (or Gray),verified
+EN,Fusion Fidelity,Shannon Entropy,Shannon (1948),-sum(p_i * log2(p_i)),[0.0, 8.0],true,5.0,EN*5↑,Y (or Gray),verified
+SD,Fusion Fidelity,Standard Deviation,VIFB / SAGE,sqrt(sum((I - mu)^2) / N),[0.0, 127.5],true,0.5,SD*0.5↑,Y (or Gray),verified
+SCD,Fusion Fidelity,Sum of Correlation Differences,Hou et al. (2014) / Aslan (2015),r(F - VIS, IR) + r(F - IR, VIS),[-2.0, 2.0],true,20.0,SCD*20↑,Y (or Gray),verified
+MS_SSIM_mean,Fusion Fidelity,Multi-Scale SSIM (Equal Mean),Wang et al. (2003) / IVIF,0.5 * (MS_SSIM(F, IR) + MS_SSIM(F, VIS)),[0.0, 1.0],true,20.0,MS-SSIM*20↑,Y (or Gray),verified
+MS_SSIM_sum,Fusion Fidelity,Multi-Scale SSIM (Direct Sum),Wang et al. (2003) / PCDFusion,MS_SSIM(F, IR) + MS_SSIM(F, VIS),[0.0, 2.0],true,10.0,MS-SSIM_sum,Y (or Gray),verified
+MS_SSIM_IR,Fusion Fidelity,Multi-Scale SSIM (Infrared Only),Wang et al. (2003),MS_SSIM(F, IR),[0.0, 1.0],true,20.0,MS-SSIM_IR,Y (or Gray),verified
+MS_SSIM_VIS,Fusion Fidelity,Multi-Scale SSIM (Visible Only),Wang et al. (2003),MS_SSIM(F, VIS),[0.0, 1.0],true,20.0,MS-SSIM_VIS,Y (or Gray),verified
+Q_ABF,Edge Diagnostic,Petrovic Edge Preservation,Xydeas & Petrovic (2004),sum(Q_AF * w_A + Q_BF * w_B) / sum(w_A + w_B),[0.0, 1.0],true,1.0,Q_ABF,Y (or Gray),verified
+SF,Spatial Diagnostic,Spatial Frequency,Eskicioglu & Fisher (1995),sqrt(RF^2 + CF^2),[0.0, inf),true,1.0,SF,Y (or Gray),verified
+AG,Gradient Diagnostic,Average Gradient,Cui et al. / IVIF,mean(sqrt((dx^2 + dy^2) / 2)),[0.0, inf),true,1.0,AG,Y (or Gray),verified
+edge_corr_IR,Correlation Diagnostic,Edge Correlation with IR,Sobel edge Pearson correlation,r(Sobel(F), Sobel(IR)),[-1.0, 1.0],true,1.0,edge_corr_IR,Y (or Gray),verified
+edge_corr_VIS,Correlation Diagnostic,Edge Correlation with VIS,Sobel edge Pearson correlation,r(Sobel(F), Sobel(VIS)),[-1.0, 1.0],true,1.0,edge_corr_VIS,Y (or Gray),verified
