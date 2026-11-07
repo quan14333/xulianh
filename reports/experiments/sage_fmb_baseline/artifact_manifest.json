@@ -1,0 +1,31 @@
+{
+  "archive_name": "results (6).zip",
+  "archive_local_path": "C:\\Users\\quan\\Downloads\\results (6).zip",
+  "archive_sha256": "87dcaf0008bbf3f817f96b6db69d4e497d2e27f8be759352a9fce736f7f79bbe",
+  "run_id": "sage_fmb_test_student_20261106T160350Z",
+  "git_artifacts": [
+    "environment.json",
+    "inference.csv",
+    "manifest.csv",
+    "manifest_all.csv",
+    "preview_ir_vis_fused.png",
+    "qa_failures.json",
+    "qa_per_image.csv",
+    "qa_summary.json",
+    "README_results.md",
+    "run_config.json",
+    "artifact_manifest.json",
+    "validation_report.json",
+    "README.md",
+    "notebooks/quan/SAGE_Quan_FMB_TEST280_Kaggle.ipynb"
+  ],
+  "large_artifacts_outside_git": [
+    "results (6).zip",
+    "fused/*.png (280 images)",
+    "SAGE_IVIF/checkpoints/checkpoints.pt",
+    "SAGE_IVIF source clone and FMB samples inside archive"
+  ],
+  "fused_image_count": 280,
+  "kaggle_notebook_output": "/kaggle/input/notebooks/quannh206/notebookde8ef3ea09",
+  "retrieval": "Open the Kaggle notebook Versions page, choose the completed version, then download its Output or attach the notebook output as a Kaggle Input."
+}
