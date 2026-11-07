@@ -454,3 +454,149 @@ def fusion_ms_ssim(
         "MS_SSIM_mean": float(mean_score),
         "MS_SSIM_sum": float(sum_score),
     }
+
+
+def spatial_frequency(image: np.ndarray) -> float:
+    """Calculate Spatial Frequency (SF) of an image.
+
+    Formula (Eskicioglu & Fisher 1995):
+        RF = \\sqrt{ \\frac{1}{M N} \\sum_{i=1}^M \\sum_{j=2}^N (I(i,j) - I(i,j-1))^2 }
+        CF = \\sqrt{ \\frac{1}{M N} \\sum_{i=2}^M \\sum_{j=1}^N (I(i,j) - I(i-1,j))^2 }
+        SF = \\sqrt{RF^2 + CF^2}
+
+    Measures overall active gradient and spatial detail richness. Higher is better.
+    """
+    arr = np.asarray(image, dtype=np.float64)
+    if arr.ndim != 2 or arr.size == 0:
+        return 0.0
+
+    m, n = arr.shape
+    if m < 2 or n < 2:
+        return 0.0
+
+    # Row frequency (horizontal differences)
+    rf_sq = np.sum((arr[:, 1:] - arr[:, :-1]) ** 2) / (m * n)
+    # Column frequency (vertical differences)
+    cf_sq = np.sum((arr[1:, :] - arr[:-1, :]) ** 2) / (m * n)
+
+    return float(np.sqrt(rf_sq + cf_sq))
+
+
+def average_gradient(image: np.ndarray) -> float:
+    """Calculate Average Gradient (AG) of an image.
+
+    Formula:
+        AG = \\frac{1}{(M-1)(N-1)} \\sum_{i=1}^{M-1} \\sum_{j=1}^{N-1}
+             \\sqrt{ \\frac{(I(i+1,j) - I(i,j))^2 + (I(i,j+1) - I(i,j))^2}{2} }
+
+    Reflects the contrast of fine details and edge sharpness. Higher is better.
+    """
+    arr = np.asarray(image, dtype=np.float64)
+    if arr.ndim != 2 or arr.size == 0:
+        return 0.0
+
+    m, n = arr.shape
+    if m < 2 or n < 2:
+        return 0.0
+
+    dx = arr[1:, :-1] - arr[:-1, :-1]
+    dy = arr[:-1, 1:] - arr[:-1, :-1]
+
+    grad_mag = np.sqrt((dx**2 + dy**2) / 2.0)
+    return float(np.mean(grad_mag))
+
+
+def sobel_gradients(image: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Calculate Sobel gradient magnitude and orientation angle in pure NumPy.
+
+    Returns:
+        tuple (magnitude, orientation_angle_in_radians)
+    """
+    arr = np.asarray(image, dtype=np.float64)
+    if arr.ndim != 2 or arr.size == 0:
+        return np.zeros_like(arr), np.zeros_like(arr)
+
+    # 3x3 Sobel kernels
+    kx = np.array([[-1.0, 0.0, 1.0], [-2.0, 0.0, 2.0], [-1.0, 0.0, 1.0]], dtype=np.float64) / 8.0
+    ky = np.array([[-1.0, -2.0, -1.0], [0.0, 0.0, 0.0], [1.0, 2.0, 1.0]], dtype=np.float64) / 8.0
+
+    pad = np.pad(arr, 1, mode="reflect")
+    h, w = arr.shape
+    gx = sum(kx[i, j] * pad[i : i + h, j : j + w] for i in range(3) for j in range(3))
+    gy = sum(ky[i, j] * pad[i : i + h, j : j + w] for i in range(3) for j in range(3))
+
+    mag = np.hypot(gx, gy)
+    angle = np.arctan2(gy, gx)
+    return mag, angle
+
+
+def edge_correlation(a: np.ndarray, b: np.ndarray) -> float:
+    """Calculate Pearson correlation between Sobel edge magnitudes of two images.
+
+    Used by SAGE and PCDFusion benchmarks to assess edge preservation from IR and VIS.
+    """
+    mag_a, _ = sobel_gradients(a)
+    mag_b, _ = sobel_gradients(b)
+    return pearson_correlation(mag_a, mag_b)
+
+
+def q_abf(
+    fused: np.ndarray,
+    ir: np.ndarray,
+    vis: np.ndarray,
+    gamma_g: float = 0.9994,
+    k_g: float = -15.0,
+    sigma_g: float = 0.5,
+    gamma_a: float = 0.9879,
+    k_a: float = -22.0,
+    sigma_a: float = 0.8,
+) -> float:
+    """Calculate Q^{AB/F} (Xydeas & Petrovic 2004) edge information preservation metric.
+
+    Formula:
+        Q^{AB/F} = \\frac{\\sum_{i,j} (Q^{AF}(i,j) w_A(i,j) + Q^{BF}(i,j) w_B(i,j))}
+                        {\\sum_{i,j} (w_A(i,j) + w_B(i,j))}
+
+    Properties:
+        - Objective non-reference image fusion quality metric.
+        - Bounded in [0.0, 1.0]. Higher values indicate greater edge preservation.
+        - Pure NumPy implementation, cross-platform and CPU-only.
+    """
+    f = np.asarray(fused, dtype=np.float64)
+    a = np.asarray(ir, dtype=np.float64)
+    b = np.asarray(vis, dtype=np.float64)
+
+    if not (f.shape == a.shape == b.shape):
+        raise ValueError(f"Shape mismatch in Q_ABF: {f.shape}, {a.shape}, {b.shape}")
+
+    g_f, a_f = sobel_gradients(f)
+    g_a, a_a = sobel_gradients(a)
+    g_b, a_b = sobel_gradients(b)
+
+    def _calc_preservation(g_src: np.ndarray, alpha_src: np.ndarray) -> np.ndarray:
+        ratio = np.where(
+            g_src > g_f,
+            np.where(g_src > 1e-12, g_f / (g_src + 1e-12), 1.0),
+            np.where(g_f > 1e-12, g_src / (g_f + 1e-12), 1.0),
+        )
+        q_g = gamma_g / (1.0 + np.exp(k_g * (ratio - sigma_g)))
+
+        d_alpha = np.abs(alpha_src - a_f)
+        d_alpha = np.where(d_alpha > np.pi / 2.0, np.pi - d_alpha, d_alpha)
+        norm_d_alpha = 1.0 - (d_alpha / (np.pi / 2.0))
+        q_a = gamma_a / (1.0 + np.exp(k_a * (norm_d_alpha - sigma_a)))
+
+        return q_g * q_a
+
+    q_af = _calc_preservation(g_a, a_a)
+    q_bf = _calc_preservation(g_b, a_b)
+
+    w_a = g_a
+    w_b = g_b
+    weight_total = float(np.sum(w_a + w_b))
+
+    if weight_total < 1e-12:
+        return 0.0
+
+    score = float(np.sum(q_af * w_a + q_bf * w_b) / weight_total)
+    return float(np.clip(score, 0.0, 1.0))

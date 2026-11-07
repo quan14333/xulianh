@@ -10,11 +10,16 @@ import numpy as np
 import pytest
 
 from src.evaluation.metrics import (
+    average_gradient,
+    edge_correlation,
     entropy,
     fusion_ms_ssim,
     ms_ssim,
     pearson_correlation,
+    q_abf,
     single_scale_ssim,
+    sobel_gradients,
+    spatial_frequency,
     ssim_components,
     standard_deviation,
     sum_of_correlation_differences,
@@ -179,3 +184,77 @@ def test_fusion_ms_ssim_aggregation_methods() -> None:
     assert math.isclose(res_mean["MS_SSIM_mean"], 0.5 * res_sum["MS_SSIM_sum"], abs_tol=1e-9)
     expected_wt = 0.7 * res_mean["MS_SSIM_IR"] + 0.3 * res_mean["MS_SSIM_VIS"]
     assert math.isclose(res_wt["MS_SSIM"], expected_wt, abs_tol=1e-9)
+
+
+def test_spatial_frequency_properties() -> None:
+    """Verify SF calculation on constant image (0.0) and high-frequency pattern."""
+    const_img = np.full((50, 50), 100, dtype=np.uint8)
+    assert math.isclose(spatial_frequency(const_img), 0.0, abs_tol=1e-9)
+
+    # Checkerboard pattern has high spatial frequency
+    checker = np.indices((50, 50)).sum(axis=0) % 2 * 255
+    sf_val = spatial_frequency(checker)
+    assert sf_val > 50.0
+
+    # Invariant to additive constant shift
+    assert math.isclose(spatial_frequency(checker), spatial_frequency(checker + 20), abs_tol=1e-9)
+
+
+def test_average_gradient_properties() -> None:
+    """Verify AG calculation on constant image and gradient ramp."""
+    const_img = np.full((40, 40), 75, dtype=np.uint8)
+    assert math.isclose(average_gradient(const_img), 0.0, abs_tol=1e-9)
+
+    # Linear horizontal gradient ramp: I(x, y) = x
+    ramp = np.tile(np.arange(40, dtype=np.float64), (40, 1))
+    ag_val = average_gradient(ramp)
+    # dx = 0, dy = 1 -> sqrt(1/2) = ~0.7071
+    assert math.isclose(ag_val, 1.0 / math.sqrt(2.0), abs_tol=1e-5)
+
+
+def test_sobel_gradients() -> None:
+    """Verify Sobel gradient magnitude on vertical and horizontal steps."""
+    img = np.zeros((20, 20), dtype=np.float64)
+    img[:, 10:] = 100.0  # Vertical step
+    mag, angle = sobel_gradients(img)
+    assert mag.shape == (20, 20)
+    assert angle.shape == (20, 20)
+    assert float(np.max(mag[:, 9:11])) > 0.0
+
+
+def test_edge_correlation_properties() -> None:
+    """Verify Sobel edge correlation between identical and orthogonal images."""
+    rng = np.random.default_rng(101)
+    img = rng.integers(20, 220, (60, 60), dtype=np.uint8)
+
+    # Self edge correlation is 1.0
+    assert math.isclose(edge_correlation(img, img), 1.0, abs_tol=1e-7)
+
+    # Inverted image has the exact same gradient magnitude -> edge_corr == 1.0
+    inv = 255 - img
+    assert math.isclose(edge_correlation(img, inv), 1.0, abs_tol=1e-5)
+
+
+def test_q_abf_properties() -> None:
+    """Verify Q_ABF bounds, constant image handling, and identity preservation."""
+    rng = np.random.default_rng(202)
+    ir = rng.integers(0, 256, (80, 80), dtype=np.uint8)
+    vis = rng.integers(0, 256, (80, 80), dtype=np.uint8)
+    fused = ((ir.astype(float) + vis.astype(float)) / 2.0).astype(np.uint8)
+
+    score = q_abf(fused, ir, vis)
+    assert 0.0 <= score <= 1.0
+
+    # Constant images yield 0.0
+    const_arr = np.full((80, 80), 128, dtype=np.uint8)
+    assert math.isclose(q_abf(const_arr, const_arr, const_arr), 0.0, abs_tol=1e-9)
+
+    # Fused preserving salient edges yields high Q_ABF
+    # Target in IR:
+    hot_ir = np.zeros((80, 80), dtype=np.uint8)
+    hot_ir[30:50, 30:50] = 240
+    hot_vis = np.zeros((80, 80), dtype=np.uint8)
+    hot_fused = np.maximum(hot_ir, hot_vis)
+    high_q = q_abf(hot_fused, hot_ir, hot_vis)
+    assert high_q > 0.8
+

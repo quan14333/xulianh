@@ -1,15 +1,16 @@
 # Bảng kiểm chứng Metric — Lộc lớn (Evaluation)
 
 Thư mục này lưu trữ các bảng tra cứu, kiểm chứng toán học và đối chuẩn cho các chỉ số đánh giá
-hợp nhất ảnh hồng ngoại – khả kiến (IVIF): **EN**, **SD**, **SCD**, và **MS-SSIM**.
+hợp nhất ảnh hồng ngoại – khả kiến (IVIF): **EN**, **SD**, **SCD**, **MS-SSIM**, **Q^{AB/F}**, **SF**, **AG**, và **edge_corr**.
 
 ## 1. Danh sách bảng
 
 | File | Nội dung chính |
 |---|---|
-| [`metric_definitions_reference.csv`](metric_definitions_reference.csv) | Định nghĩa toán học, citation gốc, miền giá trị lý thuyết và trạng thái kiểm chứng. |
+| [`metric_definitions_reference.csv`](metric_definitions_reference.csv) | Định nghĩa toán học, citation gốc, miền giá trị lý thuyết và trạng thái kiểm chứng cho toàn bộ 8 metric. |
 | [`reference_cases_verification.csv`](reference_cases_verification.csv) | Kết quả kiểm chứng trên 8 ca đối chứng nhân tạo (nhiễu đều, ảnh hằng, F=IR, F=255-IR, dịch độ sáng, v.v.). |
 | [`aggregation_comparison.csv`](aggregation_comparison.csv) | So sánh 3 phương thức tổng hợp MS-SSIM đa nguồn: Equal Mean (0.5/0.5), Direct Sum (1.0/1.0), và Variance-Weighted. |
+| [`loc_be_parity_verification.csv`](loc_be_parity_verification.csv) | Bảng đối chuẩn xác nhận tính tương đồng (parity) với các số liệu 10 ảnh của Lộc bé (SAGE, PCDFusion, Y_AVG, Y_MAX). |
 
 ## 2. Kết luận kiểm chứng toán học
 
@@ -26,3 +27,9 @@ hợp nhất ảnh hồng ngoại – khả kiến (IVIF): **EN**, **SD**, **SCD
 4. **MS-SSIM & Source Aggregation:**
    - Hoàn toàn tái lập $MS\text{-}SSIM(A, A) = 1.0$ trên ảnh đồng nhất.
    - Phân biệt rõ `MS_SSIM_mean` (chuẩn $[0, 1]$) và `MS_SSIM_sum` (chuẩn $[0, 2]$ thường dùng trong một số script benchmark của PCDFusion / VIFB). Cả hai đều được báo cáo minh bạch trong `per_image.csv`.
+5. **Q^{AB/F} (Petrovic & Xydeas 2004):**
+   - Chỉ số khách quan đo độ bảo toàn biên không cần ảnh chuẩn (non-reference edge preservation).
+   - Bounded trong $[0.0, 1.0]$. Đạt $0.0$ trên ảnh hằng và $0.8721$ trên ca hotspot bảo tồn biên nhiệt.
+6. **Spatial Frequency (SF) & Average Gradient (AG):**
+   - Đo lường độ sắc nét, tần số biến thiên không gian và độ dốc biên độ tương phản.
+   - Bất biến với phép cộng hằng số độ sáng $F \leftarrow F + c$.

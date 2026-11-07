@@ -20,8 +20,12 @@ import yaml
 
 from src.evaluation.image_io import load_image, validate_matching_shapes
 from src.evaluation.metrics import (
+    average_gradient,
+    edge_correlation,
     entropy,
     fusion_ms_ssim,
+    q_abf,
+    spatial_frequency,
     standard_deviation,
     sum_of_correlation_differences,
 )
@@ -125,10 +129,37 @@ class FusionEvaluator:
                 record["MS_SSIM_mean"] = ms_results["MS_SSIM_mean"]
                 record["MS_SSIM_sum"] = ms_results["MS_SSIM_sum"]
 
+            if "Q_ABF" in self.config.metrics or "QABF" in self.config.metrics:
+                record["Q_ABF"] = q_abf(fused, ir, vis)
+
+            if "SF" in self.config.metrics:
+                record["SF"] = spatial_frequency(fused)
+
+            if "AG" in self.config.metrics:
+                record["AG"] = average_gradient(fused)
+
+            if any(m in self.config.metrics for m in ("edge_corr", "edge_corr_IR", "edge_corr_VIS")):
+                record["edge_corr_IR"] = edge_correlation(fused, ir)
+                record["edge_corr_VIS"] = edge_correlation(fused, vis)
+
         except Exception as exc:
             record["valid"] = False
             record["error_reason"] = f"{type(exc).__name__}: {str(exc)}"
-            for m in ("EN", "SD", "SCD", "MS_SSIM", "MS_SSIM_IR", "MS_SSIM_VIS", "MS_SSIM_mean", "MS_SSIM_sum"):
+            for m in (
+                "EN",
+                "SD",
+                "SCD",
+                "MS_SSIM",
+                "MS_SSIM_IR",
+                "MS_SSIM_VIS",
+                "MS_SSIM_mean",
+                "MS_SSIM_sum",
+                "Q_ABF",
+                "SF",
+                "AG",
+                "edge_corr_IR",
+                "edge_corr_VIS",
+            ):
                 if m not in record:
                     record[m] = float("nan")
 
@@ -232,6 +263,11 @@ class FusionEvaluator:
             "MS_SSIM_VIS",
             "MS_SSIM_mean",
             "MS_SSIM_sum",
+            "Q_ABF",
+            "SF",
+            "AG",
+            "edge_corr_IR",
+            "edge_corr_VIS",
         ]
 
         summary_metrics: dict[str, dict[str, float | int]] = {}
@@ -287,6 +323,11 @@ class FusionEvaluator:
             "MS_SSIM_VIS",
             "MS_SSIM_mean",
             "MS_SSIM_sum",
+            "Q_ABF",
+            "SF",
+            "AG",
+            "edge_corr_IR",
+            "edge_corr_VIS",
             "valid",
             "error_reason",
         ]

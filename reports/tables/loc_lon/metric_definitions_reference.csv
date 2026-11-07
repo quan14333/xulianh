@@ -6,3 +6,8 @@ MS_SSIM_mean,Multi-Scale SSIM (Equal Mean),Wang et al. (2003) / IVIF,0.5 * (MS_S
 MS_SSIM_sum,Multi-Scale SSIM (Direct Sum),Wang et al. (2003) / PCDFusion,MS_SSIM(F, IR) + MS_SSIM(F, VIS),[0.0, 2.0],true,Y (or Gray),verified
 MS_SSIM_IR,Multi-Scale SSIM (Infrared Only),Wang et al. (2003),MS_SSIM(F, IR),[0.0, 1.0],true,Y (or Gray),verified
 MS_SSIM_VIS,Multi-Scale SSIM (Visible Only),Wang et al. (2003),MS_SSIM(F, VIS),[0.0, 1.0],true,Y (or Gray),verified
+Q_ABF,Petrovic Edge Preservation,Xydeas & Petrovic (2004),sum(Q_AF * w_A + Q_BF * w_B) / sum(w_A + w_B),[0.0, 1.0],true,Y (or Gray),verified
+SF,Spatial Frequency,Eskicioglu & Fisher (1995),sqrt(RF^2 + CF^2),[0.0, inf),true,Y (or Gray),verified
+AG,Average Gradient,Cui et al. / IVIF,mean(sqrt((dx^2 + dy^2) / 2)),[0.0, inf),true,Y (or Gray),verified
+edge_corr_IR,Edge Correlation with IR,Sobel edge Pearson correlation,r(Sobel(F), Sobel(IR)),[-1.0, 1.0],true,Y (or Gray),verified
+edge_corr_VIS,Edge Correlation with VIS,Sobel edge Pearson correlation,r(Sobel(F), Sobel(VIS)),[-1.0, 1.0],true,Y (or Gray),verified

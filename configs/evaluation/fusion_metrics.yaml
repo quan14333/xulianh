@@ -5,6 +5,10 @@ evaluation:
     - SD
     - SCD
     - MS_SSIM
+    - Q_ABF
+    - SF
+    - AG
+    - edge_corr
   input_channel: Y
   require_matching_ids: true
   require_matching_shapes: true
@@ -23,3 +27,7 @@ validation_status:
   SD: verified
   SCD: verified
   MS_SSIM: verified
+  Q_ABF: verified
+  SF: verified
+  AG: verified
+  edge_corr: verified

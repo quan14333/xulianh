@@ -223,3 +223,50 @@ def test_paired_comparison_generation(tmp_path: Path) -> None:
     assert math.isclose(row1["delta_SD"], -2.0, abs_tol=1e-5)
     assert math.isclose(row1["delta_SCD"], 0.1, abs_tol=1e-5)
     assert math.isclose(row1["delta_MS_SSIM"], 0.05, abs_tol=1e-5)
+
+
+def test_evaluator_extended_metrics_contract() -> None:
+    """Verify that evaluator computes extended metrics (Q_ABF, SF, AG, edge_corr)."""
+    cfg = EvaluationConfig(
+        metrics=["EN", "SD", "SCD", "MS_SSIM", "Q_ABF", "SF", "AG", "edge_corr"]
+    )
+    evaluator = FusionEvaluator(config=cfg)
+
+    rng = np.random.default_rng(333)
+    ir = rng.integers(0, 256, (60, 60), dtype=np.uint8)
+    vis = rng.integers(0, 256, (60, 60), dtype=np.uint8)
+    fused = ((ir.astype(float) + vis.astype(float)) / 2).astype(np.uint8)
+
+    rec = evaluator.evaluate_arrays(fused, ir, vis, image_id="test_ext_01")
+    assert rec["valid"] is True
+    for key in ("Q_ABF", "SF", "AG", "edge_corr_IR", "edge_corr_VIS"):
+        assert key in rec
+        assert not math.isnan(rec[key])
+
+
+def test_loc_be_summary_parity() -> None:
+    """Verify that Loc be's reported summary table aligns with Loc lon's parity table."""
+    root = Path(__file__).resolve().parents[1]
+    loc_be_summary = root / "reports" / "tables" / "loc_be" / "pcdfusion_summary.csv"
+    loc_lon_parity = root / "reports" / "tables" / "loc_lon" / "loc_be_parity_verification.csv"
+
+    assert loc_be_summary.is_file(), f"Missing {loc_be_summary}"
+    assert loc_lon_parity.is_file(), f"Missing {loc_lon_parity}"
+
+    # Read Loc be summary into a lookup map
+    loc_be_data = {}
+    with loc_be_summary.open("r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            loc_be_data[(row["method"], row["metric"])] = float(row["mean"])
+
+    # Verify every entry in loc_lon_parity matches loc_be_summary
+    with loc_lon_parity.open("r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            key = (row["method"], row["metric"])
+            assert key in loc_be_data, f"Key {key} not found in Loc be summary"
+            reported = float(row["reported_mean"])
+            actual = loc_be_data[key]
+            assert math.isclose(reported, actual, rel_tol=1e-4)
+
