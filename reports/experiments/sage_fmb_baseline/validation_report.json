@@ -1,0 +1,123 @@
+{
+  "archive": "C:\\Users\\quan\\Downloads\\results (6).zip",
+  "expected_count": 280,
+  "checks": {
+    "archive_entries_unique": {
+      "status": "PASS",
+      "detail": "duplicate paths: []"
+    },
+    "archive_integrity": {
+      "status": "PASS",
+      "detail": "ZIP CRC check"
+    },
+    "file_qa_summary.json": {
+      "status": "PASS",
+      "detail": "sage_fmb_test_student_20261106T160350Z/qa_summary.json"
+    },
+    "file_run_config.json": {
+      "status": "PASS",
+      "detail": "sage_fmb_test_student_20261106T160350Z/run_config.json"
+    },
+    "file_environment.json": {
+      "status": "PASS",
+      "detail": "sage_fmb_test_student_20261106T160350Z/environment.json"
+    },
+    "file_inference.csv": {
+      "status": "PASS",
+      "detail": "sage_fmb_test_student_20261106T160350Z/inference.csv"
+    },
+    "file_manifest.csv": {
+      "status": "PASS",
+      "detail": "sage_fmb_test_student_20261106T160350Z/manifest.csv"
+    },
+    "file_qa_per_image.csv": {
+      "status": "PASS",
+      "detail": "sage_fmb_test_student_20261106T160350Z/qa_per_image.csv"
+    },
+    "file_qa_failures.json": {
+      "status": "PASS",
+      "detail": "sage_fmb_test_student_20261106T160350Z/qa_failures.json"
+    },
+    "fused_count": {
+      "status": "PASS",
+      "detail": "280/280"
+    },
+    "fused_names_unique": {
+      "status": "PASS",
+      "detail": "280 names, 280 unique"
+    },
+    "fused_decode_rgb_800x600": {
+      "status": "PASS",
+      "detail": "decoded 280; errors: []"
+    },
+    "inference_count": {
+      "status": "PASS",
+      "detail": "280/280"
+    },
+    "inference_ids": {
+      "status": "PASS",
+      "detail": "280 unique IDs; matching fused names: True"
+    },
+    "manifest_count": {
+      "status": "PASS",
+      "detail": "280/280"
+    },
+    "manifest_ids": {
+      "status": "PASS",
+      "detail": "280 unique IDs; matching fused names: True"
+    },
+    "qa_per_image_count": {
+      "status": "PASS",
+      "detail": "280/280"
+    },
+    "qa_per_image_ids": {
+      "status": "PASS",
+      "detail": "280 unique IDs; matching fused names: True"
+    },
+    "inference_split": {
+      "status": "PASS",
+      "detail": "all rows require test split"
+    },
+    "manifest_split": {
+      "status": "PASS",
+      "detail": "all rows require test split"
+    },
+    "inference_paths": {
+      "status": "PASS",
+      "detail": "fused_path stem matches record ID"
+    },
+    "manifest_paths": {
+      "status": "PASS",
+      "detail": "IR and visible paths match record ID"
+    },
+    "per_image_qa": {
+      "status": "PASS",
+      "detail": "all per-image QA rows PASS, RGB PNG 800x600"
+    },
+    "qa_summary": {
+      "status": "PASS",
+      "detail": "split=test, pass=280, fail=0"
+    },
+    "qa_failures": {
+      "status": "PASS",
+      "detail": "failures: []"
+    },
+    "run_config": {
+      "status": "PASS",
+      "detail": "run ID, split, counts, source commit and checkpoint hash"
+    },
+    "environment": {
+      "status": "PASS",
+      "detail": "Python, PyTorch and GPU recorded"
+    },
+    "checkpoint_binary_sha256": {
+      "status": "PASS",
+      "detail": "ecfde477ca4cd65401f207d5dc91ce6c475a49891d768dbdb7a66366255ee836"
+    },
+    "source_commit_ref": {
+      "status": "PASS",
+      "detail": "377fdbef6b8b6ccbd1139358ad66bb41ea084dc1"
+    }
+  },
+  "status": "PASS"
+}

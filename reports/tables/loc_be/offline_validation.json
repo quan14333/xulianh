@@ -1,0 +1,33 @@
+{
+  "source_run_id": "sage_pcdfusion_08nov_20261106_170517",
+  "validation_type": "CPU offline replay against supplied external PNG archives",
+  "input_archives": {
+    "SAGE_LocBe_pretrained_inference_results.zip": "9f3fee530e07c2bdea18de5aade3fe2ad55ea0093f311b9376f65b4c22938456",
+    "sage_pcdfusion_08nov_20261106_170517.zip": "7845947d186b1391420160ab7ec65545e3739d2f1e0798878878841d0d1432b1"
+  },
+  "input_file_sha256_matches": 40,
+  "sage_rgb_pixel_sha256_matches": 10,
+  "roi_primary_exact_rows": 9,
+  "roi_sensitivity_exact_rows": 54,
+  "roi_robustness_exact_rows": 9,
+  "roi_csv_cells_compared": 1449,
+  "near_white_clipping_numeric_cells_matches": 54,
+  "near_white_column_definition": "Despite legacy names over240/over250, percentages use Y >= 240 and Y >= 250; all 36 threshold cells match this definition.",
+  "normalized_summary_statistics_matched_to_per_image": 128,
+  "notebooks_validated": 3,
+  "code_cells_parsed": 29,
+  "environment": {
+    "python": "3.12.14",
+    "os": "Windows",
+    "numpy": "2.5.4",
+    "opencv": "5.0.0",
+    "nbformat": "5.11.1"
+  },
+  "gpu_inference_rerun": false,
+  "semantic_labels_available": false,
+  "notes": [
+    "Images were extracted to a temporary directory outside Git.",
+    "No SAGE/PCDFusion inference or training was performed in this validation.",
+    "Metrics retain their exploratory notebook definitions; paper parity is not asserted."
+  ]
+}

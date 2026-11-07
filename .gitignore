@@ -72,10 +72,22 @@ reports/final/**
 reports/slides/**
 !reports/weekly/.gitkeep
 !reports/experiments/.gitkeep
+!reports/experiments/sage_fmb_baseline/
+!reports/experiments/sage_fmb_baseline/*.md
+!reports/experiments/sage_fmb_baseline/*.json
+!reports/experiments/sage_fmb_baseline/*.csv
+!reports/experiments/sage_fmb_baseline/preview_ir_vis_fused.png
 !reports/tables/.gitkeep
 !reports/figures/.gitkeep
 !reports/final/.gitkeep
 !reports/slides/.gitkeep
+
+# Reviewed Loc be handoff: source tables and the Nov 8 report only.
+!reports/tables/loc_be/
+!reports/tables/loc_be/*.csv
+!reports/tables/loc_be/*.json
+!reports/tables/loc_be/README.md
+!reports/weekly/loc_be_2026-11-08.md
 
 # Reviewed Loc lon evaluation: reference tables and verification reports only.
 !reports/tables/loc_lon/

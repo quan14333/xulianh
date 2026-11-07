@@ -1,0 +1,20 @@
+{
+  "test_type": "offline_input_and_method_consistency",
+  "ids_verified": [
+    "00014",
+    "00024",
+    "00061",
+    "00064",
+    "00071",
+    "00075",
+    "00104",
+    "00109",
+    "00112",
+    "00145"
+  ],
+  "rgb_sage_pixel_sha_match": 10,
+  "pcdfusion_png_sha_match": 10,
+  "roi_primary_count": 9,
+  "roi_sensitivity_count": 54,
+  "label_status": "NO semantic segmentation labels in input artifacts"
+}

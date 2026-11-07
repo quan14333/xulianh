@@ -1,0 +1,39 @@
+{
+  "source_images": 10,
+  "models": [
+    "SAGE pretrained",
+    "PCDFusion pretrained"
+  ],
+  "roi_count": 9,
+  "sensitivity_settings": {
+    "ring_radius_px": [
+      12,
+      24,
+      36
+    ],
+    "aggregation": [
+      "mean",
+      "median"
+    ]
+  },
+  "ir_salient_count_all6": 7,
+  "sage_below_visible_all6": 0,
+  "pcdfusion_below_visible_all6": 0,
+  "sage_closer_ir_primary": 9,
+  "pcd_closer_ir_primary": 0,
+  "sage_higher_contrast_primary": 9,
+  "pcd_higher_contrast_primary": 0,
+  "mean_contrast_by_source": {
+    "IR": 36.505,
+    "VIS": -9.833,
+    "SAGE": 33.443,
+    "PCDFusion": 19.61
+  },
+  "caveats": [
+    "Manual rectangles are exploratory, not pixel-level FMB semantic labels.",
+    "ROIs were selected from scenes used in previous exploratory checks; results must not be used for parameter tuning.",
+    "Thermal intensity grayscale has no direct physical temperature calibration.",
+    "Brightness contrast is not target detection recall nor mIoU.",
+    "10 re-packaged FMB/test images are not the official 280-image benchmark."
+  ]
+}
