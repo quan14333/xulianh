@@ -88,3 +88,9 @@ reports/slides/**
 !reports/tables/loc_be/*.json
 !reports/tables/loc_be/README.md
 !reports/weekly/loc_be_2026-11-08.md
+
+# Reviewed Loc lon evaluation: reference tables and verification reports only.
+!reports/tables/loc_lon/
+!reports/tables/loc_lon/*.csv
+!reports/tables/loc_lon/README.md
+!reports/weekly/loc_lon_2026-11-08.md
