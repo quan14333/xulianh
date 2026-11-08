@@ -26,6 +26,40 @@ if str(REPO_ROOT) not in sys.path:
 
 from src.evaluation.evaluator import EvaluationConfig, FusionEvaluator  # noqa: E402
 
+# Dataset presets to auto-link real raw data directories without manual typing
+DATASET_PRESETS: dict[str, dict[str, Path | None]] = {
+    "fmb_test": {
+        "ir_dir": REPO_ROOT / "data" / "raw" / "FMB" / "test" / "Infrared",
+        "vis_dir": REPO_ROOT / "data" / "raw" / "FMB" / "test" / "Visible",
+        "manifest": REPO_ROOT / "data" / "manifests" / "test.csv",
+    },
+    "fmb_train": {
+        "ir_dir": REPO_ROOT / "data" / "raw" / "FMB" / "train" / "Infrared",
+        "vis_dir": REPO_ROOT / "data" / "raw" / "FMB" / "train" / "Visible",
+        "manifest": REPO_ROOT / "data" / "manifests" / "train.csv",
+    },
+    "fmb_dev": {
+        "ir_dir": REPO_ROOT / "data" / "raw" / "FMB" / "train" / "Infrared",
+        "vis_dir": REPO_ROOT / "data" / "raw" / "FMB" / "train" / "Visible",
+        "manifest": REPO_ROOT / "data" / "manifests" / "dev.csv",
+    },
+    "m3fd": {
+        "ir_dir": REPO_ROOT / "data" / "raw" / "M3FD_Fusion" / "Ir",
+        "vis_dir": REPO_ROOT / "data" / "raw" / "M3FD_Fusion" / "Vis",
+        "manifest": None,
+    },
+    "roadscene": {
+        "ir_dir": REPO_ROOT / "data" / "raw" / "roadscene" / "ir",
+        "vis_dir": REPO_ROOT / "data" / "raw" / "roadscene" / "vi",
+        "manifest": None,
+    },
+    "tno": {
+        "ir_dir": REPO_ROOT / "data" / "raw" / "tno" / "ir",
+        "vis_dir": REPO_ROOT / "data" / "raw" / "tno" / "vi",
+        "manifest": None,
+    },
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -38,10 +72,17 @@ def parse_args() -> argparse.Namespace:
         help="Path to evaluation config YAML.",
     )
     parser.add_argument(
+        "--dataset",
+        type=str,
+        default="fmb_test",
+        choices=["fmb_test", "fmb_train", "fmb_dev", "m3fd", "roadscene", "tno", "custom"],
+        help="Preset dataset to auto-link real raw IR/VIS directories (default: fmb_test).",
+    )
+    parser.add_argument(
         "--manifest",
         type=Path,
         default=None,
-        help="Optional path to manifest CSV containing image_id column.",
+        help="Optional path to manifest CSV containing image_id column (defaults to dataset manifest).",
     )
     parser.add_argument(
         "--fused-dir",
@@ -52,14 +93,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--ir-dir",
         type=Path,
-        required=True,
-        help="Directory containing infrared images.",
+        default=None,
+        help="Directory containing infrared images (defaults to dataset raw IR folder).",
     )
     parser.add_argument(
         "--vis-dir",
         type=Path,
-        required=True,
-        help="Directory containing visible images.",
+        default=None,
+        help="Directory containing visible images (defaults to dataset raw VIS folder).",
     )
     parser.add_argument(
         "--output-dir",
@@ -101,20 +142,35 @@ def build_triplets(
                 stem = Path(img_id).stem
                 # Find matching files with common extensions
                 fused_candidates = list(fused_dir.glob(f"{stem}.*"))
-                ir_candidates = list(ir_dir.glob(f"{stem}.*"))
-                vis_candidates = list(vis_dir.glob(f"{stem}.*"))
 
-                if fused_candidates and ir_candidates and vis_candidates:
+                # Check direct or glob matching for IR and VIS
+                ir_file: Path | None = None
+                if (ir_dir / f"{stem}.png").is_file():
+                    ir_file = ir_dir / f"{stem}.png"
+                else:
+                    ir_candidates = list(ir_dir.glob(f"{stem}.*"))
+                    if ir_candidates:
+                        ir_file = ir_candidates[0]
+
+                vis_file: Path | None = None
+                if (vis_dir / f"{stem}.png").is_file():
+                    vis_file = vis_dir / f"{stem}.png"
+                else:
+                    vis_candidates = list(vis_dir.glob(f"{stem}.*"))
+                    if vis_candidates:
+                        vis_file = vis_candidates[0]
+
+                if fused_candidates and ir_file is not None and vis_file is not None:
                     triplets.append(
                         {
                             "image_id": stem,
                             "fused_path": fused_candidates[0],
-                            "ir_path": ir_candidates[0],
-                            "vis_path": vis_candidates[0],
+                            "ir_path": ir_file,
+                            "vis_path": vis_file,
                         }
                     )
     else:
-        # Scan fused_dir
+        # Scan fused_dir directly
         for fused_file in sorted(fused_dir.iterdir()):
             if fused_file.is_file() and fused_file.suffix.lower() in {
                 ".png",
@@ -144,11 +200,31 @@ def main() -> int:
     config = EvaluationConfig.from_yaml(args.config)
     evaluator = FusionEvaluator(config=config)
 
+    # Auto-resolve dataset IR, VIS, and manifest paths from preset if not provided
+    dataset_key = str(args.dataset).lower()
+    preset = DATASET_PRESETS.get(dataset_key, {})
+    ir_dir = args.ir_dir or preset.get("ir_dir")
+    vis_dir = args.vis_dir or preset.get("vis_dir")
+    manifest_path = args.manifest or preset.get("manifest")
+
+    if ir_dir is None or not Path(ir_dir).is_dir():
+        print(f"Error: Infrared directory not found: {ir_dir}")
+        return 1
+    if vis_dir is None or not Path(vis_dir).is_dir():
+        print(f"Error: Visible directory not found: {vis_dir}")
+        return 1
+
+    print(f"Linking to dataset [{dataset_key}]:")
+    print(f"  - IR directory : {ir_dir}")
+    print(f"  - VIS directory: {vis_dir}")
+    if manifest_path is not None:
+        print(f"  - Manifest CSV : {manifest_path}")
+
     triplets = build_triplets(
-        args.manifest,
+        manifest_path,
         args.fused_dir,
-        args.ir_dir,
-        args.vis_dir,
+        Path(ir_dir),
+        Path(vis_dir),
     )
 
     if not triplets:

@@ -60,3 +60,31 @@ validation_status:
   SF: verified
   AG: verified
   edge_corr: verified
+dataset_catalogs:
+  fmb_test:
+    name: "FMB Test Split (280 pairs)"
+    ir_dir: data/raw/FMB/test/Infrared
+    vis_dir: data/raw/FMB/test/Visible
+    manifest: data/manifests/test.csv
+  fmb_train:
+    name: "FMB Train Split (1045 pairs)"
+    ir_dir: data/raw/FMB/train/Infrared
+    vis_dir: data/raw/FMB/train/Visible
+    manifest: data/manifests/train.csv
+  fmb_dev:
+    name: "FMB Dev Split (175 pairs)"
+    ir_dir: data/raw/FMB/train/Infrared
+    vis_dir: data/raw/FMB/train/Visible
+    manifest: data/manifests/dev.csv
+  m3fd:
+    name: "M3FD Fusion Benchmark (300 pairs)"
+    ir_dir: data/raw/M3FD_Fusion/Ir
+    vis_dir: data/raw/M3FD_Fusion/Vis
+  roadscene:
+    name: "RoadScene Benchmark (42 pairs)"
+    ir_dir: data/raw/roadscene/ir
+    vis_dir: data/raw/roadscene/vi
+  tno:
+    name: "TNO Benchmark (37 pairs)"
+    ir_dir: data/raw/tno/ir
+    vis_dir: data/raw/tno/vi
