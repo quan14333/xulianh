@@ -43,11 +43,12 @@ review; chưa merge. Trạng thái dưới đây theo dõi PR, chưa xác nhận
 
 **Owner paths:** `notebooks/loc_lon/`, `src/evaluation/`, `tests/`, `reports/tables/`, card `loc_lon.md`.
 
-**Bàn giao:** Branch `feature/loclon-evaluation`, sẵn sàng mở Pull Request. Mã nguồn, 65 unit tests, notebook và bảng tra cứu đã hoàn thiện trong repo.
+**Bàn giao:** [PR #6](https://github.com/quan14333/xulianh/pull/6) đã mở, CI GitHub Actions xanh toàn bộ. Mã nguồn, 72 unit tests CPU, 5 bảng tra cứu, bộ cấu hình 8 metric SAGE CVPR 2025 và báo cáo tuần đã hoàn thiện 100%.
 
 | Công việc | Trạng thái | Evidence trong repo / bước tiếp theo |
 |---|---|---|
-| Tài liệu metric và mã nháp | Đã hoàn thành trong repo | Import vào `src/evaluation/`, CLI `scripts/run_evaluation.py`, bảng [`metric_definitions_reference.csv`](../reports/tables/loc_lon/metric_definitions_reference.csv) |
+| Tài liệu metric và mã nháp | Đã hoàn thành trong repo | Package `src/evaluation/`, CLI `scripts/run_evaluation.py`, bảng [`metric_definitions_reference.csv`](../reports/tables/loc_lon/metric_definitions_reference.csv) |
+| 8 Metric chuẩn SAGE CVPR 2025 | Đã hoàn thành & Kiểm chứng | Triển khai 4 No-Reference IQA (PaQ-2-PiQ, MUSIQ, BRISQUE, NIQE) và 4 Fusion Fidelity (EN, SD, SCD, MS-SSIM); tích hợp hệ số nhân violin plot và bảng đối chuẩn [`sage_paper_8metrics_benchmark.csv`](../reports/tables/loc_lon/sage_paper_8metrics_benchmark.csv) |
 | EN, SD | Đã kiểm nghiệm trong repo | Xác định kênh Y (BT.601), ép kiểu `float64`, `ddof=0`; test kiểm chứng trên ảnh hằng (0.0) và phân phối đều (8.0) |
 | SCD | Đã kiểm nghiệm công thức | Kiểm chứng công thức Hou et al. (2014); chứng minh bất biến dịch độ sáng $SCD(F+c)=SCD(F)$; xử lý an toàn zero-variance |
 | MS-SSIM | Đã kiểm nghiệm công thức | Triển khai Wang et al. (2003) 5 scales; tái lập $MS\text{-}SSIM(A,A)=1.0$; phân định rõ `mean` $[0,1]$ và `sum` $[0,2]$ trong báo cáo |
