@@ -8,7 +8,7 @@
 
 - **Mục đích:** kiểm lại lời bài SAGE (CVPR 2025): *"ảnh ghép SAGE giúp mạng phân đoạn hiểu cảnh tốt hơn ảnh thường **+12,1 mIoU**"* trên FMB.
 - **Kết quả:** nhóm đo được SAGE chỉ hơn ảnh thường **+0,8 mIoU** (trung bình 3 seed), không seed nào có ý nghĩa thống kê → **chưa tái lập được** +12,1.
-- **Không phải do nhóm chấm sai:** số của ảnh thường khớp với bài; chỉ riêng SAGE thấp hơn bài.
+- **Bước tạo ảnh SAGE của nhóm đúng:** checkpoint công bố chạy ra gần trùng ảnh mẫu của tác giả. Số của ảnh thường khớp bài, chỉ riêng SAGE thấp hơn bài. Bài không ghi ảnh SAGE ở Bảng 1 tạo từ đâu, nên **chưa xác định được nguyên nhân**.
 - **Ghép đơn giản tốt hơn SAGE (sát ngưỡng):** cộng ảnh nhiệt với ảnh thường rồi chia đôi được **64,4**, cao hơn SAGE (**63,4**) ở cả 3 seed; gộp 3 seed chênh **+1,05**, có ý nghĩa nhưng sát 0.
 - **SAGE giúp thật ở lớp người** (ban đêm, có khói), nhưng ảnh nhiệt đơn thuần hay ghép trung bình cũng giúp y như vậy → cái lợi đến từ **ảnh nhiệt**, chưa chắc nhờ phần SAM của SAGE.
 
@@ -106,7 +106,12 @@ Khoảng tin cậy tính bằng bootstrap theo **khối ảnh liền nhau** (ả
 **Đọc bảng:**
 - **VIS khớp bài** (72,5 vs 71,4). IR thấp hơn VIS ở cả bài lẫn nhóm, nhưng IR nhóm cao hơn IR bài (71,7 vs 66,8).
 - **SAGE lệch rõ** (74,0 vs 77,6), lệch nhiều nhất ở **xe buýt** (32,1 vs 66,7).
-- VIS khớp mà SAGE lệch → khác biệt **nhiều khả năng nằm ở phía ảnh SAGE** (ví dụ: ảnh SAGE trong bài tạo từ phiên bản mô hình khác bản công bố). **Chưa kiểm chứng được.**
+- VIS khớp mà SAGE lệch → nghi khác biệt nằm ở **ảnh SAGE bài đã dùng**. Nhưng bài **không ghi** ảnh SAGE ở Bảng 1 do Teacher hay Student tạo, dùng checkpoint nào, và không công bố ảnh ghép FMB để đối chiếu. IR cũng không khớp hẳn (71,7 so với 66,8), nên không loại trừ được việc cách chấm hai bên khác nhau. **Chưa xác định được nguyên nhân.**
+**Ảnh SAGE của nhóm lấy từ đâu:**
+- Tạo bằng **Student** (≈ 0,136M tham số) với checkpoint **duy nhất** tác giả công bố (`checkpoints/checkpoints.pt` của RollingPlain/SAGE_IVIF, md5 `241396a51a3c5e85e360a409d9e8fe4d`), giống `test.py`. Tác giả không công bố checkpoint Teacher.
+- Đã kiểm (14/11): chạy checkpoint này trên 6 ảnh mẫu trong repo SAGE (`data/test`, ảnh M³FD 1024×768) ra gần trùng ảnh ghép tác giả để sẵn (`result/test`): lệch trung bình 0,2 mức xám (thang 0–255), tương quan 0,9999 → bước tạo ảnh của nhóm đúng.
+- Thống kê BatchNorm lớp đầu của checkpoint (giải ngược ra độ sáng trung bình và phương sai dữ liệu lúc train) khớp **FMB train** tốt nhất → checkpoint nhiều khả năng được train trên FMB. Giới hạn: BatchNorm chỉ phản ánh giai đoạn cuối quá trình train.
+
 - Lớp xe buýt **dao động rất mạnh giữa các seed** (TB 42,1 → 27,4 → 46,2; IR 21,6 → 39,9 → 51,2) vì hiếm: 58/280 ảnh test có xe buýt, 5 ảnh chiếm 58% pixel xe buýt. Không dùng riêng lớp này để kết luận.
 
 ---
@@ -159,7 +164,7 @@ Vì kết quả lệch bài, nhóm đã kiểm kỹ trước khi kết luận �
 
 ## 9. Kết luận và ý nghĩa cho đồ án
 
-1. **Với code và trọng số SAGE đã công bố, nhóm không tái lập được mức tăng +12,1** (chỉ +0,8, 3 seed). Baseline VIS của nhóm khớp bài, nên nguyên nhân nhiều khả năng nằm ở ảnh SAGE, không ở cách chấm. Chưa xác nhận được nguyên nhân cụ thể.
+1. **Với code và trọng số SAGE đã công bố, nhóm không tái lập được mức tăng +12,1** (chỉ +0,8, 3 seed). Bước tạo ảnh SAGE đã kiểm là đúng, VIS khớp bài; nghi khác biệt nằm ở ảnh SAGE bài đã dùng (bài không ghi Teacher hay Student, checkpoint nào), nhưng chưa loại trừ khác biệt cách chấm. Chưa xác định được nguyên nhân.
 2. **Ghép trung bình đơn giản tốt hơn SAGE, nhưng sát ngưỡng.** Quy tắc đặt trước (ghi 13/11, trước khi có seed 2): TB > SAGE ở cả 3 seed **và** gộp 3 seed có ý nghĩa → viết "tốt hơn". Kết quả: TB > SAGE cả 3 seed (+1,65 / +0,84 / +0,67), gộp +1,05 [+0,08; +2,16] → **đạt**. Khi trình bày nên nói rõ mức chênh nhỏ (~1 mIoU) và cận dưới khoảng tin cậy sát 0.
 3. **Cái lợi ở lớp người đến từ ảnh nhiệt**, không thấy bằng chứng là nhờ SAM.
 4. **Gap đề xuất (chưa chốt):** *lợi ích phân đoạn của SAGE và phần SAM tốn kém của nó chưa được kiểm chứng chắc.* Bước tiếp theo kiểm trực tiếp: train lại Student **bỏ SAM** rồi chấm bằng đúng thiết lập này (đã chuẩn bị code, chưa chạy, chưa đưa lên repo).
@@ -173,6 +178,7 @@ Vì kết quả lệch bài, nhóm đã kiểm kỹ trước khi kết luận �
 - **3 seed**; khoảng tin cậy gộp chưa tính dao động giữa seed; chỉ **một bộ dữ liệu (FMB)** – chưa biết kết luận có giữ trên bộ khác (ứng viên: MFNet, có nhãn phân đoạn).
 - Một số chi tiết của bài phải đoán (khởi tạo, cách tính mIoU…). Đã kiểm 7 lớp in ra để giảm ảnh hưởng, nhưng không loại trừ hết.
 - Lớp hiếm (xe buýt, xe tải, xe máy) dao động mạnh giữa seed.
+- Chưa chấm bằng X-Decoder không train (cách chấm thứ hai trong Bảng 1). Theo bài, cách chấm này cho SAGE chỉ hơn VIS +1,0 (50,1 → 51,1), cùng chiều với kết quả B3 của nhóm.
 
 ---
 
