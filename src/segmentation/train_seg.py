@@ -15,9 +15,11 @@ Ví dụ:
 """
 import argparse
 import functools
+import importlib.metadata
 import json
 import math
 import os
+import platform
 import random
 import time
 
@@ -159,7 +161,9 @@ def main():
                      "so_lop": nc, "loss": "CE, nhãn 0 là một lớp" if a.lop0 else "CE, bỏ nhãn 0", "optimizer": "AdamW wd 0.01, head lr x10",
                      "aug": "scale 0.5-2.0, random crop, hflip",
                      "chon_ckpt": "last (không chọn)" if a.gop_dev else "best theo dev",
+                     "precision": "fp16 autocast + GradScaler",
                      "torch": torch.__version__, "gpu": torch.cuda.get_device_name(0)}
+    cfg |= {"transformers": importlib.metadata.version("transformers"), "python": platform.python_version()}
     for k in ("tiep", "thu", "workers"):
         cfg.pop(k, None)
 
@@ -172,7 +176,7 @@ def main():
     elif a.tiep and rp.exists():
         # train tiếp từ cuối epoch đã lưu (không khớp từng bit: worker augmentation khởi động lại RNG)
         ck = torch.load(rp, map_location="cpu", weights_only=False)
-        bo = lambda c: {k: v for k, v in c.items() if k not in ("gpu", "torch")}
+        bo = lambda c: {k: v for k, v in c.items() if k not in ("gpu", "torch", "transformers", "python", "precision")}
         if bo(ck["cfg"]) != bo(cfg):
             raise RuntimeError(f"cấu hình khác lần trước, không train tiếp được:\n{ck['cfg']}\n{cfg}")
         model.load_state_dict(ck["model"])

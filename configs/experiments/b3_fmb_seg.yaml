@@ -1,0 +1,80 @@
+schema_version: 1
+# Cấu hình ĐÃ CHẠY của baseline B3 (khóa 14/11/2026). Không sửa – muốn chạy khác thì sao chép thành file mới.
+# Cấu hình từng run (12 run) nằm ở reports/experiments/b3_fmb_seg/runs/<run_id>/config.json; file này gom lại.
+# Kết quả + protocol: reports/experiments/b3_fmb_seg/README.md
+
+experiment:
+  name: b3_fmb_seg
+  goal: chấm ảnh đầu vào bằng phân đoạn như Bảng 1 bài SAGE – mỗi loại ảnh train một SegFormer-B3 riêng, cùng cấu hình
+  variants: [vis, ir, tb, sage]
+  seeds: [0, 1, 2]
+  run_id: "{variant}_b3_s{seed}_1220_15lop"
+  owner: Mân
+  locked: 2026-11-14
+
+code:
+  path: src/segmentation
+  # Code đã chạy trên Kaggle = dataset thanhmn123/sage-tai-lap (cập nhật lần cuối 12/11/2026, trước cả 3 seed).
+  # Đã so: train_seg.py, eval_seg.py, chay_song_song.py giống hệt repo; chung.py, xuat_anh.py chỉ khác đường dẫn
+  # mặc định và biến thể nosam (không dùng ở B3).
+  kaggle_code_dataset: thanhmn123/sage-tai-lap
+
+data:
+  dataset: FMB
+  manifests: data/manifests/{train,dev,test}.csv
+  train: train.csv + dev.csv gộp = 1.220 ảnh train chính thức   # --gop_dev, không giữ dev
+  test: test.csv – 280 ảnh; báo cả 273 ảnh (bỏ 7 ảnh rò, cột leak)
+  kaggle_dataset: thanhmn123/fmb-ivif-sage
+  label: 1 kênh 0–14; nhãn 0 (unlabeled) là MỘT LỚP khi train (--lop0, 15 lớp)
+
+inputs:   # bước 1 – src/segmentation/xuat_anh.py, lưu PNG 8 bit, 800×600
+  vis: ảnh VIS gốc (RGB)
+  ir: IR 1 kênh nhân thành 3 kênh
+  tb: Y = round((Y_vis + IR) / 2), ghép Cr/Cb của VIS rồi đổi về RGB (OpenCV YCrCb)
+  sage:
+    how: Y = Student(Y_vis, IR) – FP32, đầu ra clamp [0,1] ×255 làm tròn; ghép Cr/Cb của VIS
+    model: model_sub/model.py của RollingPlain/SAGE_IVIF (Student, ~0,136M tham số)
+    checkpoint: checkpoints/checkpoints.pt   # checkpoint duy nhất tác giả công bố; không có Teacher
+    checkpoint_md5: 241396a51a3c5e85e360a409d9e8fe4d
+
+model:
+  arch: SegFormer-B3 (HuggingFace transformers, SegformerForSemanticSegmentation)
+  init: nvidia/mit-b3            # chỉ học ImageNet-1k, không phải bản Cityscapes
+  num_classes: 15
+  normalize: ImageNet mean [0.485, 0.456, 0.406], std [0.229, 0.224, 0.225]
+
+train:   # bước 2 – src/segmentation/train_seg.py --gop_dev --lop0 --epochs 100 --batch 8
+  epochs: 100
+  iters: 15200                   # 1.220 ảnh / batch 8 (drop_last) × 100
+  batch: 8
+  grad_accum: 1
+  optimizer: AdamW, lr 6e-5, weight decay 0.01, decode head lr ×10
+  schedule: warmup tuyến tính 1.500 vòng rồi giảm poly
+  loss: cross-entropy 15 lớp
+  augment: phóng/thu ngẫu nhiên 0,5–2,0, cắt ngẫu nhiên 512×512, lật ngang
+  precision: FP16 mixed precision (torch.autocast + GradScaler)
+  seed: torch.manual_seed(seed) + Generator(seed) cho DataLoader   # không bật deterministic → chạy lại không khớp từng bit
+  checkpoint: last.pt – lấy lần cuối, KHÔNG chọn theo dev/test
+
+eval:   # bước 3 – src/segmentation/eval_seg.py
+  resolution: nguyên ảnh 600×800, không cắt, không lật, một tỉ lệ
+  precision: FP16 autocast, logits nội suy bilinear về kích thước ảnh
+  confusion: một ma trận 15×15 cộng trên toàn tập (không trung bình theo ảnh)
+  miou_main: mIoU_co_mat – bỏ pixel nhãn 0, trung bình 13 lớp có mặt trong test (bicycle 0 ảnh test)
+  miou_extra: [mIoU_15_nan0 (kiểu SegMiF), mIoU_15_mrfs (kiểu MRFS), 7 lớp bài có in số]
+  stats: bootstrap theo khối id liền nhau, B 2000, seed 0, khoảng tin cậy 95% percentile – src/segmentation/thong_ke.py
+
+compute:
+  platform: Kaggle notebook, GPU Tesla T4 ×2 (mỗi GPU một run, chay_song_song.py)
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:de153e6d303881930c51286216393d56f56b26458d0661350305a1e8144eea01
+  python: "3.13"
+  torch: 2.11.0+cu130
+  train_hours_per_run: ~2,6
+  notebooks:
+    vis_sage: thanhmn123/sage-b3-fmb (v2 seed 0, v3 seed 1, v4 seed 2)
+    tb_ir: thanhmn123/sage-b3-fmb-tb-ir (v1 seed 0, v2 seed 1, v3 seed 2)
+
+artifacts:
+  small_in_git: reports/experiments/b3_fmb_seg/
+  checkpoints: thanhmn123/sage-b3-fmb-checkpoints (riêng tư) – md5 trong artifact_manifest.json
+  predictions: thanhmn123/sage-b3-fmb-ketqua (riêng tư) – ma trận nhầm lẫn từng ảnh, nhãn dự đoán

@@ -47,7 +47,10 @@ Bài **không công bố code chấm** và **không ghi đủ chi tiết**. Ch�
 | Chọn checkpoint | Lấy lần cuối, **không chọn** | ❌ | Để không đụng tới test |
 | Chấm | Nguyên ảnh 600×800; **280 ảnh** test và **273 ảnh** (bỏ 7 ảnh rò) | ❌ | |
 | Số lần chạy | 3 seed (0, 1, 2) | ❌ | |
-| Máy | Kaggle, GPU T4, ~2,5 giờ / mạng | | |
+| Độ chính xác số | Train và chấm bằng FP16 hỗn hợp (autocast); ảnh SAGE tạo bằng FP32 | ❌ | Vừa GPU T4 |
+| Máy | Kaggle, GPU T4, ~2,5 giờ / mạng; môi trường ghim bằng image Docker – [`environment.json`](environment.json) | | |
+
+**Toàn bộ cấu hình trong một file:** [`configs/experiments/b3_fmb_seg.yaml`](../../../configs/experiments/b3_fmb_seg.yaml) (ảnh đầu vào, train, chấm, máy, nơi lưu checkpoint). Code đã chạy trên Kaggle (dataset `sage-tai-lap`) đã được so với `src/segmentation/`: phần train và chấm giống hệt.
 
 **Cách tính mIoU (số chính):** bỏ pixel không có nhãn, trung bình trên 13 lớp có mặt trong test (lớp xe đạp không có ảnh test nào). Có tính thêm kiểu SegMiF (15 lớp) để đối chiếu – kết luận không đổi.
 
