@@ -110,6 +110,18 @@ Khoảng tin cậy tính bằng bootstrap theo **khối ảnh liền nhau** (ả
 - **VIS khớp bài** (72,5 vs 71,4). IR thấp hơn VIS ở cả bài lẫn nhóm, nhưng IR nhóm cao hơn IR bài (71,7 vs 66,8).
 - **SAGE lệch rõ** (74,0 vs 77,6), lệch nhiều nhất ở **xe buýt** (32,1 vs 66,7).
 - VIS khớp mà SAGE lệch → nghi khác biệt nằm ở **ảnh SAGE bài đã dùng**. Nhưng bài **không ghi** ảnh SAGE ở Bảng 1 do Teacher hay Student tạo, dùng checkpoint nào, và không công bố ảnh ghép FMB để đối chiếu. IR cũng không khớp hẳn (71,7 so với 66,8), nên không loại trừ được việc cách chấm hai bên khác nhau. **Chưa xác định được nguyên nhân.**
+
+**Những gì bài không ghi – nhóm xử lý thế nào – có thể gây lệch riêng cho SAGE không:**
+
+| Bài không ghi | Nhóm chọn | Ảnh hưởng tới |
+|---|---|---|
+| Ảnh SAGE ở Bảng 1 do Teacher hay Student tạo, checkpoint nào | Student, checkpoint duy nhất tác giả công bố | **Chỉ SAGE** → nghi vấn chính |
+| Cách tính mIoU (bao nhiêu lớp, có tính unlabeled không) | 13 lớp có mặt; đối chiếu thêm kiểu SegMiF, MRFS | Cả 4 loại ảnh như nhau |
+| Khởi tạo, optimizer, lr, batch, augmentation | Cấu hình SegFormer gốc (mục 3) | Cả 4 loại ảnh như nhau |
+| Chọn checkpoint | Lấy lần cuối, không chọn | Cả 4 loại ảnh như nhau |
+
+Các chi tiết tác động như nhau lên cả 4 loại ảnh thì khó tạo ra khoảng chênh **riêng cho SAGE** (+12,1 so với +0,8) → nghi vấn dồn vào **nguồn ảnh SAGE**. Riêng IR lệch bài (71,7 so với 66,8) cho thấy cách chấm hai bên vẫn có thể khác, nên đây là nghi vấn, chưa phải kết luận.
+
 **Ảnh SAGE của nhóm lấy từ đâu:**
 - Tạo bằng **Student** (≈ 0,136M tham số) với checkpoint **duy nhất** tác giả công bố (`checkpoints/checkpoints.pt` của RollingPlain/SAGE_IVIF, md5 `241396a51a3c5e85e360a409d9e8fe4d`), giống `test.py`. Tác giả không công bố checkpoint Teacher.
 - Đã kiểm (14/11): chạy checkpoint này trên 6 ảnh mẫu trong repo SAGE (`data/test`, ảnh M³FD 1024×768) ra gần trùng ảnh ghép tác giả để sẵn (`result/test`): lệch trung bình 0,2 mức xám (thang 0–255), tương quan 0,9999 → bước tạo ảnh của nhóm đúng.
@@ -158,10 +170,15 @@ Chi tiết: [`ca_thang_thua.txt`](ca_thang_thua.txt). Hình (dự đoán seed 0)
 ## 8. Đã kiểm lỗi những gì
 
 Vì kết quả lệch bài, nhóm đã kiểm kỹ trước khi kết luận – **không thấy lỗi**:
-- Danh sách ảnh train / test không giao nhau; md5 ảnh train và test không trùng.
-- Chấm lại độc lập từ ảnh dự đoán + nhãn gốc → khớp 100% số cũ.
-- Log Kaggle: đủ 1.500 ảnh mỗi loại, loss hội tụ, đủ 15.200 vòng lặp.
-- Ba seed cho kết quả cùng chiều (SAGE − VIS: +0,55 / +0,51 / +1,40).
+
+| Kiểm gì | Cách kiểm | Kết quả |
+|---|---|---|
+| Ảnh SAGE tạo đúng chưa | Chạy checkpoint công bố trên 6 ảnh mẫu của repo SAGE, so với ảnh ghép tác giả để sẵn | Lệch TB 0,2 mức xám / 255, tương quan 0,9999 (mục 5) |
+| Rò dữ liệu | Danh sách train/test không giao nhau, md5 ảnh không trùng; 7 ảnh test liền kề train | Báo cả 280 và 273 ảnh – kết luận không đổi |
+| Cách tính mIoU | Tính 3 quy ước: 13 lớp có mặt, kiểu SegMiF, kiểu MRFS; thêm 7 lớp bài in | Kết luận không đổi |
+| Code chấm | Chấm lại độc lập từ ảnh dự đoán + nhãn gốc | Khớp 100% số cũ |
+| Train đủ chưa | Log Kaggle | Đủ 1.500 ảnh mỗi loại, đủ 15.200 vòng lặp, loss hội tụ |
+| Do may rủi một lần chạy? | 3 seed + khoảng tin cậy bootstrap theo khối | SAGE − VIS cùng chiều cả 3 seed (+0,55 / +0,51 / +1,40), không seed nào có ý nghĩa |
 
 ---
 
