@@ -1,0 +1,33 @@
+{
+  "bien_the": "sage",
+  "model": "b3",
+  "seed": 1,
+  "gop_dev": true,
+  "lop0": true,
+  "epochs": 100,
+  "n_train": 1220,
+  "best_dev_miou": null,
+  "ckpt": "last",
+  "280": {
+    "mIoU_co_mat": 62.925855739089826,
+    "mIoU_14": 58.43115175772626,
+    "mIoU_7": 73.40030240331897,
+    "so_lop_co_mat": 13,
+    "pixel_acc": 92.57156286639913,
+    "mIoU_15_nan0": 54.48972118145333,
+    "mIoU_7_ca_nhan0": 71.59904215094849,
+    "IoU_unlabeled": 16.519066774389355,
+    "so_anh": 280
+  },
+  "273": {
+    "mIoU_co_mat": 63.073485027686246,
+    "mIoU_14": 58.56823609713723,
+    "mIoU_7": 73.69768582592239,
+    "so_lop_co_mat": 13,
+    "pixel_acc": 92.59329267932132,
+    "mIoU_15_nan0": 54.0620732544662,
+    "mIoU_7_ca_nhan0": 71.89910641023526,
+    "IoU_unlabeled": 8.13448240327298,
+    "so_anh": 273
+  }
+}
