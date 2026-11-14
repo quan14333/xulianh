@@ -9,7 +9,7 @@
 - **Mục đích:** kiểm lại lời bài SAGE (CVPR 2025): *"ảnh ghép SAGE giúp mạng phân đoạn hiểu cảnh tốt hơn ảnh thường **+12,1 mIoU**"* trên FMB.
 - **Kết quả:** nhóm đo được SAGE chỉ hơn ảnh thường **+0,8 mIoU** (trung bình 3 seed), không seed nào có ý nghĩa thống kê → **chưa tái lập được** +12,1.
 - **Bước tạo ảnh SAGE của nhóm đúng:** checkpoint công bố chạy ra gần trùng ảnh mẫu của tác giả. Số của ảnh thường khớp bài, chỉ riêng SAGE thấp hơn bài. Bài không ghi ảnh SAGE ở Bảng 1 tạo từ đâu, nên **chưa xác định được nguyên nhân**.
-- **Ghép đơn giản tốt hơn SAGE (sát ngưỡng):** cộng ảnh nhiệt với ảnh thường rồi chia đôi được **64,4**, cao hơn SAGE (**63,4**) ở cả 3 seed; gộp 3 seed chênh **+1,05**, có ý nghĩa nhưng sát 0.
+- **Ghép đơn giản tốt hơn SAGE, bằng chứng yếu:** cộng ảnh nhiệt với ảnh thường rồi chia đôi được **64,4**, cao hơn SAGE (**63,4**) ở cả 3 seed; gộp 3 seed chênh **+1,05** [+0,08; +2,16]. Đạt tiêu chí đặt trước, nhưng cận dưới chỉ +0,08.
 - **SAGE giúp thật ở lớp người** (ban đêm, có khói), nhưng ảnh nhiệt đơn thuần hay ghép trung bình cũng giúp y như vậy → cái lợi đến từ **ảnh nhiệt**, chưa chắc nhờ phần SAM của SAGE.
 
 ---
@@ -71,8 +71,8 @@ Bài **không công bố code chấm** và **không ghi đủ chi tiết**. Ch�
 | | Seed 0 | Seed 1 | Seed 2 | **Gộp 3 seed** | Đọc là |
 |---|---|---|---|---|---|
 | SAGE − VIS | +0,55 | +0,51 | +1,40 | +0,82 [−0,86; +3,04] | SAGE gần như **không hơn** ảnh thường |
-| TB − VIS | +2,20* | +1,35 | +2,07* | +1,87 [−0,01; +4,19] | Ghép trung bình có giúp (sát ngưỡng) |
-| **TB − SAGE** | **+1,65*** | +0,84 | +0,67 | **+1,05 [+0,08; +2,16]*** | Ghép trung bình **tốt hơn** SAGE, sát ngưỡng |
+| TB − VIS | +2,20* | +1,35 | +2,07* | +1,87 [−0,01; +4,19] | Ghép trung bình có xu hướng giúp, nhưng gộp chưa có ý nghĩa (cận dưới −0,01) |
+| **TB − SAGE** | **+1,65*** | +0,84 | +0,67 | **+1,05 [+0,08; +2,16]*** | Ghép trung bình **tốt hơn** SAGE – đạt tiêu chí, bằng chứng yếu (cận dưới +0,08) |
 | SAGE − IR | +7,95* | +6,43* | +6,49* | +6,96 [+3,58; +10,46]* | SAGE hơn hẳn ảnh nhiệt đơn thuần |
 
 Khoảng tin cậy tính bằng bootstrap theo **khối ảnh liền nhau** (ảnh FMB cắt từ video, ảnh liền số giống nhau). Cột "gộp 3 seed": mỗi lần bốc lại dùng cùng bộ ảnh cho cả 3 seed rồi lấy trung bình chênh lệch – chỉ tính dao động theo ảnh, không tính dao động giữa seed (xem 3 cột seed để thấy dao động đó).
@@ -167,7 +167,7 @@ Vì kết quả lệch bài, nhóm đã kiểm kỹ trước khi kết luận �
 ### 9.1. Kết luận (có số liệu, 3 seed, khoảng tin cậy)
 
 1. **Với checkpoint SAGE công bố, nhóm không tái lập được mức tăng +12,1 của bài.** SAGE − VIS chỉ **+0,8** (gộp 3 seed, CI [−0,86; +3,04]), không seed nào có ý nghĩa thống kê. Theo tiêu chí đặt trước (≤ +4 là không tái lập được) → **không tái lập được**.
-2. **Ghép trung bình (TB) tốt hơn SAGE, nhưng sát ngưỡng.** Quy tắc đặt trước (ghi 13/11, trước khi có seed 2): TB > SAGE ở cả 3 seed **và** gộp 3 seed có ý nghĩa → viết "tốt hơn". Kết quả: TB > SAGE cả 3 seed (+1,65 / +0,84 / +0,67), gộp **+1,05** [+0,08; +2,16] → **đạt**. Khi trình bày nói rõ mức chênh nhỏ (~1 mIoU) và cận dưới khoảng tin cậy sát 0.
+2. **Ghép trung bình (TB) tốt hơn SAGE, bằng chứng yếu.** Tiêu chí đặt trước (ghi 13/11, trước khi có seed 2) gồm hai điều kiện, **không có ngưỡng về độ lớn**: (a) TB > SAGE ở cả 3 seed; (b) khoảng tin cậy 95% gộp 3 seed không chứa 0. Đạt cả hai → viết "tốt hơn", không thì viết "ngang". Kết quả: (a) +1,65 / +0,84 / +0,67 – đạt; (b) gộp **+1,05** [+0,08; +2,16] – đạt. Bằng chứng yếu vì: cận dưới chỉ +0,08 (rất gần 0); khoảng tin cậy gộp chỉ tính dao động theo ảnh, **chưa tính dao động giữa seed** (tính thêm thì nhiều khả năng chứa 0); mức chênh nhỏ (~1 mIoU).
 3. **Ghép tốt hơn hẳn chỉ dùng ảnh nhiệt:** SAGE − IR **+6,96** [+3,58; +10,46], có ý nghĩa ở cả 3 seed.
 4. **Bước tạo ảnh SAGE của nhóm đúng:** checkpoint công bố chạy ra gần trùng ảnh mẫu của tác giả (lệch trung bình 0,2 mức xám, tương quan 0,9999).
 
