@@ -162,14 +162,26 @@ Vì kết quả lệch bài, nhóm đã kiểm kỹ trước khi kết luận �
 
 ---
 
-## 9. Kết luận và ý nghĩa cho đồ án
+## 9. Kết luận, nhận định và ý nghĩa cho đồ án
 
-1. **Với code và trọng số SAGE đã công bố, nhóm không tái lập được mức tăng +12,1** (chỉ +0,8, 3 seed). Bước tạo ảnh SAGE đã kiểm là đúng, VIS khớp bài; nghi khác biệt nằm ở ảnh SAGE bài đã dùng (bài không ghi Teacher hay Student, checkpoint nào), nhưng chưa loại trừ khác biệt cách chấm. Chưa xác định được nguyên nhân.
-2. **Ghép trung bình đơn giản tốt hơn SAGE, nhưng sát ngưỡng.** Quy tắc đặt trước (ghi 13/11, trước khi có seed 2): TB > SAGE ở cả 3 seed **và** gộp 3 seed có ý nghĩa → viết "tốt hơn". Kết quả: TB > SAGE cả 3 seed (+1,65 / +0,84 / +0,67), gộp +1,05 [+0,08; +2,16] → **đạt**. Khi trình bày nên nói rõ mức chênh nhỏ (~1 mIoU) và cận dưới khoảng tin cậy sát 0.
-3. **Cái lợi ở lớp người đến từ ảnh nhiệt**, không thấy bằng chứng là nhờ SAM.
-4. **Gap đề xuất (chưa chốt):** *lợi ích phân đoạn của SAGE và phần SAM tốn kém của nó chưa được kiểm chứng chắc.* Bước tiếp theo kiểm trực tiếp: train lại Student **bỏ SAM** rồi chấm bằng đúng thiết lập này (đã chuẩn bị code, chưa chạy, chưa đưa lên repo).
+### 9.1. Kết luận (có số liệu, 3 seed, khoảng tin cậy)
 
-**Đề xuất:** dùng thiết lập B3 này làm **baseline chung của nhóm** – mọi cải tiến sau này phải hơn **cả SAGE lẫn TB** trên đúng thiết lập này (cùng split, cùng cấu hình, cùng code chấm, 280 + 273 ảnh, nhiều seed).
+1. **Với checkpoint SAGE công bố, nhóm không tái lập được mức tăng +12,1 của bài.** SAGE − VIS chỉ **+0,8** (gộp 3 seed, CI [−0,86; +3,04]), không seed nào có ý nghĩa thống kê. Theo tiêu chí đặt trước (≤ +4 là không tái lập được) → **không tái lập được**.
+2. **Ghép trung bình (TB) tốt hơn SAGE, nhưng sát ngưỡng.** Quy tắc đặt trước (ghi 13/11, trước khi có seed 2): TB > SAGE ở cả 3 seed **và** gộp 3 seed có ý nghĩa → viết "tốt hơn". Kết quả: TB > SAGE cả 3 seed (+1,65 / +0,84 / +0,67), gộp **+1,05** [+0,08; +2,16] → **đạt**. Khi trình bày nói rõ mức chênh nhỏ (~1 mIoU) và cận dưới khoảng tin cậy sát 0.
+3. **Ghép tốt hơn hẳn chỉ dùng ảnh nhiệt:** SAGE − IR **+6,96** [+3,58; +10,46], có ý nghĩa ở cả 3 seed.
+4. **Bước tạo ảnh SAGE của nhóm đúng:** checkpoint công bố chạy ra gần trùng ảnh mẫu của tác giả (lệch trung bình 0,2 mức xám, tương quan 0,9999).
+
+### 9.2. Nhận định (suy ra từ số liệu, chưa kiểm chứng trực tiếp)
+
+1. **Chênh lệch với bài có thể nằm ở ảnh SAGE bài đã dùng** (ví dụ ảnh từ Teacher, hoặc từ checkpoint khác). Căn cứ: VIS khớp bài, chỉ SAGE lệch. Chưa chắc vì bài không ghi Bảng 1 dùng Teacher hay Student, checkpoint nào; IR cũng không khớp hẳn nên chưa loại trừ khác biệt cách chấm.
+2. **Checkpoint công bố nhiều khả năng được train trên FMB.** Căn cứ gián tiếp: thống kê BatchNorm khớp FMB train nhất; chỉ phản ánh giai đoạn cuối quá trình train.
+3. **Cái lợi ở lớp người đến từ ảnh nhiệt, chưa thấy là nhờ SAM.** Căn cứ: IR và TB nhận người tốt ngang SAGE (~70 so với VIS ~59). Chưa có thí nghiệm bỏ SAM để kiểm.
+4. **SAGE mạnh ở ảnh tối và lớp người, yếu ở xe lớn và ban ngày** (mục 7). Đây là mô tả theo từng ảnh, không có tiêu chí đặt trước; ở ảnh tối TB − SAGE +3,4 nhưng chưa có ý nghĩa (91 ảnh); lớp xe buýt dao động mạnh giữa seed.
+
+### 9.3. Ý nghĩa cho đồ án
+
+- **Gap đề xuất (chưa chốt):** *lợi ích phân đoạn của SAGE và phần SAM tốn kém của nó chưa được kiểm chứng chắc.* Bước tiếp theo kiểm trực tiếp: train lại Student **bỏ SAM** rồi chấm bằng đúng thiết lập này (đã chuẩn bị code, chưa chạy, chưa đưa lên repo).
+- **Đề xuất:** dùng thiết lập B3 này làm **baseline chung của nhóm** – mọi cải tiến sau này phải hơn **cả SAGE lẫn TB** trên đúng thiết lập này (cùng split, cùng cấu hình, cùng code chấm, 280 + 273 ảnh, nhiều seed).
 
 ---
 

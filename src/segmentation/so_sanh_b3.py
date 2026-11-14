@@ -54,7 +54,7 @@ d["cap"] = d.a + "−" + d.b
 print(d.pivot_table(index=["nhom", "cap"], columns="seed", values="o", aggfunc="first", sort=False).to_string())
 
 # GỘP SEED: mỗi lần bootstrap dùng CÙNG bộ ảnh cho mọi seed, lấy TB chênh lệch qua seed
-# (chỉ tính biến thiên theo ảnh; biến thiên seed xem ở bảng trên). Tiêu chí ghi trong reports/experiments/b3_fmb_seg/README.md mục 9.
+# (chỉ tính biến thiên theo ảnh; biến thiên seed xem ở bảng trên). Tiêu chí ghi trong reports/experiments/b3_fmb_seg/README.md mục 9.1.
 if len(SEEDS) > 1:
     print(f"\n################ GỘP {len(SEEDS)} SEED (273 ảnh, TB chênh lệch qua seed) ################")
     for g, chon in [("273 ảnh", sach), ("tối", sach & (nhom == "toi")),
