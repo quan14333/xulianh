@@ -1,0 +1,56 @@
+# Team candidate, NOT the official SAGE training objective.
+# No objective approval has been supplied. Full training is intentionally blocked.
+status: PROVISIONAL
+approval_record: null
+protocol: development_1045_175
+method: sage_finetuned
+data:
+  root: D:/SAGE_Research/FMB
+  train_manifest: data/manifests/train.csv
+  dev_manifest: data/manifests/dev.csv
+  train_count: 1045
+  dev_count: 175
+  train_sha256: 86158cdcd02ad08c1143135f35b06c1803489e842c4eda0a79c90198590b3071
+  dev_sha256: 4720243878c093a8717f5c09a907b164618c97e8fb68ffb8dff2db4e93ba6f15
+  verify_md5: true
+model:
+  source_root: D:/SAGE_Research/SAGE_IVIF
+  source_sha256: e9120042916db89a2056a13d1b15552d57390bc1052508af1cbed096b4dcab4d
+  pretrained: D:/SAGE_Research/SAGE_IVIF/checkpoints/checkpoints.pt
+  pretrained_sha256: ecfde477ca4cd65401f207d5dc91ce6c475a49891d768dbdb7a66366255ee836
+  dim: 32
+  train_patterns: ['*']
+  freeze_patterns: []
+  bn_running_stats: frozen_pretrained
+loss:
+  intensity: 1.0
+  gradient: 0.2
+  anchor: 1.0
+optimizer:
+  name: Adam
+  lr: 0.00001
+  betas: [0.9, 0.999]
+  eps: 0.00000001
+  weight_decay: 0.0
+scheduler:
+  name: cosine
+  eta_min: 0.000001
+training:
+  seed: 2
+  epochs: 20
+  microbatch: 2
+  accumulation: 2
+  crop_hw: [192, 256]
+  hflip_p: 0.5
+  device: cuda
+  num_workers: 0
+  cpu_threads: 4
+  precision: fp32
+  tf32: false
+  deterministic: true
+  gradient_clip_norm: 1.0
+  peak_limit_gib: 4.0
+  min_free_gib: 1.0
+  checkpoint_selection: last
+inference:
+  contract: b3_y_clamp_round_uint8_then_opencv_ycrcb_to_bgr

@@ -1,0 +1,64 @@
+schema_version: 1
+status: TECHNICAL_SMOKE_ONLY
+fusion_config: configs/methods/sage_student_finetune.yaml
+variants:
+  sage:
+    status: FROZEN_PRETRAINED
+    checkpoint: D:\SAGE_Research\SAGE_IVIF\checkpoints\checkpoints.pt
+    sha256: ecfde477ca4cd65401f207d5dc91ce6c475a49891d768dbdb7a66366255ee836
+    design: Official SAGE authors; integration by Loc be
+  sage_finetuned:
+    status: PILOT_ONLY_NOT_FULL_BASELINE
+    checkpoint: D:\SAGE_Research\locbe-finetune-artifacts\pilot_20261115_c681ea42\gpu_pilot\last.pt
+    sha256: a8b668a08cb6c20f821e9eb876399138c2bb5b70eddd37138064e2ab6bba4475
+    completed_epochs: 0
+    student_train_data: 1045 registered Train IDs; pilot processed4; no Test
+    selection: last
+    target_epochs: 20
+    student_config_sha256: f116f29ff441373d13c4c9d18551b3f92818f02c5f91f3d9c11113dc19ffad7c
+    design: Team PROVISIONAL Student-only candidate; code by Loc be
+  quan_improved:
+    status: WAITING_FOR_METHOD_SPEC
+    checkpoint: null
+    design: Not supplied; no architecture invented
+b3:
+  reference_root: D:\SAGE_Research\xulianh-finetune
+  reference_commit: 5352eedecaa2a34e703f12e917e31f03627b32b1
+  legacy_review_root: D:\SAGE_Research\xulianh-b3-review
+  legacy_review_commit: 58a24847ac68aca6f232194cf1bc84d9fcf4be52
+  source_sha256:
+    chung.py: 945d6412f0370cab79ed52764b39cb56d4d40ca12ebfcc90a8ea04753b6c8413
+    train_seg.py: c7e988c6708150cc4be498a16a403af522d507d5824f77a5c8392289a271b10f
+  locked_protocol: configs/experiments/b3_fmb_seg.yaml
+  locked_protocol_sha256: 519ad1bdb94ba47ad552015364276e760ddde3dff6fdb6a792a8b8d3066515fa
+  num_classes: 15
+  ignore_index: 255
+  primary_metric: mIoU_co_mat
+  person_id: 8
+  initialization: nvidia/mit-b3 encoder + same seeded random15-class head; verify
+    every tensor across methods
+  training_recipe:
+    epochs: 100
+    batch: 8
+    accumulation: 1
+    seed_list:
+    - 0
+    - 1
+    - 2
+    crop_hw:
+    - 512
+    - 512
+    optimizer: AdamW
+    encoder_lr: 6.0e-05
+    head_lr: 0.0006
+    weight_decay: 0.01
+    warmup_updates: 1500
+    decay: poly_power1
+    precision: FP16_autocast_GradScaler
+    selection: last
+  segmentation_checkpoint: null
+  checkpoint_access_status: NOT_AVAILABLE_NOT_AUTHORIZED
+permissions:
+  run_segmentation_training: false
+  run_full_fusion_training: false
+  use_fmb_test: false
