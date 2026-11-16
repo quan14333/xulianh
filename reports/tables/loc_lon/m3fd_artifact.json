@@ -1,0 +1,8 @@
+{
+  "archive": "runs/loclon_sage_m3fd_300.zip",
+  "sha256": "3d43a03b6a409ea491affd44c73e81788b5a013fa870defb0cb08c2a5383e2ff",
+  "bytes": 289830309,
+  "images": 300,
+  "run_id": "20261114T055320Z_sage_m3fd_student",
+  "protocol_id": "loclon_m3fd_y_reflect_v2"
+}

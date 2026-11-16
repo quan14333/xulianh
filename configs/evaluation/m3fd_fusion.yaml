@@ -1,0 +1,15 @@
+schema_version: 1
+protocol_id: loclon_m3fd_y_reflect_v2
+evaluation:
+  metrics: [EN, SD, SCD, MS_SSIM]
+  input_channel: Y
+  require_matching_ids: true
+  require_matching_shapes: true
+  cast_before_subtraction: float64
+  ms_ssim_aggregation: mean
+  data_range: 255.0
+reporting:
+  statistics: [mean, std, median, valid_count]
+  paired_comparison: false
+# Team protocol; paper implementation parity has not been established.
+# See notebooks/loc_lon/M3FD_PROTOCOL.md for exact numerical conventions.

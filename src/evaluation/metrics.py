@@ -55,8 +55,9 @@ def entropy(image: np.ndarray, bins: int = 256, eps: float = 1e-12) -> float:
     if np.issubdtype(image.dtype, np.integer) and min_val >= 0 and max_val < bins:
         counts = np.bincount(image.ravel(), minlength=bins).astype(np.float64)
     else:
-        # Continuous or normalized values
-        counts, _ = np.histogram(arr, bins=bins, range=(0.0, 255.0 if max_val > 1.0 else 1.0))
+        # Fixed 8-bit domain, including for floating-point luminance. Never infer
+        # a normalized range from a dark image's maximum pixel value.
+        counts, _ = np.histogram(arr, bins=bins, range=(0.0, 256.0))
 
     total = counts.sum()
     if total <= 0:
@@ -299,8 +300,31 @@ def single_scale_ssim(
     Formula:
         SSIM(x, y) = l(x, y) * c(x, y) * s(x, y)
     """
-    lum_val, c_val, s_val = ssim_components(x, y, data_range=data_range)
-    return float(lum_val * c_val * s_val)
+    ssim_value, _ = _ssim_map_means(x, y, data_range)
+    return ssim_value
+
+
+def _ssim_map_means(x: np.ndarray, y: np.ndarray, data_range: float) -> tuple[float, float]:
+    """Mean of local SSIM and CS maps (team reflect-padding protocol v2).
+
+    Averaging each component before multiplying is mathematically different.
+    Keep luminance and CS coupled at the final scale, as in Wang's formulation.
+    """
+    x = np.asarray(x, dtype=np.float64)
+    y = np.asarray(y, dtype=np.float64)
+    if x.shape != y.shape or x.ndim != 2 or not x.size:
+        raise ValueError("SSIM requires nonempty matching 2D arrays")
+    kernel = _gaussian_kernel_1d()
+    def blur(a):
+        return _conv2d_separable_gaussian(a, kernel)
+    ux, uy = blur(x), blur(y)
+    vx = np.maximum(blur(x * x) - ux * ux, 0.0)
+    vy = np.maximum(blur(y * y) - uy * uy, 0.0)
+    covariance = blur(x * y) - ux * uy
+    c1, c2 = (0.01 * data_range) ** 2, (0.03 * data_range) ** 2
+    luminance = (2 * ux * uy + c1) / (ux * ux + uy * uy + c1)
+    cs = (2 * covariance + c2) / (vx + vy + c2)
+    return float(np.mean(luminance * cs)), float(np.mean(cs))
 
 
 DEFAULT_MS_SSIM_WEIGHTS: tuple[float, ...] = (
@@ -368,27 +392,25 @@ def ms_ssim(
         active_weights = np.array(weights, dtype=np.float64)
 
     mcs_list: list[float] = []
-    final_l = 1.0
+    final_ssim = 1.0
 
     for i in range(active_scales):
-        lum_comp, c_comp, s_comp = ssim_components(x_curr, y_curr, data_range=data_range)
-        cs_prod = c_comp * s_comp
+        ssim_value, cs_prod = _ssim_map_means(x_curr, y_curr, data_range)
         if clamp_negative:
             cs_prod = max(cs_prod, 0.0)
-            lum_comp = max(lum_comp, 0.0)
+            ssim_value = max(ssim_value, 0.0)
 
         mcs_list.append(cs_prod)
 
         if i == active_scales - 1:
-            final_l = lum_comp
+            final_ssim = ssim_value
         else:
             x_curr = _downsample_2x2(x_curr)
             y_curr = _downsample_2x2(y_curr)
 
-    # Combine multi-scale components
-    # val = (l_M ^ beta_M) * prod_{j=1}^M (c_j * s_j) ^ beta_j
-    val = (final_l ** active_weights[-1])
-    for cs_val, w in zip(mcs_list, active_weights):
+    # Mean CS at the first M-1 scales; mean local SSIM at the last scale.
+    val = final_ssim ** active_weights[-1]
+    for cs_val, w in zip(mcs_list[:-1], active_weights[:-1]):
         val *= (cs_val ** w)
 
     return float(np.clip(val, 0.0, 1.0))

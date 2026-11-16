@@ -129,70 +129,37 @@ def build_triplets(
     ir_dir: Path,
     vis_dir: Path,
 ) -> list[dict[str, str | Path]]:
-    triplets = []
+    def index(directory: Path) -> dict[str, Path]:
+        if not directory.is_dir():
+            raise FileNotFoundError(f"Image directory missing: {directory}")
+        result = {}
+        for path in sorted(directory.iterdir()):
+            if path.is_file() and path.suffix.lower() in {".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff"}:
+                if path.stem in result:
+                    raise ValueError(f"Duplicate image ID '{path.stem}' in {directory}")
+                result[path.stem] = path
+        return result
 
-    if manifest_path is not None and manifest_path.is_file():
-        with manifest_path.open("r", encoding="utf-8") as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                img_id = row.get("image_id") or row.get("id") or row.get("name")
-                if not img_id:
-                    continue
-                # Remove extension if provided
-                stem = Path(img_id).stem
-                # Find matching files with common extensions
-                fused_candidates = list(fused_dir.glob(f"{stem}.*"))
-
-                # Check direct or glob matching for IR and VIS
-                ir_file: Path | None = None
-                if (ir_dir / f"{stem}.png").is_file():
-                    ir_file = ir_dir / f"{stem}.png"
-                else:
-                    ir_candidates = list(ir_dir.glob(f"{stem}.*"))
-                    if ir_candidates:
-                        ir_file = ir_candidates[0]
-
-                vis_file: Path | None = None
-                if (vis_dir / f"{stem}.png").is_file():
-                    vis_file = vis_dir / f"{stem}.png"
-                else:
-                    vis_candidates = list(vis_dir.glob(f"{stem}.*"))
-                    if vis_candidates:
-                        vis_file = vis_candidates[0]
-
-                if fused_candidates and ir_file is not None and vis_file is not None:
-                    triplets.append(
-                        {
-                            "image_id": stem,
-                            "fused_path": fused_candidates[0],
-                            "ir_path": ir_file,
-                            "vis_path": vis_file,
-                        }
-                    )
+    fused, ir, vis = (index(d) for d in (fused_dir, ir_dir, vis_dir))
+    if manifest_path is not None:
+        with manifest_path.open("r", encoding="utf-8") as stream:
+            ids = []
+            for row in csv.DictReader(stream):
+                image_id = row.get("image_id") or row.get("id") or row.get("name")
+                if not image_id:
+                    raise ValueError("Manifest row has no image ID")
+                ids.append(Path(image_id).stem)
+        if len(ids) != len(set(ids)):
+            raise ValueError("Duplicate image IDs in manifest")
     else:
-        # Scan fused_dir directly
-        for fused_file in sorted(fused_dir.iterdir()):
-            if fused_file.is_file() and fused_file.suffix.lower() in {
-                ".png",
-                ".jpg",
-                ".jpeg",
-                ".bmp",
-            }:
-                stem = fused_file.stem
-                ir_candidates = list(ir_dir.glob(f"{stem}.*"))
-                vis_candidates = list(vis_dir.glob(f"{stem}.*"))
-
-                if ir_candidates and vis_candidates:
-                    triplets.append(
-                        {
-                            "image_id": stem,
-                            "fused_path": fused_file,
-                            "ir_path": ir_candidates[0],
-                            "vis_path": vis_candidates[0],
-                        }
-                    )
-
-    return triplets
+        if not (fused.keys() == ir.keys() == vis.keys()):
+            raise ValueError("IR, VIS and fused ID sets differ; refusing partial evaluation")
+        ids = sorted(ir)
+    for image_id in ids:
+        for label, files in (("fused", fused), ("IR", ir), ("VIS", vis)):
+            if image_id not in files:
+                raise ValueError(f"Missing {label} image for manifest ID '{image_id}'")
+    return [dict(image_id=i, fused_path=fused[i], ir_path=ir[i], vis_path=vis[i]) for i in ids]
 
 
 def main() -> int:
@@ -263,7 +230,7 @@ def main() -> int:
         )
         print(f"Paired comparison written to: {paired_out}")
 
-    return 0
+    return 1 if summary["invalid_images"] else 0
 
 
 if __name__ == "__main__":

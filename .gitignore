@@ -40,6 +40,7 @@ data/processed/**
 *.7z
 
 # Model artifacts and large arrays
+/external/SAGE_IVIF/
 checkpoints/pretrained/**
 checkpoints/experiments/**
 !checkpoints/pretrained/.gitkeep
@@ -93,4 +94,6 @@ reports/slides/**
 !reports/tables/loc_lon/
 !reports/tables/loc_lon/*.csv
 !reports/tables/loc_lon/README.md
+!reports/tables/loc_lon/m3fd_*.json
+!reports/weekly/loc_lon_2026-11-14.md
 !reports/weekly/loc_lon_2026-11-08.md

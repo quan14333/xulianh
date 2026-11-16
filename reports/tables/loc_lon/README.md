@@ -1,5 +1,11 @@
 # Bảng kiểm chứng Metric — Lộc lớn (Evaluation)
 
+**Lưu ý phiên bản 14/11/2026:** bảng tham chiếu/parity cũ bên dưới được giữ để truy
+vết, chưa xác minh protocol mới `loclon_m3fd_y_reflect_v2`. Xem
+[`M3FD_PROTOCOL.md`](../../../notebooks/loc_lon/M3FD_PROTOCOL.md) về thay đổi EN và
+MS-SSIM. Kết quả M³FD mới phải dẫn tới run đủ 300 ảnh với config/hash tương ứng;
+không suy ra parity với paper từ các ca synthetic cũ.
+
 Thư mục này lưu trữ các bảng tra cứu, kiểm chứng toán học và đối chuẩn cho **8 chỉ số cốt lõi bắt buộc** theo đúng đồ thị violin trong bài báo **SAGE (CVPR 2025, Figure 5)**, kèm các metric bổ trợ chẩn đoán:
 - **Nhóm 1 — No-Reference Image Quality Assessment (NR-IQA)** (đánh giá trực tiếp ảnh fused $F$ không cần ảnh chuẩn):
   1. `PaQ-2-PiQ↑` (tỷ lệ x1.0)
