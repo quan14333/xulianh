@@ -1,5 +1,7 @@
 # Workspace Đánh giá & Kiểm nghiệm Metric — Lộc lớn (Evaluation)
 
+Tài liệu bàn giao tổng hợp: [`BAN_GIAO_LOC_LON.md`](../../docs/BAN_GIAO_LOC_LON.md).
+
 **Phân công 14/11/2026:** chạy SAGE Student trên **M³FD Fusion, 300 cặp**, bàn giao
 ảnh fused và **EN/SD/SCD/MS-SSIM**. Xem [protocol mới](M3FD_PROTOCOL.md) và
 [notebook chạy baseline](SAGE_M3FD_Baseline.ipynb). CLI:
