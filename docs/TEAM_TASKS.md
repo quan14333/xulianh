@@ -43,6 +43,19 @@ review; chưa merge. Trạng thái dưới đây theo dõi PR, chưa xác nhận
 
 **Owner paths:** `notebooks/loc_lon/`, `src/evaluation/`, `tests/`, `reports/tables/`, card `loc_lon.md`.
 
+**Cập nhật phân công 14/11/2026 — đã chạy và bàn giao tại workspace:** SAGE Student trên
+M³FD Fusion đủ **300/300 ảnh**, 0 ảnh lỗi, cùng checkpoint với baseline FMB.
+Đã chuẩn hóa bốn metric EN/SD/SCD/MS-SSIM, sửa phép tổng hợp bản đồ MS-SSIM và
+khóa histogram EN. Protocol mới `loclon_m3fd_y_reflect_v2`; chưa xác nhận parity với
+script metric của paper. Các bảng kiểm chứng cũ bên dưới thuộc phiên bản trước.
+
+- [Báo cáo kết quả ngày 14/11](../reports/weekly/loc_lon_2026-11-14.md).
+- [Bảng tổng hợp 300 ảnh](../reports/tables/loc_lon/m3fd_summary.csv).
+- [Protocol và cách chạy lại](../notebooks/loc_lon/M3FD_PROTOCOL.md).
+- Artifact local: `runs/20261114_sage_m3fd_loclon_v2/`;
+  gói bàn giao `runs/loclon_sage_m3fd_300.zip` (ảnh lớn không đưa vào Git).
+- 84 CPU tests đạt; không chạy segmentation/mIoU trong phân công này.
+
 **Bàn giao:** [PR #6](https://github.com/quan14333/xulianh/pull/6) đã mở, CI GitHub Actions xanh toàn bộ. Mã nguồn, 72 unit tests CPU, 5 bảng tra cứu, bộ cấu hình 8 metric SAGE CVPR 2025 và báo cáo tuần đã hoàn thiện 100%.
 
 | Công việc | Trạng thái | Evidence trong repo / bước tiếp theo |

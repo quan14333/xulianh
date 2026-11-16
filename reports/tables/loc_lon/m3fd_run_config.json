@@ -1,0 +1,38 @@
+{
+  "run_id": "20261114T055320Z_sage_m3fd_student",
+  "source": "team-reproduced",
+  "method": "SAGE pretrained Student",
+  "dataset": "M3FD_Fusion",
+  "expected_count": 300,
+  "seed": 2,
+  "batch_size": 1,
+  "upstream_url": "https://github.com/RollingPlain/SAGE_IVIF",
+  "upstream_commit": "377fdbef6b8b6ccbd1139358ad66bb41ea084dc1",
+  "upstream_license": "MIT",
+  "model_sha256": "1f4fef46ae29912f45e0143fd3e2c59f90d5334d7a03b044b3e0b2385723f18b",
+  "checkpoint_sha256": "ecfde477ca4cd65401f207d5dc91ce6c475a49891d768dbdb7a66366255ee836",
+  "student_parameters": 135617,
+  "repository_commit": "5cf686ccdf9e189ffd62e578ed109420a14ec391",
+  "protocol_id": "loclon_m3fd_y_reflect_v2",
+  "evaluation_config_sha256": "fcd9bc1c3d486ae179d5d91759af86140e5e5d2edf67e7bb6bdc95765d97dcd3",
+  "evaluator_sha256": "ea9f3bc4925bccde1b9dafbf80f660074ab1de1997aa968525215d0e519d7a08",
+  "source_sha256": {
+    "src/evaluation/evaluator.py": "67340a82914dcde3587f23fd4f4e6ec01e2ac8b265e3476b50ba92e8a193dabc",
+    "src/evaluation/image_io.py": "89d22d7c32d91516cb4df737ce41c6339eddeee9b0d17e0d4c5c8644144e2137",
+    "src/evaluation/metrics.py": "ea9f3bc4925bccde1b9dafbf80f660074ab1de1997aa968525215d0e519d7a08",
+    "configs/evaluation/m3fd_fusion.yaml": "fcd9bc1c3d486ae179d5d91759af86140e5e5d2edf67e7bb6bdc95765d97dcd3"
+  },
+  "runner_sha256": "b29643c9bfb45d9272d69ada30d4eab32ed1455534a23e2bad6db829a0c44cc5",
+  "device": "cpu",
+  "threads": 4,
+  "preprocessing": "OpenCV BGR->YCrCb (uint8)/255; IR BGR->GRAY/255; no resize",
+  "postprocessing": "upstream YCrCb2RGB matrix; clamp; multiply 255 add .5; uint8 RGB PNG",
+  "adaptations": [
+    "import model_sub/model.py (upstream test.py references missing model_sub.py)",
+    "device-neutral upstream color matrix; no architecture or weight changes",
+    "sorted exact ID pairing; deterministic seed; explicit CPU support"
+  ],
+  "evaluation": "Saved PNG BT.601 float64 Y; raw metrics; reflect padding v2; mean MS-SSIM",
+  "status": "complete",
+  "completed_images": 300
+}
