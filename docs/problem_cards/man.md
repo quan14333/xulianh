@@ -1,10 +1,14 @@
 # Problem–Solution Card — Mân
 
-**Trạng thái:** Draft, bản 2. Đây là `man_problem.md` trong bảng phân công 08/11.
+**Trạng thái:** Bản 3. **Problem bị bác bỏ** theo ngưỡng đặt trước ở mục 12. Đây là `man_problem.md`
+trong bảng phân công 08/11.
 
-Đã chạy thử trên 175 ảnh dev bằng **metric tạm**, chưa phải code metric chung của nhóm. Lần chạy này phát hiện
-cách chấm ở bản 1 có lỗi, nên mục 10–12 được viết lại **sau khi đã thấy kết quả**. Vì vậy số trên dev
-chỉ là thăm dò. Tiêu chí mới cần nhóm xem và kiểm tra lại trên ảnh khác (mục 12).
+**Kết luận ngắn:** khi IR lệch 5–10 px, SAGE có giảm điểm, nhưng giảm **không nhiều hơn** ghép trung bình
+`(Y + IR) / 2`. Mức giảm do nội dung IR bị dời, không phải điểm yếu riêng của SAGE. Kết luận này lấy từ
+lần kiểm tra lại trên 635 ảnh train bằng code metric của Lộc lớn (PR #6), theo cả MS-SSIM và SCD.
+
+Lịch sử: bản 1 có lỗi cách chấm. Bản 2 viết lại mục 10–12 sau khi chạy thử 175 ảnh dev bằng metric tạm.
+Bản 3 chấm lại dev bằng metric PR #6, rồi kiểm tra lại trên ảnh train như bản 2 đã hẹn (mục 3, mục 12).
 
 ## 1. Tên problem
 
@@ -19,8 +23,34 @@ hoặc mờ cạnh. Failure mode này chỉ thuộc về SAGE nếu SAGE giảm 
 
 ## 3. Evidence
 
-Phân loại nguồn: **team-reproduced**. Số audit lấy từ `data/audit/`. Số dev run là lần chạy thử với
-metric tạm, script và số liệu đang ở máy Mân, chưa vào repo.
+Phân loại nguồn: **team-reproduced**. Số audit lấy từ `data/audit/`. Script chạy thử và số liệu đang ở
+máy Mân, chưa vào repo.
+
+**Kiểm tra lại (bản 3): 5 khối lớn nhất trong `train.csv`, 635 ảnh, metric PR #6**
+
+Code metric: `src/evaluation/metrics.py` của PR #6 (commit `5165ee8`, lúc chạy **chưa merge**). Không căn,
+dịch IR d = 0/5/10 px, cùng hướng dịch và cùng cắt 15 px như dev run. Ảnh ghép làm tròn về uint8. Khối:
+`00891–01045`, `01059–01211`, `00214–00350`, `00389–00500`, `01223–01300`.
+
+| Metric | L SAGE (5) | L TB (5) | **E(5)** median | CI95 theo khối | E(10) median | Ảnh có E(5) < 0 |
+|---|---:|---:|---:|---:|---:|---:|
+| MS-SSIM tổng | −2,26% | −2,75% | **+0,53** | **[+0,35; +0,82]** | +0,84 | 11% |
+| SCD | −2,54% | −2,62% | +0,13 | [−0,08; +0,24] | +0,09 | 42% |
+
+- E(5) MS-SSIM dương ở cả 5 khối (+0,28 đến +1,35).
+- Phần giảm gần như chỉ đến từ IR: MS-SSIM với IR giảm 5,04%, với VIS giảm 0,05% (SAGE, d = 5).
+- `MS_SSIM_mean` chỉ là `MS_SSIM_sum / 2`, nên % thay đổi và E giống hệt nhau. Nó **không** gỡ được nghi ngờ
+  MS-SSIM tổng ưu ái ghép trung bình. SCD là metric khác loại và cho cùng hướng, nên nghi ngờ này nhẹ đi.
+
+**Chấm lại dev bằng metric PR #6 (175 ảnh)**
+
+| Metric | E(5) median | CI95 theo khối | E(10) median | Ảnh có E(5) < 0 |
+|---|---:|---:|---:|---:|
+| MS-SSIM tổng | +0,22 | [+0,05; +0,46] | +0,26 | 27% |
+| SCD | −0,31 | [−1,03; +0,07] | −0,91 | 65% |
+
+MS-SSIM khớp với metric tạm (E(5) +0,14). Trên dev, SCD từng nghiêng ngược lại, nhưng không lặp lại trên
+635 ảnh train, nên nhiều khả năng là nhiễu do mẫu nhỏ.
 
 **Từ audit**
 
@@ -59,8 +89,8 @@ hai lần độ chênh giữa hai cách đo. Chưa có bằng chứng lệch n�
 Student không có bước căn chỉnh và học trên ảnh đã căn. Khi IR lệch, Student có thể tạo bóng đôi nặng
 hơn phép cộng đơn giản, nên SAGE sẽ giảm điểm nhiều hơn ghép trung bình.
 
-Giả thuyết bị bác bỏ nếu SAGE giảm không hơn ghép trung bình (mục 12). Dev run thăm dò đang nghiêng về
-bác bỏ.
+Giả thuyết bị bác bỏ nếu SAGE giảm không hơn ghép trung bình (mục 12). **Kết quả: bị bác bỏ** trên
+635 ảnh train (mục 3).
 
 ## 5. Related works
 
@@ -142,12 +172,16 @@ Quy ước bắt buộc:
 Các ngưỡng này được đặt **sau** dev run thăm dò, nên không dùng chính dev run đó để kết luận. Cần chốt
 trước khi kiểm tra lại, bằng metric chung của nhóm trên 5 khối lớn nhất trong `train.csv`. Không dùng test.
 
-| Kết quả | Điều kiện | Dev run thăm dò (chưa tính) |
-|---|---|---|
-| Problem được xác nhận | Median E(5) ≤ −1% và cận trên khoảng tin cậy 95% < 0 | +0,14; [0; 0,49] |
-| Problem bị bác bỏ | Cận dưới khoảng tin cậy 95% của E(5) > −0,5% | Nghiêng về mức này |
-| Chưa kết luận | Không thuộc hai mức trên. Báo cáo số, không tự đổi ngưỡng | |
-| Solution thành công | Ở d = 5 và 10: median G trong ±0,5%, S median ≤ 1 px, S P90 ≤ 2 px, và C ≤ 2% | Chưa đạt |
+Ngưỡng dưới đây áp dụng cho MS-SSIM tổng. SCD chỉ dùng để đối chiếu, không có ngưỡng riêng.
+
+| Kết quả | Điều kiện | Dev run thăm dò (chưa tính) | **Kiểm tra lại, 635 ảnh train** |
+|---|---|---|---|
+| Problem được xác nhận | Median E(5) ≤ −1% và cận trên khoảng tin cậy 95% < 0 | +0,14; [0; 0,49] | Không |
+| Problem bị bác bỏ | Cận dưới khoảng tin cậy 95% của E(5) > −0,5% | Nghiêng về mức này | **Đạt: +0,53; [+0,35; +0,82]** |
+| Chưa kết luận | Không thuộc hai mức trên. Báo cáo số, không tự đổi ngưỡng | | |
+| Solution thành công | Ở d = 5 và 10: median G trong ±0,5%, S median ≤ 1 px, S P90 ≤ 2 px, và C ≤ 2% | Chưa đạt | Không chạy lại |
+
+Vì problem bị bác bỏ nên không chạy lại phần solution. ECC chỉ dừng ở kết quả thăm dò bên dưới.
 
 Dev run thăm dò cho solution:
 
@@ -175,7 +209,12 @@ Bác bỏ vẫn là kết quả có giá trị, vì cho thấy lệch còn sót 
 - **Rủi ro về độ lệch nền:** d = 0 chưa chắc khớp hoàn toàn, và chưa có đáp án thật. Biên nhãn không
   dùng làm trọng tài được, vì chính nhãn cũng lệch khoảng 2 px so với cả IR và VIS.
 - **Rủi ro từ mẫu nhỏ:** dev chỉ có 5 khối, nên khoảng tin cậy theo khối còn thô.
-- **Rủi ro đổi tiêu chí:** bản 2 viết sau khi thấy số, nên bắt buộc kiểm tra lại trên ảnh khác.
+- **Rủi ro đổi tiêu chí:** bản 2 viết sau khi thấy số trên dev. Bản 3 đã kiểm tra lại trên 635 ảnh train
+  với đúng ngưỡng đó, không đổi ngưỡng.
+- **Rủi ro metric:** số bản 3 dùng PR #6 lúc chưa merge. Nếu PR #6 đổi công thức trước khi merge thì cần
+  chạy lại. Ảnh train cũng có thể đã được checkpoint thấy khi train.
+- **Phạm vi của kết luận:** chỉ dịch thẳng ≤ 10 px trên FMB, đo bằng chỉ số ghép. Chưa nói gì về xoay,
+  lệch cục bộ, lệch lớn hơn hay ảnh hưởng tới mIoU.
 - **Fallback:** chuyển sang phân tích SAGE theo điều kiện đêm, sương, khói, chỉ cần ảnh ghép và metric.
 
 Theo [`TEMPLATE.md`](TEMPLATE.md).

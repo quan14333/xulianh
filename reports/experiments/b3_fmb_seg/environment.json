@@ -1,0 +1,16 @@
+{
+  "note": "Môi trường của 12 run B3 (seed 0-2). Lấy từ config.json từng run, log notebook và metadata notebook Kaggle (kaggle kernels pull -m). Phiên bản transformers/numpy/opencv không được in lúc chạy; chúng cố định theo docker_image bên dưới.",
+  "platform": "Kaggle notebook",
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:de153e6d303881930c51286216393d56f56b26458d0661350305a1e8144eea01",
+  "machine_shape": "NvidiaTeslaT4",
+  "gpu": "Tesla T4 x2 (mỗi GPU một run)",
+  "python": "3.13",
+  "torch": "2.11.0+cu130",
+  "transformers": "không ghi lại (theo docker_image)",
+  "pretrained_init": "nvidia/mit-b3 (HuggingFace Hub)",
+  "notebooks": {
+    "thanhmn123/sage-b3-fmb": "vis + sage; v2 seed 0, v3 seed 1, v4 seed 2",
+    "thanhmn123/sage-b3-fmb-tb-ir": "tb + ir; v1 seed 0, v2 seed 1, v3 seed 2"
+  },
+  "dataset_sources": ["thanhmn123/fmb-ivif-sage", "thanhmn123/sage-tai-lap"]
+}

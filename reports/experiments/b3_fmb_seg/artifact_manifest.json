@@ -1,0 +1,138 @@
+{
+  "experiment": "b3_fmb_seg",
+  "locked": "2026-11-14",
+  "description": "SegFormer-B3 train trên từng loại ảnh đầu vào (vis, ir, tb, sage), 3 seed, chấm FMB test 280/273 ảnh",
+  "git_artifacts": [
+    "README.md",
+    "artifact_manifest.json",
+    "tong_hop.csv",
+    "tong_hop.txt",
+    "so_sanh_b3.txt",
+    "ca_thang_thua.txt",
+    "sage_thang.png",
+    "sage_thua.png",
+    "runs/<run_id>/{config.json,log.csv,test_ket_qua_last.json,test_iou_lop_last.csv}"
+  ],
+  "large_artifacts_outside_git": {
+    "kaggle_dataset_checkpoints": "thanhmn123/sage-b3-fmb-checkpoints (private): <run_id>/last.pt, <run_id>/config.json",
+    "kaggle_dataset_results": "thanhmn123/sage-b3-fmb-ketqua (private): runs/<run_id>/test_nham_last.npz, pred_last/*.png",
+    "kaggle_dataset_fmb": "thanhmn123/fmb-ivif-sage (private)",
+    "kaggle_dataset_code_used": "thanhmn123/sage-tai-lap (private; cùng code với src/segmentation)"
+  },
+  "sage_student_checkpoint": {
+    "source": "RollingPlain/SAGE_IVIF checkpoints/checkpoints.pt",
+    "md5": "241396a51a3c5e85e360a409d9e8fe4d"
+  },
+  "manifests": "data/manifests/{train,dev,test}.csv (train + dev gộp = 1.220 ảnh train)",
+  "runs": [
+    {
+      "run_id": "ir_b3_s0_1220_15lop",
+      "bien_the": "ir",
+      "seed": 0,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "68512c087fd201300b63dfce5b584c5e",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb-tb-ir",
+      "notebook_version": 1
+    },
+    {
+      "run_id": "ir_b3_s1_1220_15lop",
+      "bien_the": "ir",
+      "seed": 1,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "f1fd66f264b84bb0211f40201d2737c1",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb-tb-ir",
+      "notebook_version": 2
+    },
+    {
+      "run_id": "ir_b3_s2_1220_15lop",
+      "bien_the": "ir",
+      "seed": 2,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "a8f19c4616fdd81527a9757a89e3c510",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb-tb-ir",
+      "notebook_version": 3
+    },
+    {
+      "run_id": "sage_b3_s0_1220_15lop",
+      "bien_the": "sage",
+      "seed": 0,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "c736af3a0f55968c213986fb69bacb48",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb",
+      "notebook_version": 2
+    },
+    {
+      "run_id": "sage_b3_s1_1220_15lop",
+      "bien_the": "sage",
+      "seed": 1,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "e62e43a87c36fd28cc0ad9ebffd865fb",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb",
+      "notebook_version": 3
+    },
+    {
+      "run_id": "sage_b3_s2_1220_15lop",
+      "bien_the": "sage",
+      "seed": 2,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "63b1b453ddf85297887697c50fb746f9",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb",
+      "notebook_version": 4
+    },
+    {
+      "run_id": "tb_b3_s0_1220_15lop",
+      "bien_the": "tb",
+      "seed": 0,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "0e8578e93b3be0122e8ca33501f87cf6",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb-tb-ir",
+      "notebook_version": 1
+    },
+    {
+      "run_id": "tb_b3_s1_1220_15lop",
+      "bien_the": "tb",
+      "seed": 1,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "c58ed79cc0779c1307227bd9b83d61cc",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb-tb-ir",
+      "notebook_version": 2
+    },
+    {
+      "run_id": "tb_b3_s2_1220_15lop",
+      "bien_the": "tb",
+      "seed": 2,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "cec18cf7270b8f68c0894ebdff236135",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb-tb-ir",
+      "notebook_version": 3
+    },
+    {
+      "run_id": "vis_b3_s0_1220_15lop",
+      "bien_the": "vis",
+      "seed": 0,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "1785b91752cdf11363862981af92529b",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb",
+      "notebook_version": 2
+    },
+    {
+      "run_id": "vis_b3_s1_1220_15lop",
+      "bien_the": "vis",
+      "seed": 1,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "4a46786b22342f00d4979ed93a8ba8e0",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb",
+      "notebook_version": 3
+    },
+    {
+      "run_id": "vis_b3_s2_1220_15lop",
+      "bien_the": "vis",
+      "seed": 2,
+      "checkpoint": "last.pt",
+      "checkpoint_md5": "c482d5e6c0e6c92446929775609329d9",
+      "kaggle_notebook": "thanhmn123/sage-b3-fmb",
+      "notebook_version": 4
+    }
+  ],
+  "retrieval": "Kaggle → Datasets → mở dataset ở trên (cần Mân thêm quyền) → Download, hoặc Add Input trong notebook."
+}

@@ -97,3 +97,13 @@ reports/slides/**
 !reports/tables/loc_lon/m3fd_*.json
 !reports/weekly/loc_lon_2026-11-14.md
 !reports/weekly/loc_lon_2026-11-08.md
+!reports/experiments/b3_fmb_seg/
+!reports/experiments/b3_fmb_seg/*.md
+!reports/experiments/b3_fmb_seg/*.json
+!reports/experiments/b3_fmb_seg/*.csv
+!reports/experiments/b3_fmb_seg/*.txt
+!reports/experiments/b3_fmb_seg/*.png
+!reports/experiments/b3_fmb_seg/runs/
+!reports/experiments/b3_fmb_seg/runs/*/
+!reports/experiments/b3_fmb_seg/runs/*/*.json
+!reports/experiments/b3_fmb_seg/runs/*/*.csv

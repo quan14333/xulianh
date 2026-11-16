@@ -1,0 +1,23 @@
+Ca thắng/thua của SAGE so với VIS (B3, cộng 3 seed, 273 ảnh sạch)
+d = mIoU_ảnh(sage) - mIoU_ảnh(vis): TB +2.10, trung vị +1.47; sage thắng 159 ảnh, thua 51 ảnh, hòa (|d|≤1) 63
+  tối : thắng  72  thua   7  hòa  12
+  vừa : thắng  52  thua  22  hòa  17
+  sáng: thắng  35  thua  22  hòa  34
+
+== 4 ảnh SAGE THẮNG nhiều nhất
+  00089 [sáng] d +40.5 (tb-sage +4.8) | lớp chênh nhất: person 0->85 | person thật đoán thành: vis[vegetation 70%, building 30%] sage[person 94%, building 3%]
+  01047 [tối] d +16.2 (tb-sage -1.2) | lớp chênh nhất: truck 12->82 | truck thật đoán thành: vis[car 71%, truck 12%] sage[truck 89%, road 5%]
+  00090 [sáng] d +16.0 (tb-sage +6.1) | lớp chênh nhất: person 0->51 | person thật đoán thành: vis[building 94%, vegetation 3%] sage[person 52%, building 45%]
+  00794 [tối] d +12.5 (tb-sage -2.2) | lớp chênh nhất: person 0->60 | person thật đoán thành: vis[vegetation 68%, car 30%] sage[person 63%, road 24%]
+  -> sage_thang.png
+
+== 4 ảnh SAGE THUA nhiều nhất
+  00381 [tối] d -18.7 (tb-sage +4.2) | lớp chênh nhất: vegetation 78->14 | vegetation thật đoán thành: vis[vegetation 83%, person 7%] sage[vegetation 85%, building 13%]
+  00388 [tối] d -9.1 (tb-sage +6.6) | lớp chênh nhất: car 51->28 | car thật đoán thành: vis[car 99%, road 1%] sage[car 98%, road 2%]
+  00167 [vừa] d -8.4 (tb-sage +3.2) | lớp chênh nhất: traffic_light 50->23 | traffic_light thật đoán thành: vis[traffic_light 63%, vegetation 37%] sage[vegetation 77%, traffic_light 23%]
+  00169 [vừa] d -6.7 (tb-sage +3.3) | lớp chênh nhất: person 48->16 | person thật đoán thành: vis[person 71%, motorcycle 22%] sage[motorcycle 68%, person 19%]
+  -> sage_thua.png
+
+== Lớp đóng góp nhiều nhất vào d, đếm trên các ảnh |d| > 3
+  thắng: person 68, traffic_light 10, building 9, truck 5, vegetation 3, traffic_sign 2, sky 1, car 1, road 1, bus 1, motorcycle 1, sidewalk 1
+  thua: person 6, traffic_light 2, car 2, sky 2, building 2, traffic_sign 1, vegetation 1, truck 1, sidewalk 1, bus 1
