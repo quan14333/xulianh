@@ -98,3 +98,19 @@ reports/slides/**
 !reports/experiments/b3_fmb_seg/runs/*/
 !reports/experiments/b3_fmb_seg/runs/*/*.json
 !reports/experiments/b3_fmb_seg/runs/*/*.csv
+
+# Loc be handoff: only explicitly reviewed small evidence files.
+!reports/experiments/locbe_sage_finetune/
+!reports/experiments/locbe_sage_finetune/README.md
+!reports/experiments/locbe_sage_finetune/FINETUNE_TRAINING_REPORT.md
+!reports/experiments/locbe_sage_finetune/train_history.csv
+!reports/experiments/locbe_sage_finetune/public_evidence.json
+
+# Local training environments, model caches, and raw logs stay off GitHub.
+/.venv-sage/
+/.cache/
+/.hf-cache/
+/hf_cache/
+/torch_cache/
+/huggingface_cache/
+*.log

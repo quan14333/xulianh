@@ -1,0 +1,2 @@
+stage,completed_full_epochs,epoch,epoch_complete,train_samples,dev_samples,train_total,train_intensity,train_gradient,train_anchor,dev_total,dev_intensity,dev_gradient,dev_anchor,global_step,lr
+GPU_PILOT_ONLY,0,1,False,4,2,0.03432092256844044,0.02886886615306139,0.027260283939540386,0.0,0.028706864453852177,0.01787248859182,0.054157380014657974,2.8995257252972806e-06,1,9.999999191239976e-06

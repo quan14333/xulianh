@@ -1,0 +1,65 @@
+{
+  "scope": "Historical real GPU pilot + B3 technical integration; NOT a full trained baseline or semantic-quality evaluation",
+  "full_training_status": "BLOCKED_FOR_APPROVAL",
+  "completed_full_epochs": 0,
+  "target_epochs_proposed": 20,
+  "original_checkpoint_sha256": "ecfde477ca4cd65401f207d5dc91ce6c475a49891d768dbdb7a66366255ee836",
+  "pilot_checkpoint_sha256": "a8b668a08cb6c20f821e9eb876399138c2bb5b70eddd37138064e2ab6bba4475",
+  "pilot": {
+    "dry_run_only": true,
+    "microbatches": 2,
+    "train_samples": 4,
+    "optimizer_updates": 1,
+    "changed_parameter_tensors": 70
+  },
+  "history_sha256": "a775ad54744a0f1a6c44a4fc037fc761e1e47bb56d95fec2af3d6bbded41fc58",
+  "original_local_report_sha256": "51baa6fa2194b081256b5dfea880b5a5eac05c5d2063fab1022ce561db73135d",
+  "historical_unit_tests": 45,
+  "integration": {
+    "sage": {
+      "status": "PASS",
+      "images": 5,
+      "image_ids": [
+        "00052",
+        "00053",
+        "00054",
+        "00055",
+        "00056"
+      ],
+      "checkpoint_role": "FROZEN_PRETRAINED",
+      "checkpoint_sha256": "ecfde477ca4cd65401f207d5dc91ce6c475a49891d768dbdb7a66366255ee836",
+      "inference_seconds": 0.7797788999741897,
+      "actual_b3_loader_status": "PASS",
+      "loader_images": 5
+    },
+    "sage_finetuned": {
+      "status": "PASS",
+      "images": 5,
+      "image_ids": [
+        "00052",
+        "00053",
+        "00054",
+        "00055",
+        "00056"
+      ],
+      "checkpoint_role": "PILOT_ONLY",
+      "checkpoint_sha256": "a8b668a08cb6c20f821e9eb876399138c2bb5b70eddd37138064e2ab6bba4475",
+      "inference_seconds": 0.20146850001765415,
+      "actual_b3_loader_status": "PASS",
+      "loader_images": 5
+    }
+  },
+  "pixel_parity": {
+    "status": "PASS",
+    "images": 10,
+    "max_abs_pixel_error": 0
+  },
+  "integration_access_audit_sha256": "331fc74494fa709b813953de5686ada51bd6109c5d3a1fd62cd18f33cd66438c",
+  "pixel_verification_sha256": "d4eed08e224bad3238fd2097470a4779cd53b9ab52d83f4341ea2b3cd76d22c5",
+  "quan_method_status": "WAITING_FOR_METHOD_SPEC",
+  "B3_segmentation_inference": "NOT_AVAILABLE_NOT_AUTHORIZED",
+  "new_mIoU": "NOT_MEASURED",
+  "FMB_Test_images_used": false,
+  "raw_logs_and_binaries": "LOCAL_ONLY; not part of commit",
+  "history_hash_contract": "Git text with LF (.gitattributes); source local report/runner hashes refer original historical artifact bytes"
+}
