@@ -1,0 +1,5 @@
+# Dependencies for the synthetic CPU test suite; no model/data downloads.
+# Install the desired PyTorch build separately (CI pins a CPU-only wheel).
+-r requirements-dev.txt
+opencv-python-headless>=4.10,<6
+pandas>=2.2,<4
