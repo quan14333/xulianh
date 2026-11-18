@@ -1,5 +1,17 @@
 # Workspace Đánh giá & Kiểm nghiệm Metric — Lộc lớn (Evaluation)
 
+Tài liệu bàn giao tổng hợp: [`BAN_GIAO_LOC_LON.md`](../../docs/BAN_GIAO_LOC_LON.md).
+
+**Phân công 14/11/2026:** chạy SAGE Student trên **M³FD Fusion, 300 cặp**, bàn giao
+ảnh fused và **EN/SD/SCD/MS-SSIM**. Xem [protocol mới](M3FD_PROTOCOL.md) và
+[notebook chạy baseline](SAGE_M3FD_Baseline.ipynb). CLI:
+`python scripts/run_m3fd_baseline.py --device cpu`.
+
+Protocol mới `loclon_m3fd_y_reflect_v2` sửa phép tổng hợp bản đồ SSIM/MS-SSIM và
+khóa histogram EN. Các bảng kiểm chứng trước 14/11 bên dưới thuộc phiên bản cũ;
+không dùng chúng làm bằng chứng parity cho v2 hoặc cho script của paper.
+Phạm vi bàn giao mới chỉ gồm bốn fusion metric, không chạy NR-IQA.
+
 Workspace này cung cấp notebook và tài liệu kiểm nghiệm cho **8 thước đo chất lượng chuẩn mực của bài báo SAGE (CVPR 2025 Figure 5)**:
 - **4 No-Reference IQA:** `PaQ-2-PiQ↑`, `MUSIQ↑`, `BRISQUE↓`, `NI-QE*10↓`
 - **4 Fusion Fidelity:** `EN*5↑`, `SD*0.5↑`, `SCD*20↑`, `MS-SSIM*20↑`

@@ -133,6 +133,12 @@ class FusionEvaluator:
         }
 
         try:
+            for label, array in (("fused", fused), ("ir", ir), ("vis", vis)):
+                a = np.asarray(array)
+                if not a.size or not np.isfinite(a).all():
+                    raise ValueError(f"{label}: empty or nonfinite pixels")
+                if np.min(a) < 0 or np.max(a) > self.config.data_range + 1e-9:
+                    raise ValueError(f"{label}: pixels outside configured data_range")
             if self.config.require_matching_shapes:
                 validate_matching_shapes(fused, ir, vis, image_id=image_id)
 
@@ -361,7 +367,7 @@ class FusionEvaluator:
             vals = [
                 float(r[m])
                 for r in valid_records
-                if m in r and not math.isnan(float(r[m]))
+                if m in r and math.isfinite(float(r[m]))
             ]
             if vals:
                 arr = np.array(vals, dtype=np.float64)
