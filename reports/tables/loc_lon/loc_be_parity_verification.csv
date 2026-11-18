@@ -1,0 +1,21 @@
+method,metric,reported_mean,reported_median,verified_by_loc_lon,parity_status,notes
+SAGE,EN,6.602865,6.674054,true,MATCH,Shannon entropy with 256 discrete bins
+SAGE,SD,33.611893,33.727414,true,MATCH,Population standard deviation (ddof=0)
+SAGE,SCD,1.679022,1.698389,true,MATCH,Correlation differences sum r(F-IR;VIS)+r(F-VIS;IR)
+SAGE,MS_SSIM_sum,1.554357,1.582532,true,MATCH,Direct sum MS_SSIM(F;IR)+MS_SSIM(F;VIS) in [0; 2]
+SAGE,edge_corr_IR,0.447522,0.455052,true,MATCH,Pearson correlation between Sobel edge magnitudes
+SAGE,edge_corr_VIS,0.914150,0.923797,true,MATCH,Pearson correlation between Sobel edge magnitudes
+PCDFusion,EN,6.637654,6.737515,true,MATCH,Higher entropy due to high-frequency edge texture
+PCDFusion,SD,34.254896,35.215022,true,MATCH,Slightly higher overall contrast
+PCDFusion,SCD,1.539558,1.554780,true,MATCH,Lower correlation difference sum than SAGE (delta -0.1395)
+PCDFusion,MS_SSIM_sum,1.507138,1.550208,true,MATCH,Lower multi-scale structure similarity than SAGE (delta -0.0472)
+PCDFusion,edge_corr_IR,0.489849,0.484794,true,MATCH,Higher edge correlation with IR (+0.0423)
+PCDFusion,edge_corr_VIS,0.922008,0.926461,true,MATCH,Higher edge correlation with VIS (+0.0079)
+Y_AVG,EN,6.063751,5.998337,true,MATCH,Lower entropy due to contrast attenuation from averaging
+Y_AVG,SD,22.266327,21.114332,true,MATCH,Lowest standard deviation across all four methods
+Y_AVG,SCD,1.394601,1.490158,true,MATCH,Moderate correlation difference sum
+Y_AVG,MS_SSIM_sum,1.615028,1.640734,true,MATCH,High MS_SSIM sum due to linear balance
+Y_MAX,EN,6.382280,6.567825,true,MATCH,Higher contrast than average fusion
+Y_MAX,SD,29.909758,29.634603,true,MATCH,Good intensity dynamic range
+Y_MAX,SCD,1.264744,1.262019,true,MATCH,Lowest SCD due to asymmetric pixel switching
+Y_MAX,MS_SSIM_sum,1.511123,1.552208,true,MATCH,MS_SSIM sum on par with PCDFusion
