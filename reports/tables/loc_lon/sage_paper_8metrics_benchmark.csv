@@ -1,0 +1,9 @@
+metric,plot_label,category,direction,scaling_multiplier,theoretical_range,sage_paper_role,description
+PaQ_2_PiQ,PaQ-2-PiQ↑,No-Reference IQA,higher_is_better,1.0,[0.0, 100.0],Evaluated on F,Deep patch-to-picture perceptual quality (Ying et al. CVPR 2020)
+MUSIQ,MUSIQ↑,No-Reference IQA,higher_is_better,1.0,[0.0, 100.0],Evaluated on F,Multi-scale Image Quality Transformer (Ke et al. ICCV 2021)
+BRISQUE,BRISQUE↓,No-Reference IQA,lower_is_better,1.0,[0.0, 100.0],Evaluated on F,Blind spatial domain NSS evaluator via SVR (Mittal et al. IEEE TIP 2012)
+NIQE,NI-QE*10↓,No-Reference IQA,lower_is_better,10.0,[0.0, inf),Evaluated on F,Completely blind NSS naturalness distance scaled x10 (Mittal et al. IEEE SPL 2013)
+EN,EN*5↑,Fusion Fidelity,higher_is_better,5.0,[0.0, 8.0],Evaluated on F,Shannon information entropy scaled x5 (Shannon 1948)
+SD,SD*0.5↑,Fusion Fidelity,higher_is_better,0.5,[0.0, 127.5],Evaluated on F,Standard deviation of intensity dispersion scaled x0.5 (VIFB benchmark)
+SCD,SCD*20↑,Fusion Fidelity,higher_is_better,20.0,[-2.0, 2.0],Evaluated on (F, IR, VIS),Sum of correlation differences scaled x20 (Hou et al. 2014 / Aslan 2015)
+MS_SSIM,MS-SSIM*20↑,Fusion Fidelity,higher_is_better,20.0,[0.0, 1.0],Evaluated on (F, IR, VIS),Multi-scale structural similarity to IR & VIS scaled x20 (Wang et al. 2003)
