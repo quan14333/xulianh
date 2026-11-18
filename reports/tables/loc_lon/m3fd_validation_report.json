@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "images": 300,
+  "invalid_images": 0,
+  "source": "team-reproduced",
+  "checks": [
+    "exact 300 unique matching IDs",
+    "all PNGs decoded RGB at source resolution",
+    "all source and fused SHA256 verified",
+    "four metrics finite for all 300",
+    "mean/std/median independently recomputed from CSV",
+    "source code hashes verified"
+  ],
+  "protocol_id": "loclon_m3fd_y_reflect_v2",
+  "paper_parity": "not established",
+  "inference_and_evaluation_seconds": 682.8187751180176
+}

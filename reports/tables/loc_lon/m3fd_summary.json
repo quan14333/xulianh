@@ -1,0 +1,86 @@
+{
+  "run_id": "20261114T055320Z_sage_m3fd_student",
+  "total_images": 300,
+  "valid_images": 300,
+  "invalid_images": 0,
+  "input_channel": "Y",
+  "ms_ssim_aggregation": "mean",
+  "metrics": {
+    "EN": {
+      "mean": 6.850129466319838,
+      "std": 0.3886259591923921,
+      "median": 6.910205957120096,
+      "valid_count": 300
+    },
+    "SD": {
+      "mean": 36.463394932469534,
+      "std": 10.069930671070363,
+      "median": 35.28146165629911,
+      "valid_count": 300
+    },
+    "SCD": {
+      "mean": 1.6939118642247608,
+      "std": 0.17375157919488315,
+      "median": 1.7466137863839015,
+      "valid_count": 300
+    },
+    "MS_SSIM": {
+      "mean": 0.7556811235076859,
+      "std": 0.06464712001227366,
+      "median": 0.7727737091412453,
+      "valid_count": 300
+    },
+    "EN_scaled": {
+      "mean": 34.25064733159918,
+      "std": 1.943129795961961,
+      "median": 34.551029785600484,
+      "valid_count": 300
+    },
+    "SD_scaled": {
+      "mean": 18.231697466234767,
+      "std": 5.0349653355351816,
+      "median": 17.640730828149554,
+      "valid_count": 300
+    },
+    "SCD_scaled": {
+      "mean": 33.87823728449521,
+      "std": 3.475031583897663,
+      "median": 34.93227572767803,
+      "valid_count": 300
+    },
+    "MS_SSIM_scaled": {
+      "mean": 15.11362247015372,
+      "std": 1.2929424002454732,
+      "median": 15.455474182824906,
+      "valid_count": 300
+    },
+    "MS_SSIM_IR": {
+      "mean": 0.6648364624411649,
+      "std": 0.12632632280320105,
+      "median": 0.679428008472098,
+      "valid_count": 300
+    },
+    "MS_SSIM_VIS": {
+      "mean": 0.8465257845742067,
+      "std": 0.06830826765543299,
+      "median": 0.8600317665594441,
+      "valid_count": 300
+    },
+    "MS_SSIM_mean": {
+      "mean": 0.7556811235076859,
+      "std": 0.06464712001227366,
+      "median": 0.7727737091412453,
+      "valid_count": 300
+    },
+    "MS_SSIM_sum": {
+      "mean": 1.5113622470153718,
+      "std": 0.1292942400245473,
+      "median": 1.5455474182824906,
+      "valid_count": 300
+    }
+  },
+  "protocol_id": "loclon_m3fd_y_reflect_v2",
+  "source": "team-reproduced",
+  "paper_parity": "not established",
+  "checkpoint_sha256": "ecfde477ca4cd65401f207d5dc91ce6c475a49891d768dbdb7a66366255ee836"
+}
