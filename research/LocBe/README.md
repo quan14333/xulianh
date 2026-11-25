@@ -2,7 +2,7 @@
 
 **Repository target:** `https://github.com/quan14333/xulianh`, branch `LocBe`, directory `research/LocBe`.
 
-**Current status (26/11/2026):** Branch `LocBe` was pushed to GitHub in commit `5a609d275fffa4234a6d061c0eab6b796424ca6b`. This evidence update is prepared locally and must be committed separately; do not claim it is already on GitHub.
+**Current GitHub status (26/11/2026):** Branch `LocBe` includes commit `49bdafd5c1788b9d059988d5b1edf785359fa4b5` (280 seed0 predictions, six qualitative panels, fusion metrics, component runtimes). This **checkpoint-link addendum** is a new uncommitted update until separately pushed.
 
 **Important caveat:** FMB Test result is post-exposure / exploratory, not an untouched independent evaluation. Do not tune C3-T after seeing the Test scores. No demonstrated uplift over SAGE/TB.
 
@@ -48,3 +48,7 @@ Unzip `METHOD_DCTR_C3T_FINAL.zip`, then follow `scripts/PUSH_LOCBE.ps1` or `scri
 - `UPDATE_26_11.md`: results and remaining gaps.
 
 **Frozen method, config and checkpoint selection were not modified.** Validation is still post-exposure/exploratory on FMB Test. B3 predictions for SAGE baseline, MS-SSIM convention, and an end-to-end timing remain unverified. The 3 B3 checkpoints were SHA256-matched in a separate recovery step and are outside GitHub (Kaggle Output/Drive).
+
+## Frozen B3 checkpoints — Google Drive storage
+
+Three seed-specific checkpoints are stored in [LocBe_C3T_Checkpoints](https://drive.google.com/drive/folders/1rLJSzac-jkw1M5zmk5TyVllEJGZNmBaI?usp=sharing). See [`CHECKPOINT_STORAGE.md`](CHECKPOINT_STORAGE.md) for file IDs, exact SHA256 and verified scope. **Sharing must be changed from anyone-writer to restricted/group-viewer (or at least link-viewer) before the link is circulated in a public PR.** The local originals were SHA256-verified; the Drive uploads have been checked for names and size but not yet redownloaded for SHA256. No frozen code or model weights were altered.

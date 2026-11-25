@@ -6,8 +6,8 @@
   "group_git_main_commit": "7b21b3e32aec2e864effee9b6458b59a917403f7",
   "sage_repo_commit": "377fdbef6b8b6ccbd1139358ad66bb41ea084dc1",
   "target_branch": "LocBe",
-  "remote_commit_sha": "5a609d275fffa4234a6d061c0eab6b796424ca6b",
-  "remote_push_status": "PUSHED_INITIAL_COMMIT; 26_11_EVIDENCE_AWAITING_PUSH",
+  "remote_commit_sha": "49bdafd5c1788b9d059988d5b1edf785359fa4b5",
+  "remote_push_status": "PUSHED_THROUGH_49BDAFD; CHECKPOINT_LINK_ADDENDUM_PENDING_PUSH",
   "c2_origin_sha256": "7641e319a714fd44b246e3921404ece1110bc6766dd4d5bdc1c9c35c4165d621",
   "known_original_c2_sha256": "7641e319a714fd44b246e3921404ece1110bc6766dd4d5bdc1c9c35c4165d621",
   "sage_student_ckpt_md5": "241396a51a3c5e85e360a409d9e8fe4d",
@@ -31,11 +31,11 @@
     "source/self_test.py": "918cc9366c3e1b4a30e260f74237ccf0295a232d6ccfcf2f8a8481cee9f23ac6"
   },
   "files_sha256": {
-    "CHECKLIST_27_11.md": "7a8d5d041fc31ac26575576f26ce1cfe13ca2f42ec5e2bf8fca9c9e7dcaccb89",
+    "CHECKLIST_27_11.md": "1cdffa5973b86960272f24a0b7c6bf034512b4a3a9a370ed2463f2128fe7f47c",
     "GITHUB_PUSH_GUIDE.md": "9a858150af589bc5bb6c783a4403b2e3956a0360729302527127f733e6732e02",
     "METHOD_SUMMARY.md": "030a0e91b0ea9ea29e8fbf2e0986da8c74dcb0947bc7de68e3d1f2a20fdca698",
     "QUALITATIVE_MISSING.md": "763a5b923596dec3ae52d795b7a0ef6ef0992507a809b6a01f687e91d775e74d",
-    "README.md": "a0ac47018412535f887df712c643597a3e194e9f76a7c7268bf0678b158eef14",
+    "README.md": "e608d0792c70044c974cfbb47b358be9c68640a0cc340b002a3bc06ac0e4ab3d",
     "RESULTS_DISCUSSION.md": "f2705d179bc3d2eb14ae5574960761ad747840a6f581300795c6f426c941bc3a",
     "SLIDE_OUTLINE.md": "7f938f38849e785ea60f262f41a21368eead942e129e999398c4ad1c17b287fc",
     "configs/B3_seed0_config.json": "2eb33ac8606545e911f7d4a81d70c27b2bffdb96a92e3b669a9359430ce9f949",
@@ -398,7 +398,8 @@
     "evidence/inference_only/predictions/c3t_seed0/00639.png": "df1937789dd929944ef5d906787858e7a3d8dbd451ca7eb7169c4d5fab56c3ce",
     "evidence/inference_only/predictions/c3t_seed0/01213.png": "e7f2a9276815bf2da43c254a18e8c1186ed53fe22c2031fa47e87239f8f7a6ac",
     "evidence/inference_only/predictions/c3t_seed0/01377.png": "fdcc3a2bde17bf2c61ead0ad2c3c24719d66c8a053d239ebdcb4e8e4d332d95d",
-    "evidence/inference_only/predictions/c3t_seed0/00634.png": "44418ee62080c065a48cf7aa30f6c5259dc276c5ad3cf4b3ee3b1077e54973c5"
+    "evidence/inference_only/predictions/c3t_seed0/00634.png": "44418ee62080c065a48cf7aa30f6c5259dc276c5ad3cf4b3ee3b1077e54973c5",
+    "CHECKPOINT_STORAGE.md": "dbc3b5a2baa529cb779aea5db4dea2e17ffae7b93978ce191a069799977344d4"
   },
   "manifest_input_checksums": {
     "train": "86158cdcd02ad08c1143135f35b06c1803489e842c4eda0a79c90198590b3071",
@@ -426,5 +427,29 @@
     "end_to_end_runtime_measured": false,
     "fmb_test_status": "POST-EXPOSURE / EXPLORATORY"
   },
-  "checkpoint_recovery_status": "3/3 SHA256 verified; binaries stored Kaggle Output/local, Drive link missing"
+  "checkpoint_recovery_status": "3/3 original local checkpoint SHA256 verified; three same-size named files present in Google Drive; Drive download SHA256 and group-viewer access not yet independently verified",
+  "checkpoint_storage": {
+    "folder_url": "https://drive.google.com/drive/folders/1rLJSzac-jkw1M5zmk5TyVllEJGZNmBaI?usp=sharing",
+    "folder_id": "1rLJSzac-jkw1M5zmk5TyVllEJGZNmBaI",
+    "drive_files": {
+      "0": {
+        "name": "seed0_last.pt",
+        "id": "1jfJbelHD-JsKYBvhxFTju-sK9ig8HyG2",
+        "size_bytes": 189162137
+      },
+      "1": {
+        "name": "seed1_last.pt",
+        "id": "1-1sYSnMvu64iFcu28okflJd3VxMrA0nW",
+        "size_bytes": 189162137
+      },
+      "2": {
+        "name": "seed2_last.pt",
+        "id": "1jDxZvK8mlbD2svVaFsSi55IAt3icC5xi",
+        "size_bytes": 189162137
+      }
+    },
+    "checksum_verification_scope": "Original Kaggle-downloaded files locally SHA256 verified 3/3; Drive remote copies only names+sizes checked",
+    "access_review": "26/11 observed anyone-writer; MUST restrict before public sharing/PR",
+    "checkpoint_binaries_in_git": false
+  }
 }
