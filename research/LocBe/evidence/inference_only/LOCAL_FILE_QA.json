@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-26",
+  "origin_report_sha256": "95f46569c4a672284e94cac71571259ab38f7684a9d7d39b86dab803110a7759",
+  "prediction_count": 280,
+  "prediction_sha256_manifest_recomputed": "280/280 PASS",
+  "seed0_report_confusion_parity": {
+    "status": "PASS",
+    "mismatching_images": 0,
+    "mIoU13_273_recomputed_percent": 63.054613342650406,
+    "notes": "280 predictions frozen and hashed before opening GT. This is a post-exposure replay, not independent Test."
+  },
+  "qualitative_panel_ids": [
+    "00043",
+    "00364",
+    "00719",
+    "01053",
+    "01378",
+    "01500"
+  ],
+  "notes": "GT-free predictions re-evaluated only for replay; data was already post-exposure"
+}

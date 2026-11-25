@@ -2,7 +2,7 @@
 
 **Repository target:** `https://github.com/quan14333/xulianh`, branch `LocBe`, directory `research/LocBe`.
 
-**Current status:** Branch-ready files; no GitHub push performed in this environment (connected user only has read permission).
+**Current status (26/11/2026):** Branch `LocBe` was pushed to GitHub in commit `5a609d275fffa4234a6d061c0eab6b796424ca6b`. This evidence update is prepared locally and must be committed separately; do not claim it is already on GitHub.
 
 **Important caveat:** FMB Test result is post-exposure / exploratory, not an untouched independent evaluation. Do not tune C3-T after seeing the Test scores. No demonstrated uplift over SAGE/TB.
 
@@ -37,3 +37,14 @@ Unzip `METHOD_DCTR_C3T_FINAL.zip`, then follow `scripts/PUSH_LOCBE.ps1` or `scri
 - `CHECKLIST_27_11.md`: completed/partial/missing evidence
 - `SLIDE_OUTLINE.md`: 6-slide outline aligned with requirements
 - `source/render_qualitative_panels.py`: create real qualitative panels when source images and predicted masks are retrieved
+
+## New inference-only evidence — 26/11/2026
+
+- `evidence/inference_only/report/`: source provenance, checkpoint verification, frozen PNG hash parity, 280 prediction SHA256 manifest, confusion parity, measured metrics and timings.
+- `evidence/inference_only/predictions/c3t_seed0/`: all 280 predicted **class-ID** masks for B3 seed 0. These are post-exposure FMB Test replays, NOT independently selected.
+- `figures/qualitative/`: six **real** fixed-ID panels (VIS, IR, SAGE fusion RGB, C3-T fusion RGB, GT, C3-T prediction and error). SAGE B3 prediction not present; no per-image win/loss against SAGE can be concluded from these panels.
+- `results/fusion_metrics_summary.csv` and `results/fusion_metrics_per_image.csv`: EN/SD/SCD for 280 and 273 images, three fusion variants; grayscale [0,1] conventions documented in frozen source.
+- `results/runtime_{b3_seed0,c3t_cpu_pure}.json`: measured isolated component latency/FPS; NOT end-to-end FPS including SAGE Student, data preprocessing, I/O and B3 together.
+- `UPDATE_26_11.md`: results and remaining gaps.
+
+**Frozen method, config and checkpoint selection were not modified.** Validation is still post-exposure/exploratory on FMB Test. B3 predictions for SAGE baseline, MS-SSIM convention, and an end-to-end timing remain unverified. The 3 B3 checkpoints were SHA256-matched in a separate recovery step and are outside GitHub (Kaggle Output/Drive).

@@ -1,0 +1,12 @@
+{
+  "n_unique_images": 20,
+  "repeats": 2,
+  "hardware": "Kaggle CPU",
+  "mean_ms_per_image": 93.67143175000194,
+  "p50_ms": 96.40581350001298,
+  "p95_ms": 108.00905680001449,
+  "fps_inverse_mean": 10.675613485538287,
+  "included": "C2+thermal guard CPU OpenCV; memory buffers",
+  "excluded": "VIS/IR/SAGE file IO, SAGE Student neural inference, SegFormer-B3 inference",
+  "checkpoint_and_source_frozen": true
+}
