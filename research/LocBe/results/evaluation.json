@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "evidence": "three original per-image confusion NPZ and reported JSON",
+  "protocol": "pooled per-seed confusion; exclude GT class0 row before IoU calculation",
+  "train_images": 1220,
+  "test_images": 280,
+  "clean_images": 273,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "C3T_273_mean": 63.1994216327354,
+  "C3T_273_sd_sample": 0.46308295158833906,
+  "SAGE_273_mean": 63.370000000000005,
+  "TB_273_mean": 64.42333333333333,
+  "label_exposure": "POST-EXPOSURE / EXPLORATORY",
+  "baseline_source_precision": "classwise + mIoU baseline already rounded to 0.01pp",
+  "test_pngs_available": false,
+  "checkpoints_available": false,
+  "fusion_metrics_available": false,
+  "TTA_available": false,
+  "paired_baseline_confusions_available": false
+}

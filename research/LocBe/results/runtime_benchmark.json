@@ -1,0 +1,23 @@
+{
+  "source": "FUSION_QA.json and per-seed B3 config.json from original Kaggle report",
+  "c3t_cpu_export_total_s_1500": 259.37605971899995,
+  "cpu_export_n_images": 1500,
+  "c3t_cpu_export_ms_per_image_including_io": 172.917373146,
+  "c3t_cpu_export_images_per_second_including_io": 5.783108902282862,
+  "b3_train_hours_by_seed": {
+    "0": 2.74,
+    "1": 2.75,
+    "2": 2.74
+  },
+  "b3_hardware": "Tesla T4",
+  "b3_train_total_hours_sum": 8.23,
+  "pure_c3t_inference_latency_ms": null,
+  "end_to_end_sage_plus_c3t_latency_ms": null,
+  "peak_gpu_vram_mib": null,
+  "segmentation_forward_count_inference": 1,
+  "notes": [
+    "Fusion export throughput includes CPU processing + disk IO, not model SAGE cost",
+    "GPU peak VRAM and pure per-image inference latency were not measured",
+    "Training wall times are from the run config log and use the reported Tesla T4"
+  ]
+}

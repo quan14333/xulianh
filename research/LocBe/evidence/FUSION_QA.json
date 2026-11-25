@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "C3T_train_images": 1220,
+  "C3T_test_images": 280,
+  "fixed_c2_alpha": 0.2,
+  "c2_source_sha256": "7641e319a714fd44b246e3921404ece1110bc6766dd4d5bdc1c9c35c4165d621",
+  "hard_thermal_threshold": 0.3,
+  "no_GT_for_fusion": true,
+  "export_elapsed_seconds": 259.37605971899995,
+  "parity": {
+    "old_sage_compared": 20,
+    "old_sage_identical": 20,
+    "old_c2_compared": 0,
+    "old_c2_identical": 0,
+    "old_c2_mae": [],
+    "old_sage_mae_mean": 0.0,
+    "old_c2_mae_mean": null,
+    "warning": "Train source parity is diagnostic; authoritative Test source is groups official SAGE Student."
+  }
+}

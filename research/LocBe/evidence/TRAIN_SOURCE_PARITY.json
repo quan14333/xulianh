@@ -1,0 +1,10 @@
+{
+  "old_sage_compared": 20,
+  "old_sage_identical": 20,
+  "old_c2_compared": 0,
+  "old_c2_identical": 0,
+  "old_c2_mae": [],
+  "old_sage_mae_mean": 0.0,
+  "old_c2_mae_mean": null,
+  "warning": "Train source parity is diagnostic; authoritative Test source is groups official SAGE Student."
+}

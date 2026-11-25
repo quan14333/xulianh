@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "group_sha": "7b21b3e32aec2e864effee9b6458b59a917403f7",
+  "sage_sha": "377fdbef6b8b6ccbd1139358ad66bb41ea084dc1",
+  "sage_ckpt_md5": "241396a51a3c5e85e360a409d9e8fe4d",
+  "b3_weight_sha256": "5670aa22de1b1848b1d715cc97d8fef77761701dedc8b3d3e44525fd71012896",
+  "group_train_seg_sha256": "c7e988c6708150cc4be498a16a403af522d507d5824f77a5c8392289a271b10f",
+  "group_eval_seg_sha256": "f37605e99de8b86b2d6ff85d52480743fdc184609cae958f07a9a45bd77abec0",
+  "group_xuat_anh_sha256": "da20ea2a75c316d898064196cf221e1fc436e9982532e8114704e66ec0e822f3",
+  "manifests": {
+    "train": "86158cdcd02ad08c1143135f35b06c1803489e842c4eda0a79c90198590b3071",
+    "dev": "4720243878c093a8717f5c09a907b164618c97e8fb68ffb8dff2db4e93ba6f15",
+    "test": "c7bb123c8d6d495561b7a6886875e08f04b8d5820fd90afa6f6600ebaeacd1a2"
+  },
+  "count_train": 1220,
+  "count_test": 280,
+  "count_test_clean": 273,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "train_epochs": 100,
+  "batch": 8,
+  "lop0": true,
+  "gop_dev": true,
+  "c3t_threshold": 0.3
+}
