@@ -1,0 +1,54 @@
+{
+  "dataset_root": "/kaggle/input/datasets/eoquiither/mfnet-cs406/ir_seg_dataset",
+  "layout": "rgba_images",
+  "raw_counts": {
+    "train": 1568,
+    "val": 392,
+    "test": 393
+  },
+  "effective_counts": {
+    "train": 784,
+    "val": 392,
+    "test": 393
+  },
+  "raw_train_originals": 784,
+  "raw_train_flip_copies": 784,
+  "flip_pairs_complete": true,
+  "overlap_train_val_base_id": 0,
+  "overlap_train_test_base_id": 0,
+  "overlap_val_test_base_id": 0,
+  "raw_unique_ids": 2353,
+  "effective_unique_original_ids": 1569,
+  "split_sha256_original": {
+    "train": "e14ef52501a5d0000361e79acb42734f391427ac5a4164ad7864b0d2718269f7",
+    "val": "446e9dbcee6a66bb95331dc704a2e184b723e5dd8aded861dbf76c9968879180",
+    "test": "a236aa6ac7e55ec6b5e419b55c6934439611453939eee2c0bf7b0f0c34917c9d"
+  },
+  "effective_train_784_sha256": "4bb4c7a698c6e2dfad0f40089830f58546523ac513e24e0dae8c2aaa7c857d91",
+  "policy": "Use exactly 784 original Train IDs; exclude precomputed _flip copies. Original MFNet txt files unchanged. On-the-fly horizontal augmentation remains in training pipeline.",
+  "source_train_first_10": [
+    "00001D",
+    "00001D_flip",
+    "00002D",
+    "00002D_flip",
+    "00055D",
+    "00055D_flip",
+    "00056D",
+    "00056D_flip",
+    "00057D",
+    "00057D_flip"
+  ],
+  "effective_train_first_10": [
+    "00001D",
+    "00002D",
+    "00055D",
+    "00056D",
+    "00057D",
+    "00058D",
+    "00081D",
+    "00082D",
+    "00083D",
+    "00084D"
+  ],
+  "verified_no_base_id_cross_split_leak": true
+}

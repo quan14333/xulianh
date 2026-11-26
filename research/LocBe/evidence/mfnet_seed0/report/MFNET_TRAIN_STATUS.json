@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "seeds": [
+    0
+  ],
+  "train_methods": [
+    "sage",
+    "c3t"
+  ],
+  "epochs": 100,
+  "nine_classes": true,
+  "last_checkpoint_used": true,
+  "new_mfnet_segformer_models_not_fmb_weights": true,
+  "interpretation": "Cross-dataset preliminary evaluation; one seed is not robustness claim."
+}

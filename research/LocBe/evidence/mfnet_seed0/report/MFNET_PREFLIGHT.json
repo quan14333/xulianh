@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "dataset": "MFNet",
+  "root": "/kaggle/input/datasets/eoquiither/mfnet-cs406/ir_seg_dataset",
+  "layout": "rgba_images",
+  "split": {
+    "train": 784,
+    "val": 392,
+    "test": 393
+  },
+  "label_classes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "pixel_count_by_class": [
+    444100475,
+    19976601,
+    5776342,
+    4411660,
+    2836318,
+    2168255,
+    456729,
+    868562,
+    1401858
+  ],
+  "sample_sizes": [
+    [
+      "train",
+      "00001D",
+      480,
+      640,
+      3
+    ],
+    [
+      "train",
+      "00002D",
+      480,
+      640,
+      3
+    ],
+    [
+      "train",
+      "00055D",
+      480,
+      640,
+      3
+    ],
+    [
+      "train",
+      "00056D",
+      480,
+      640,
+      3
+    ],
+    [
+      "train",
+      "00057D",
+      480,
+      640,
+      3
+    ],
+    [
+      "train",
+      "00058D",
+      480,
+      640,
+      3
+    ]
+  ],
+  "split_sha256": {
+    "train": "e14ef52501a5d0000361e79acb42734f391427ac5a4164ad7864b0d2718269f7",
+    "val": "446e9dbcee6a66bb95331dc704a2e184b723e5dd8aded861dbf76c9968879180",
+    "test": "a236aa6ac7e55ec6b5e419b55c6934439611453939eee2c0bf7b0f0c34917c9d"
+  },
+  "source": "Kaggle Add Input (user-provided MFNet)",
+  "HTTP403_workaround": "No network auto-download",
+  "note": "No MFNet segmentation labels used in fusion generation. Original file split membership preserved; 784 precomputed _flip copies excluded from Train; data augmentation still on-the-fly.",
+  "augmented_train_original_count": 784,
+  "augmented_train_flips_excluded": 784,
+  "effective_train_id_manifest_sha256": "4bb4c7a698c6e2dfad0f40089830f58546523ac513e24e0dae8c2aaa7c857d91"
+}

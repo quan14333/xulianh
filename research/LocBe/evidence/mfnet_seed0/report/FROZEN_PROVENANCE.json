@@ -1,0 +1,8 @@
+{
+  "C2_SHA256": "7641e319a714fd44b246e3921404ece1110bc6766dd4d5bdc1c9c35c4165d621",
+  "C3T_SHA256": "6eda7aabead6207d54107478edc52792538383f86913dc4dd838c8879504d4b6",
+  "C3T_threshold": 0.3,
+  "SAGE_git_SHA": "377fdbef6b8b6ccbd1139358ad66bb41ea084dc1",
+  "SAGE_checkpoint_MD5": "241396a51a3c5e85e360a409d9e8fe4d",
+  "B3_training_from_FMB_checkpoint": false
+}

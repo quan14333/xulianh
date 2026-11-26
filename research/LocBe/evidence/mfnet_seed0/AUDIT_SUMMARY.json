@@ -1,0 +1,15 @@
+{
+  "zip_integrity_PASS": true,
+  "report_entries": 58,
+  "fusion_stage_entries": 19,
+  "subset_byte_equal": true,
+  "source_c2_sha256": "7641e319a714fd44b246e3921404ece1110bc6766dd4d5bdc1c9c35c4165d621",
+  "source_c3t_sha256": "6eda7aabead6207d54107478edc52792538383f86913dc4dd838c8879504d4b6",
+  "test_sage_mIoU9": 53.48285578418562,
+  "test_c3t_mIoU9": 54.089503630163904,
+  "test_delta_pp": 0.6066478459782871,
+  "val_delta_pp": -0.31162702621949023,
+  "test_delta_miou8_pp": 0.9858086732938034,
+  "checkpoint_weights_in_archive": false,
+  "is_three_seed": false
+}

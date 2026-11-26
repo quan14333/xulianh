@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "counts": {
+    "train": 784,
+    "val": 392,
+    "test": 393
+  },
+  "panels": [
+    "01402D",
+    "01480D",
+    "01558D",
+    "01219N",
+    "01297N",
+    "01376N"
+  ],
+  "not_segmentation_miou": true
+}
