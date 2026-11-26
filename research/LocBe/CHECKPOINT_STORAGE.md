@@ -1,10 +1,12 @@
-# LocBe — lưu trữ ba checkpoint SegFormer-B3 đã khóa
+# LocBe — lưu trữ checkpoint SegFormer-B3 FMB và MFNet
+
+## FMB — ba checkpoint đã khóa
 
 **Phương pháp:** DCTR-C3-T, FMB, 15 nhãn, 100 epochs, checkpoint `last.pt` theo seed.
 
 **Thư mục Drive:** https://drive.google.com/drive/folders/1rLJSzac-jkw1M5zmk5TyVllEJGZNmBaI?usp=sharing
 
-**LƯU Ý BẢO MẬT TRƯỚC KHI CHIA SẺ:** Google Drive metadata tại lần kiểm tra 26/11/2026 cho thấy thư mục đang đặt `anyone: writer`. Chủ sở hữu phải đổi thành **Bị hạn chế + cấp quyền Người xem cho thành viên nhóm**, hoặc tối thiểu **Anyone with link: Viewer** trước khi gửi link vào PR/public README. Bản addendum này chưa xác minh quyền đã được đổi.
+**Quyền chia sẻ FMB:** metadata folder tại lần kiểm tra 27/11/2026 vẫn ghi `Anyone: Writer`. Có rủi ro chỉnh sửa ngoài ý muốn. Giữ nguyên quyền theo quyết định của chủ sở hữu; bản cập nhật này không sửa quyền, không mô tả là đã an toàn và chưa xác minh truy cập bằng tài khoản riêng của Quân/Mân.
 
 | Seed | Tên file trên Drive | Google Drive file ID | Bytes | SHA256 gốc, đã xác minh local |
 |---|---|---|---:|---|
@@ -32,3 +34,29 @@ Get-FileHash "D:\LocBe_C3T_Checkpoints\seed2_last.pt" -Algorithm SHA256
 So sánh toàn bộ 64 ký tự hex SHA256 với bảng trên. Checkpoint **không được commit vào repo** (`*.pt` trong `.gitignore`, mỗi file ~189 MB); lưu ở Drive và tham chiếu bằng `FROZEN_MANIFEST.json`.
 
 **Data protocol caveat:** kết quả FMB Test là **post-exposure / exploratory**, không phải kiểm định độc lập. Việc bổ sung liên kết Drive không thay đổi code, checkpoint hoặc mIoU.
+
+## MFNet — hai checkpoint seed 0 đã lưu trên Drive
+
+**Folder:** https://drive.google.com/drive/u/0/folders/13CNqHSPiLUgLP8pxq6ykR2jnxr-T0I1Y
+
+| Phương pháp / seed | Tên file trên Drive | Drive file ID | Bytes | SHA256 bản gốc đã kiểm tra | File |
+|---|---|---|---:|---|---|
+| SAGE / seed 0 | `sage_b3_seed0_mfnet_last.pt` | `1uJvT7Oh4shsfYQPjHmlmQ5XPpenDBcbA` | 189143705 | `b51087c73a2ad43a098708b827abfa68161f7280c0eb5a1656e66c147e50e356` | [Drive](https://drive.google.com/file/d/1uJvT7Oh4shsfYQPjHmlmQ5XPpenDBcbA/view) |
+| C3-T / seed 0 | `c3t_b3_seed0_mfnet_last.pt` | `1HjKgMYMTgrHLjUecBzU5ZkAACtVnICQN` | 189143705 | `5554340fa5d87e144c07e24533dcf39378490399feca7da00f006083de3d1ad9` | [Drive](https://drive.google.com/file/d/1HjKgMYMTgrHLjUecBzU5ZkAACtVnICQN/view) |
+
+**Phạm vi xác minh:** SHA256 trên là hash **đã kiểm tra trên bản gốc**, khớp hồ sơ thí nghiệm và ghi chú người dùng cung cấp. Drive hiện chỉ được xác nhận **tên và dung lượng**; chưa tải ngược hai checkpoint để tính lại SHA256. **Không ghi nhận remote SHA256 verified** hoặc suy ra nội dung byte-for-byte từ tên/dung lượng.
+
+**Quyền chia sẻ (27/11/2026):** metadata folder MFNet và cả hai file hiện ghi `Anyone: Writer`. Người có liên kết có thể chỉnh sửa ngoài ý muốn; quyền được **giữ nguyên theo quyết định của chủ sở hữu**, không tự đổi và không mô tả là đã an toàn. Chưa xác minh truy cập bằng tài khoản riêng của Quân/Mân.
+
+Đây là **SegFormer-B3 9 lớp MFNet**, khác ba checkpoint **15 lớp FMB** ở trên. Nguồn bản gốc: `CS406_LOCBE_MFNET/runs/sage_b3_seed0_mfnet_9class/last.pt` và `CS406_LOCBE_MFNET/runs/c3t_b3_seed0_mfnet_9class/last.pt`. Binary không nằm trong ZIP báo cáo và không được commit vào Git. Upload Drive chỉ bổ sung nơi lưu, không thay checkpoint hoặc kết quả.
+
+Google Drive báo MIME `application/x-zip-compressed`; đây có thể là container ZIP nội bộ của `torch.save`, không cần giải nén. MIME/tên/dung lượng không thay thế kiểm tra hash.
+
+Sau khi người nhận tải bản Drive về (chưa thực hiện trong lượt này), đối chiếu đủ 64 ký tự:
+
+```powershell
+Get-FileHash "D:\MFNet_Checkpoints\sage_b3_seed0_mfnet_last.pt" -Algorithm SHA256
+Get-FileHash "D:\MFNet_Checkpoints\c3t_b3_seed0_mfnet_last.pt" -Algorithm SHA256
+```
+
+**Còn thiếu:** SHA256 tính lại từ bản tải Drive và kiểm tra truy cập bằng tài khoản của thành viên nhóm. Các giới hạn MS-SSIM, end-to-end latency, matched ablation và kết quả một seed giữ nguyên.

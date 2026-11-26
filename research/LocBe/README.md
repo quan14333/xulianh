@@ -24,7 +24,7 @@ The original reproducibility notebook is `notebooks/CS406_C3T_FMB_GROUP_TEST_ALL
 
 ## GitHub handoff status
 
-Branch `LocBe` already exists and the evidence has been pushed through `bb53a37` (26/11/2026). Do **not** rerun the initial-branch creation instructions. Apply only the final-document patch after checking the current branch HEAD. Open a **Draft PR** to `main` for Quân to review; do not auto-merge. See `FINAL_HANDOFF_27_11.md` and `CHECKLIST_27_11.md`.
+Branch `LocBe` already exists; this storage update starts from verified HEAD `cb035dbac414d1335061e1e89b85a208c23a0189`. The research-evidence milestone `bb53a37` remains unchanged. Apply only documentation/checksum updates; do not rerun branch creation or experiments. This update does not merge `main` or create a PR. Review/PR decisions remain with the owner. See `FINAL_HANDOFF_27_11.md` and `CHECKLIST_27_11.md`.
 
 ## Contents
 
@@ -51,11 +51,26 @@ Branch `LocBe` already exists and the evidence has been pushed through `bb53a37`
 
 ## Frozen B3 checkpoints — Google Drive storage
 
-Three seed-specific checkpoints are stored in [LocBe_C3T_Checkpoints](https://drive.google.com/drive/folders/1rLJSzac-jkw1M5zmk5TyVllEJGZNmBaI?usp=sharing). See [`CHECKPOINT_STORAGE.md`](CHECKPOINT_STORAGE.md) for file IDs, exact SHA256 and verified scope. **Sharing must be changed from anyone-writer to restricted/group-viewer (or at least link-viewer) before the link is circulated in a public PR.** The local originals were SHA256-verified; the Drive uploads have been checked for names and size but not yet redownloaded for SHA256. No frozen code or model weights were altered.
+Three FMB seed-specific checkpoints are stored in [LocBe_C3T_Checkpoints](https://drive.google.com/drive/folders/1rLJSzac-jkw1M5zmk5TyVllEJGZNmBaI?usp=sharing). See [`CHECKPOINT_STORAGE.md`](CHECKPOINT_STORAGE.md) for IDs, original SHA256 and verification scope. Folder metadata on 27/11 still reports **Anyone: Writer**, with a risk of unintended edits. Sharing is retained as chosen by the owner; it has not been changed or declared safe. Original-file SHA256 was verified; Drive copies were checked only for names and sizes, not redownloaded for SHA256. Access through Quân/Mân accounts remains unverified. FMB model identities/weights remain unchanged.
 
 ## MFNet cross-dataset seed0 — 26/11/2026
 
 - Full detailed results: [`MFNET_RESULTS_26_11.md`](MFNET_RESULTS_26_11.md), evidence at `evidence/mfnet_seed0/`.
 - MFNet 9-class B3 was trained separately for SAGE and C3-T, 100 epochs, seed0, same 784 original train images. Test mIoU9: SAGE 53.4829%, C3-T 54.0895% (+0.6066 pp); Validation mIoU9: SAGE 57.5254%, C3-T 57.2138% (−0.3116 pp). One seed **does not prove** robust improvement.
-- `last.pt` for two MFNet SegFormer runs **not in result ZIP or Drive as last verified**; FMB checkpoints on Drive are a different 15-class model.
+- Two MFNet seed0 checkpoints are **stored on Google Drive**; original-file SHA256 was verified. Drive metadata confirms only names and sizes; no redownload/hash of the uploaded copies has been performed. The binaries remain outside Git/result ZIP; FMB checkpoints are separate 15-class models.
 - This is **MFNet, not SemanticRT**. Read [`FINAL_HANDOFF_27_11.md`](FINAL_HANDOFF_27_11.md) for evidence, missing items, and access warnings.
+
+## MFNet seed0 checkpoint storage — 27/11/2026
+
+Folder: https://drive.google.com/drive/u/0/folders/13CNqHSPiLUgLP8pxq6ykR2jnxr-T0I1Y
+
+| Phương pháp / seed | Tên file trên Drive | Drive file ID | Bytes | SHA256 bản gốc đã kiểm tra | File |
+|---|---|---|---:|---|---|
+| SAGE / seed 0 | `sage_b3_seed0_mfnet_last.pt` | `1uJvT7Oh4shsfYQPjHmlmQ5XPpenDBcbA` | 189143705 | `b51087c73a2ad43a098708b827abfa68161f7280c0eb5a1656e66c147e50e356` | [Drive](https://drive.google.com/file/d/1uJvT7Oh4shsfYQPjHmlmQ5XPpenDBcbA/view) |
+| C3-T / seed 0 | `c3t_b3_seed0_mfnet_last.pt` | `1HjKgMYMTgrHLjUecBzU5ZkAACtVnICQN` | 189143705 | `5554340fa5d87e144c07e24533dcf39378490399feca7da00f006083de3d1ad9` | [Drive](https://drive.google.com/file/d/1HjKgMYMTgrHLjUecBzU5ZkAACtVnICQN/view) |
+
+**Verification scope:** the listed SHA256 values were checked on the **original files**, as recorded in the supplied handoff; only filename and size have been confirmed on Drive. The uploads have **not been redownloaded for SHA256**; remote SHA256 verification is **NOT PERFORMED**.
+
+MFNet folder and both files currently report **Anyone: Writer**. Sharing is retained according to the owner's decision; unintended edits remain possible. Permissions were not changed or declared safe. Access from Quân/Mân accounts remains unverified.
+
+These are MFNet **9-class** SegFormer-B3 checkpoints, separate from the three FMB **15-class** checkpoints. Storage metadata updates do not change C2/C3-T, the frozen threshold, configs, metrics or experiment results. See [`CHECKPOINT_STORAGE.md`](CHECKPOINT_STORAGE.md) for download-check commands and remaining checks.

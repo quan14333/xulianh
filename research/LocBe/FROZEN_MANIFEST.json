@@ -31,11 +31,11 @@
     "source/self_test.py": "918cc9366c3e1b4a30e260f74237ccf0295a232d6ccfcf2f8a8481cee9f23ac6"
   },
   "files_sha256": {
-    "CHECKLIST_27_11.md": "bb342a66aa9fdc346327db1a83c7c5d4d5012561e26226df1e0f0fbbff95dc74",
+    "CHECKLIST_27_11.md": "9590d6b743d944cb7e607852aebf1ca3b3c81f281bccda100cee1e1152615923",
     "GITHUB_PUSH_GUIDE.md": "9a858150af589bc5bb6c783a4403b2e3956a0360729302527127f733e6732e02",
     "METHOD_SUMMARY.md": "030a0e91b0ea9ea29e8fbf2e0986da8c74dcb0947bc7de68e3d1f2a20fdca698",
     "QUALITATIVE_MISSING.md": "763a5b923596dec3ae52d795b7a0ef6ef0992507a809b6a01f687e91d775e74d",
-    "README.md": "b8c8abf70d6ae9e07263f6ba24b0f543eb72b68734d111f3fd3e1a492bba5b1b",
+    "README.md": "81156512cde7f11dfaf0994e234e48f94c8f7dd0241084b2318df09d50f732eb",
     "RESULTS_DISCUSSION.md": "f2705d179bc3d2eb14ae5574960761ad747840a6f581300795c6f426c941bc3a",
     "SLIDE_OUTLINE.md": "7f938f38849e785ea60f262f41a21368eead942e129e999398c4ad1c17b287fc",
     "configs/B3_seed0_config.json": "2eb33ac8606545e911f7d4a81d70c27b2bffdb96a92e3b669a9359430ce9f949",
@@ -399,8 +399,8 @@
     "evidence/inference_only/predictions/c3t_seed0/01213.png": "e7f2a9276815bf2da43c254a18e8c1186ed53fe22c2031fa47e87239f8f7a6ac",
     "evidence/inference_only/predictions/c3t_seed0/01377.png": "fdcc3a2bde17bf2c61ead0ad2c3c24719d66c8a053d239ebdcb4e8e4d332d95d",
     "evidence/inference_only/predictions/c3t_seed0/00634.png": "44418ee62080c065a48cf7aa30f6c5259dc276c5ad3cf4b3ee3b1077e54973c5",
-    "CHECKPOINT_STORAGE.md": "dbc3b5a2baa529cb779aea5db4dea2e17ffae7b93978ce191a069799977344d4",
-    "FINAL_HANDOFF_27_11.md": "e111fac5aabd4dddd5ffb2f7274a35b550ac697f26476c4f36653345e986bbcf",
+    "CHECKPOINT_STORAGE.md": "2e10b2fd2f9b6cf54a800258e26f2d95d46fe5e070093586b8ae9e98becd30a9",
+    "FINAL_HANDOFF_27_11.md": "bf87bb32d7c7539effa15de9bb176195f91cb0e51d9bca16fdf23cf3913fdd4e",
     "MFNET_RESULTS_26_11.md": "e09016d6a26f557fb69fc60e8cdcc76ff2b6c574032c30bad3c6fbdecff215ad",
     "evidence/mfnet_seed0/AUDIT_SUMMARY.json": "e4f189a4badbbb0b0c45cf9afbd1e032678347cd0a472eff3977ce3e4438b8ee",
     "evidence/mfnet_seed0/README.md": "e5f9bdd92c800a1a4922b25ef36cceb1c058af1455da1e6c4b1fcf3da06713eb",
@@ -509,8 +509,9 @@
       }
     },
     "checksum_verification_scope": "Original Kaggle-downloaded files locally SHA256 verified 3/3; Drive remote copies only names+sizes checked",
-    "access_review": "Verified 26/11: anyone:writer (unsafe); user must change sharing to viewer/restricted before publishing PR",
-    "checkpoint_binaries_in_git": false
+    "access_review": "27/11/2026 metadata still reports anyone:writer for the FMB folder; potential unintended edits. Sharing retained unchanged according to the owner decision; no safe-sharing claim or independent Quan/Man account access verification.",
+    "checkpoint_binaries_in_git": false,
+    "sharing_permissions_changed": false
   },
   "handoff_preparation_date": "2026-11-26",
   "mfnet_cross_dataset": {
@@ -545,12 +546,79 @@
       "sage_seed0": "b51087c73a2ad43a098708b827abfa68161f7280c0eb5a1656e66c147e50e356",
       "c3t_seed0": "5554340fa5d87e144c07e24533dcf39378490399feca7da00f006083de3d1ad9"
     },
-    "checkpoint_binaries_uploaded_to_drive": false,
+    "checkpoint_binaries_uploaded_to_drive": true,
     "fusion_sha256_manifest_rows": 4707,
     "all_fusion_png_binary_in_report": false,
     "no_mfnet_multiseed_significance_claim": true,
     "evidence_path": "evidence/mfnet_seed0/",
-    "note": "Only seed0. C3T Test higher +0.60665pp and Validation lower -0.31163pp; do not claim robust superiority."
+    "note": "Only seed0. C3T Test higher +0.60665pp and Validation lower -0.31163pp; do not claim robust superiority.",
+    "checkpoint_storage": {
+      "folder_url": "https://drive.google.com/drive/u/0/folders/13CNqHSPiLUgLP8pxq6ykR2jnxr-T0I1Y",
+      "folder_id": "13CNqHSPiLUgLP8pxq6ykR2jnxr-T0I1Y",
+      "drive_files": {
+        "sage_seed0": {
+          "name": "sage_b3_seed0_mfnet_last.pt",
+          "id": "1uJvT7Oh4shsfYQPjHmlmQ5XPpenDBcbA",
+          "size_bytes": 189143705,
+          "url": "https://drive.google.com/file/d/1uJvT7Oh4shsfYQPjHmlmQ5XPpenDBcbA/view",
+          "original_sha256": "b51087c73a2ad43a098708b827abfa68161f7280c0eb5a1656e66c147e50e356",
+          "original_sha256_verified": true,
+          "drive_name_and_size_verified": true,
+          "drive_metadata_checked_on": "2026-11-27",
+          "drive_download_sha256_verified": false,
+          "drive_download_sha256": null,
+          "sharing_observed": {
+            "type": "anyone",
+            "role": "writer",
+            "allowFileDiscovery": false
+          }
+        },
+        "c3t_seed0": {
+          "name": "c3t_b3_seed0_mfnet_last.pt",
+          "id": "1HjKgMYMTgrHLjUecBzU5ZkAACtVnICQN",
+          "size_bytes": 189143705,
+          "url": "https://drive.google.com/file/d/1HjKgMYMTgrHLjUecBzU5ZkAACtVnICQN/view",
+          "original_sha256": "5554340fa5d87e144c07e24533dcf39378490399feca7da00f006083de3d1ad9",
+          "original_sha256_verified": true,
+          "drive_name_and_size_verified": true,
+          "drive_metadata_checked_on": "2026-11-27",
+          "drive_download_sha256_verified": false,
+          "drive_download_sha256": null,
+          "sharing_observed": {
+            "type": "anyone",
+            "role": "writer",
+            "allowFileDiscovery": false
+          }
+        }
+      },
+      "checksum_verification_scope": "SHA256 was verified on the original files in the supplied handoff and matches the frozen experiment record. Drive verification covers only names and sizes; uploaded checkpoint bytes have not been redownloaded or hashed in this update.",
+      "original_hash_verification_basis": "User-confirmed original-file checksums and existing checkpoint_sha256_last_pt; no new checkpoint byte verification in this documentation-only update.",
+      "drive_download_sha256_verified": false,
+      "remote_binary_content_verified": false,
+      "checkpoint_binaries_in_git": false,
+      "group_account_access_verified": false,
+      "sharing_permissions_changed": false,
+      "sharing_review": {
+        "checked_on": "2026-11-27",
+        "folder_type": "anyone",
+        "folder_role": "writer",
+        "policy": "Retained unchanged according to the owner decision.",
+        "risk_note": "Anyone with the link may make unintended edits. No permission change or claim of safe sharing; access through Quan/Man accounts remains unverified."
+      }
+    }
   },
-  "final_handoff_note": "FINAL_HANDOFF_27_11.md; contains evidence and pending tasks, not a new optimization of method."
+  "final_handoff_note": "FINAL_HANDOFF_27_11.md; contains evidence and pending tasks, not a new optimization of method.",
+  "checkpoint_storage_metadata_updated_on": "2026-11-27",
+  "checksum_manifest_contract": {
+    "path_base": "research/LocBe/",
+    "algorithm": "SHA256 over actual file bytes",
+    "files_sha256_excludes": [
+      "FROZEN_MANIFEST.json",
+      "SHA256.txt"
+    ],
+    "SHA256_txt_includes_manifest": true,
+    "SHA256_txt_excludes_itself": true,
+    "dependency_order": "documents -> FROZEN_MANIFEST.json -> SHA256.txt; no checksum cycles",
+    "coverage": "Existing frozen snapshot entries; unchanged local untracked Drive note is not added by this update."
+  }
 }
