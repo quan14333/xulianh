@@ -2,7 +2,7 @@
 
 **Repository target:** `https://github.com/quan14333/xulianh`, branch `LocBe`, directory `research/LocBe`.
 
-**Current GitHub status (26/11/2026):** Branch `LocBe` includes commit `49bdafd5c1788b9d059988d5b1edf785359fa4b5` (280 seed0 predictions, six qualitative panels, fusion metrics, component runtimes). This **checkpoint-link addendum** is a new uncommitted update until separately pushed.
+**Research evidence GitHub milestone (verified 26/11/2026):** commit `bb53a374d3c7cf2f94918c715b50ebfdf1065a24` contains the FMB plus MFNet seed0 evidence. This handoff document is an additive reporting update; use Git HEAD to identify its eventual commit SHA.
 
 **Important caveat:** FMB Test result is post-exposure / exploratory, not an untouched independent evaluation. Do not tune C3-T after seeing the Test scores. No demonstrated uplift over SAGE/TB.
 
@@ -22,9 +22,9 @@ python source/inference.py --vis-dir path/to/Visible --ir-dir path/to/Infrared -
 
 The original reproducibility notebook is `notebooks/CS406_C3T_FMB_GROUP_TEST_ALL_IN_ONE_KAGGLE.ipynb` and the artifact ZIP is saved in `evidence/`. It used the pinned group scripts for downstream segmentation. **Do not rerun as if it were an independent held-out Test**. Reproducing only confusion scoring from existing NPZ requires no GPU.
 
-## Upload
+## GitHub handoff status
 
-Unzip `METHOD_DCTR_C3T_FINAL.zip`, then follow `scripts/PUSH_LOCBE.ps1` or `scripts/PUSH_LOCBE.sh` to create the **real** branch `LocBe` based on the group repository `main`. Only the account with write permission can push; not automatically merged to main.
+Branch `LocBe` already exists and the evidence has been pushed through `bb53a37` (26/11/2026). Do **not** rerun the initial-branch creation instructions. Apply only the final-document patch after checking the current branch HEAD. Open a **Draft PR** to `main` for Quân to review; do not auto-merge. See `FINAL_HANDOFF_27_11.md` and `CHECKLIST_27_11.md`.
 
 ## Contents
 
@@ -52,3 +52,10 @@ Unzip `METHOD_DCTR_C3T_FINAL.zip`, then follow `scripts/PUSH_LOCBE.ps1` or `scri
 ## Frozen B3 checkpoints — Google Drive storage
 
 Three seed-specific checkpoints are stored in [LocBe_C3T_Checkpoints](https://drive.google.com/drive/folders/1rLJSzac-jkw1M5zmk5TyVllEJGZNmBaI?usp=sharing). See [`CHECKPOINT_STORAGE.md`](CHECKPOINT_STORAGE.md) for file IDs, exact SHA256 and verified scope. **Sharing must be changed from anyone-writer to restricted/group-viewer (or at least link-viewer) before the link is circulated in a public PR.** The local originals were SHA256-verified; the Drive uploads have been checked for names and size but not yet redownloaded for SHA256. No frozen code or model weights were altered.
+
+## MFNet cross-dataset seed0 — 26/11/2026
+
+- Full detailed results: [`MFNET_RESULTS_26_11.md`](MFNET_RESULTS_26_11.md), evidence at `evidence/mfnet_seed0/`.
+- MFNet 9-class B3 was trained separately for SAGE and C3-T, 100 epochs, seed0, same 784 original train images. Test mIoU9: SAGE 53.4829%, C3-T 54.0895% (+0.6066 pp); Validation mIoU9: SAGE 57.5254%, C3-T 57.2138% (−0.3116 pp). One seed **does not prove** robust improvement.
+- `last.pt` for two MFNet SegFormer runs **not in result ZIP or Drive as last verified**; FMB checkpoints on Drive are a different 15-class model.
+- This is **MFNet, not SemanticRT**. Read [`FINAL_HANDOFF_27_11.md`](FINAL_HANDOFF_27_11.md) for evidence, missing items, and access warnings.

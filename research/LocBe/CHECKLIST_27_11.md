@@ -1,25 +1,26 @@
-# Checklist theo yêu cầu nhóm — Lộc Bé — cập nhật 26/11/2026
+# Checklist bàn giao LocBe — cập nhật 26/11/2026 (cho hạn 27/11)
 
-| Mục | Trạng thái | Bằng chứng / việc còn thiếu |
+| Mục | Trạng thái chính xác | Vị trí / ghi chú |
 |---|---|---|
-| Method card & 3 references | DONE | `METHOD_SUMMARY.md` |
-| Frozen code/config/SHA | DONE (không thay đổi công thức) | `source/`, `configs/`, `FROZEN_MANIFEST.json` |
-| Train/Dev/Test manifests & provenance | PARTIAL | ID/hash lưu trước; FMB gốc và SAGE pretrained còn ở Kaggle Dataset, chưa đóng gói Drive |
-| Self-test & confusion parity | DONE | `results/evaluation.json`, `evidence/inference_only/report/confusion_parity.json` PASS; seed 0 replay 280/280 images, 0 mismatch |
-| Per-seed mIoU mean±SD, baseline SAGE/TB | DONE | `results/results_overall.csv` |
-| Per-class IoU và delta | DONE | `results/results_per_class.csv`, `RESULTS_DISCUSSION.md` |
-| Raw per-image confusion all 3 seeds | AVAILABLE LOCAL / GITIGNORE | `results/confusion_per_image.npz`, `evidence/seed*_test_nham_last.npz` có trong gói cập nhật; muốn commit phải Git `add -f` sau khi được nhóm chấp nhận |
-| 280 C3-T prediction PNG seed 0 | DONE ON GITHUB (49bdafd) | `evidence/inference_only/predictions/c3t_seed0/`; 280/280 SHA256 khớp manifest, 600×800 class IDs |
-| 4–6 qualitative panels VIS/IR/GT/fusion/pred | PARTIAL | Đã có 6 panel thật `figures/qualitative/`; còn thiếu **SAGE B3 prediction** nên chưa minh hoạ được C3-T thắng/thua trực tiếp so SAGE |
-| C3-T pure CPU latency / B3 GPU latency & VRAM | PARTIAL | 93.67 ms C3-T CPU (không I/O/SAGE); B3 seed0 72.96 ms T4 (forward+transfer), peak 1139.6 MiB allocated; **end-to-end SAGE→C3T→B3 chưa đo** |
-| Fusion EN/SD/SCD | DONE (theo định nghĩa đã công bố) | `results/fusion_metrics_summary.csv`, 280/273 ảnh, cả SAGE/TB/C3-T |
-| Fusion MS-SSIM | NOT DONE | Chưa khóa quy ước tham chiếu hai nguồn VIS/IR; không tự suy diễn số liệu |
-| Baseline+TTA | NOT DONE / IF APPLICABLE | Cần cùng seed, weights và phép biến đổi được khóa |
-| C2→C3-T matched ablation | PARTIAL | Exploratory Dev trước đây; chưa có paired official protocol |
-| FMB Test protocol | DOCUMENTED | **POST-EXPOSURE / EXPLORATORY**, không gọi kiểm định độc lập |
-| MFNet independent dataset | OPTIONAL / NOT DONE | Cần B3 riêng cho 9 lớp MFNet, không dùng trực tiếp FMB 15 lớp |
-| B3 checkpoints 3×last.pt | STORED ON DRIVE / LOCAL SHA VERIFIED | Đã có 3 file `seed0_last.pt`, `seed1_last.pt`, `seed2_last.pt` trong thư mục Drive; SHA256 bản local khớp 3/3; chưa tải ngược bản Drive để kiểm tra SHA256; **cần sửa quyền chia sẻ Anyone–Writer thành Restricted hoặc Viewer**; xem `CHECKPOINT_STORAGE.md` |
-| Git branch LocBe | DONE THROUGH EVIDENCE COMMIT | `49bdafd5c1788b9d059988d5b1edf785359fa4b5`; 280 prediction PNG, 6 panel, bảng fusion metrics và runtime đã push; tài liệu checkpoint link đang chuẩn bị push riêng |
-| Final ZIP/Drive + checksum | NEED REPACKAGE | Sau khi sửa quyền Drive, push bản cập nhật link và xác nhận nhóm có quyền truy cập, tạo ZIP cuối và SHA256 mới; không dùng ZIP cũ làm bản cuối |
+| Method card, 3 references | **DONE** | `METHOD_SUMMARY.md` |
+| Code/config C2→C3-T frozen | **DONE** | `source/`, `configs/`, SHA256 trong `FROZEN_MANIFEST.json`, không thay công thức |
+| FMB Test 273 clean/280 full, 3 seed + SAGE/TB | **DONE / POST-EXPOSURE EXPLORATORY** | `results/`, `RESULTS_DISCUSSION.md`; không gọi independent Test |
+| Self-test, confusion parity | **DONE** | `evidence/inference_only/report/confusion_parity.json` PASS 280/280 seed0 |
+| 280 prediction C3-T seed0, 6 panel FMB | **DONE ON GITHUB** | `evidence/inference_only/predictions/`, `figures/qualitative/` (commit `49bdafd`) |
+| FMB SAGE B3 prediction trên cùng panel | **NOT DONE** | Không kết luận qualitative thắng/thua SAGE theo ảnh |
+| Fusion EN/SD/SCD, component latency | **DONE / LIMITED SCOPE** | `results/fusion_metrics_summary.csv`, `results/runtime_*.json`; không có end-to-end latency |
+| Fusion MS-SSIM, matched C2 ablation, TTA | **NOT DONE / OPTIONAL IF REQUIRED** | Chưa khóa protocol tương ứng |
+| 3 FMB B3 checkpoint | **DRIVE STORED / LOCAL SHA VERIFIED** | `CHECKPOINT_STORAGE.md`; 3 file ~189 MB; Drive redownload SHA chưa kiểm |
+| Quyền thư mục checkpoint FMB | **SECURITY ACTION REQUIRED** | 26/11 kiểm tra vẫn `Anyone: Writer`; đổi Viewer/Restricted trước chia sẻ |
+| Train/Dev/Test manifest / provenance FMB | **PARTIAL** | ID/hash lưu; dataset gốc & SAGE Student binary không có trọn trong snapshot |
+| MFNet cross-dataset split audit | **DONE** | 784 Train original +392 Val +393 Test, `_flip` excluded; no base-ID overlap |
+| MFNet fusion SAGE/TB/C3-T, metrics, 6 panel | **DONE** | `evidence/mfnet_seed0/` — 4707 manifest rows, chưa lưu tất cả PNG binary |
+| MFNet SegFormer-B3 9 lớp SAGE vs C3-T | **DONE SEED0 ONLY** | 100 epochs; Test 53.4829 vs 54.0895 mIoU9; Val 57.5254 vs 57.2138 |
+| MFNet SAGE + C3-T `last.pt` | **PENDING DRIVE UPLOAD** | SHA256 đã ghi trong `MFNET_RESULTS_26_11.md`; binary không ở ZIP report |
+| MFNet full 3 seed, TB B3 baseline | **OPTIONAL / NOT DONE** | Không suy diễn significant/robust gain từ seed0 |
+| SemanticRT camera-held-out | **NOT DONE** | Là dataset khác MFNet, cần thí nghiệm riêng nếu nhóm yêu cầu |
+| Git branch LocBe | **DONE THROUGH `bb53a37`** | `bb53a374d3c7cf2f94918c715b50ebfdf1065a24`, bao gồm MFNet evidence |
+| Final handoff note/checksum package | **PREPARED; AWAITING FINAL COMMIT / DRIVE UPLOAD** | `FINAL_HANDOFF_27_11.md`, snapshot ZIP tạo riêng; script chỉ stage, không auto push |
+| Draft PR to main | **PENDING** | Mở PR `LocBe → main` sau khi sửa sharing, yêu cầu Quân review |
 
-**Không tối ưu theo Test đã xem; không trình bày missing/partial như done.**
+**Đọc `FINAL_HANDOFF_27_11.md` để biết toàn bộ giới hạn. Không tối ưu C3-T bằng cách nhìn FMB/MFNet Test.**
