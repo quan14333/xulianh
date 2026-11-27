@@ -1,0 +1,44 @@
+method: DCTR-C3-T
+method_version: frozen-fmb-test-2026-11-25
+output_type: fusion_RGB
+c2:
+  alpha: 0.20
+  sigma_hpf: 1.20
+  sigma_tensor: 1.00
+  eps_gradient: 0.02
+  eps_tensor: 0.0001
+  reliability_scale: 0.06
+c3t:
+  threshold_thermal: 0.30
+  sigma_smooth: 1.0
+  edge_percentile: 90.0
+  eps: 1.0e-8
+  note: lambda_thermal=0.75 and lambda_conflict=0.50 were diagnostic config entries, not used by C3-T output
+inputs:
+  dataset: FMB
+  rgb_ir_pairs: 1500
+  train: 1220
+  test: 280
+  clean_test: 273
+  seed: [0, 1, 2]
+  segmentation_gt_used_in_fusion: false
+segmentation:
+  model: SegFormer-B3
+  train_epochs: 100
+  train_batch: 8
+  grad_accumulation: 1
+  crop: 512
+  learning_rate: 0.00006
+  optimizer: AdamW
+  warmup_steps: 1500
+  train_steps: 15200
+  use_dev_in_training: true
+  n_classes: 15
+  metric: mIoU13_pooled_ignore_GT_unlabeled_class0
+  ckpt_policy: last.pt (no test-based checkpoint selection)
+  precision: fp16
+  augmentation: random scale 0.5-2.0, random crop, horizontal flip
+provenance:
+  group_commit: 7b21b3e32aec2e864effee9b6458b59a917403f7
+  sage_commit: 377fdbef6b8b6ccbd1139358ad66bb41ea084dc1
+  sage_checkpoint_md5: 241396a51a3c5e85e360a409d9e8fe4d

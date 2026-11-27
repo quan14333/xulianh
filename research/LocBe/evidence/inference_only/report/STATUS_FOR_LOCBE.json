@@ -1,0 +1,29 @@
+{
+  "method": "DCTR-C3-T",
+  "fmb_test_status": "POST-EXPOSURE / EXPLORATORY",
+  "inference_only": true,
+  "retraining_performed": false,
+  "checkpoint_sha256_verified_3_seeds": true,
+  "frozen_c3t_image_sha256_verified_280": true,
+  "predictions_gt_free_then_replayed": true,
+  "seeds_inferred": [
+    0
+  ],
+  "confusion_replay": {
+    "0": {
+      "status": "PASS",
+      "mismatching_images": 0,
+      "mIoU13_273_recomputed_percent": 63.054613342650406,
+      "notes": "280 predictions frozen and hashed before opening GT. This is a post-exposure replay, not independent Test."
+    }
+  },
+  "qualitative_panels": 6,
+  "sage_segmentation_baseline_predictions_available": false,
+  "fusion_metrics_EN_SD_SCD": "DONE",
+  "MS_SSIM": "NOT_EVALUATED - dual-source reference convention not frozen",
+  "C2_vs_C3T_official_ablation": "NOT_DONE",
+  "baseline_plus_TTA": "NOT_DONE",
+  "MFNet": "NOT_DONE_OPTIONAL",
+  "checkpoint_bytes": "AVAILABLE_IN_OLD_KAGGLE_OUTPUT_NOT_PACKAGED_IN_ZIP",
+  "notes": "FMB Test previously exposed. Panels are descriptive; no test-driven tuning."
+}

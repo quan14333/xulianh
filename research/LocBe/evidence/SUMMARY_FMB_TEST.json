@@ -1,0 +1,27 @@
+{
+  "status": "COMPLETE",
+  "protocol": "group official SegFormer-B3 FMB 1220-Train / 273 clean Test",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "mIoU13_273_mean_C3T": 63.1994216327354,
+  "mIoU13_273_std_C3T": 0.46308295158833906,
+  "mIoU13_273_mean_SAGE_group": 63.370000000000005,
+  "mIoU13_273_mean_TB_group": 64.42333333333333,
+  "delta_C3T_minus_SAGE_pp_mean": -0.17057836726460116,
+  "delta_C3T_minus_TB_pp_mean": -1.2239117005979334,
+  "beats_SAGE_in_all_seeds": false,
+  "beats_TB_in_all_seeds": false,
+  "full_test_280_reported": true,
+  "test_clean_273_reported": true,
+  "baseline_reference": "repo group pinned tong_hop.csv (rounded to 0.01pp)",
+  "no_dev_tuning_after_test": true,
+  "limits": [
+    "One held-out Test evaluation, should not tune method afterward",
+    "Source reference group baseline CSV 2 decimal precision; deltas approximate at 0.01pp",
+    "No 95% paired CI unless baseline per-image confusion available",
+    "FMB results not cross-dataset generalization; evaluate SemanticRT separately"
+  ]
+}

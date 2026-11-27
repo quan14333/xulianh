@@ -1,0 +1,15 @@
+{
+  "seed": 0,
+  "n_predictions": 280,
+  "checkpoint_sha256": "fb1a78d558a220ad1c6a105cc9724e47532d8f6a2c8230159870756c2ddf69f1",
+  "gpu_forward_transfer_mean_ms": 72.96020104363791,
+  "gpu_forward_transfer_p50_ms": 72.89015399999244,
+  "gpu_forward_transfer_p95_ms": 73.79945180001641,
+  "gpu_forward_transfer_fps_inverse_mean": 13.706102583268573,
+  "preprocess_mean_ms": 23.78005571428596,
+  "png_write_mean_ms": 2.072733557144448,
+  "peak_gpu_allocated_mib_including_model": 1139.5947265625,
+  "peak_gpu_reserved_mib": 1224.0,
+  "hardware": "Tesla T4",
+  "notes": "GPU timer synchronize before/after forward+CPU prediction transfer; excludes file read/write; first 5 warmup ignored in GPU stats; not full end-to-end FPS."
+}

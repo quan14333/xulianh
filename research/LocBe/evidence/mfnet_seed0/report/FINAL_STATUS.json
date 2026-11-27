@@ -1,0 +1,31 @@
+{
+  "dataset": "MFNet",
+  "split": {
+    "train": 784,
+    "val": 392,
+    "test": 393
+  },
+  "method": "DCTR-C3-T vs SAGE (optional TB)",
+  "fusion_method_changed": false,
+  "metric_semantics": {
+    "mIoU9_present": "9 classes including unlabeled; nanmean over present union",
+    "mIoU8_ignore_GT0": "exclude GT class0 pixels before confusion; nanmean over 8 classes"
+  },
+  "experiment_seeds": [
+    0
+  ],
+  "full_3_seeds": false,
+  "train_methods": [
+    "sage",
+    "c3t"
+  ],
+  "downstream_9class_b3_retrained_on_MFNet": true,
+  "dataset_new_independent_of_FMB": true,
+  "dataset_source": "MFNet attached via Kaggle Add Input (no HTTP403 download)",
+  "raw_train_txt_count": 1568,
+  "raw_train_flip_excluded": 784,
+  "effective_train_original_count": 784,
+  "train_effective_manifest_sha256": "4bb4c7a698c6e2dfad0f40089830f58546523ac513e24e0dae8c2aaa7c857d91",
+  "do_not_tune_c3t_from_test": true,
+  "not_equivalent_to_FMB_mIoU13": true
+}

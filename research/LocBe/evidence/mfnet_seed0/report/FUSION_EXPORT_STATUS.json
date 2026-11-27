@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "images_each": 1569,
+  "variants": [
+    "sage",
+    "tb",
+    "c3t"
+  ],
+  "method_source_sha256": "6eda7aabead6207d54107478edc52792538383f86913dc4dd838c8879504d4b6",
+  "no_segmentation_GT_during_export": true
+}

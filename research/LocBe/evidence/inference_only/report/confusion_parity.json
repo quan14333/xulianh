@@ -1,0 +1,8 @@
+{
+  "0": {
+    "status": "PASS",
+    "mismatching_images": 0,
+    "mIoU13_273_recomputed_percent": 63.054613342650406,
+    "notes": "280 predictions frozen and hashed before opening GT. This is a post-exposure replay, not independent Test."
+  }
+}

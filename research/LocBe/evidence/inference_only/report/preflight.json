@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "original_output": "/kaggle/input/notebooks/eoquiither/cs406-2411/CS406_C3T_FMB_GROUP_TEST",
+  "fmb": "/kaggle/input/datasets/eoquiither/fmb-data/FMB/test",
+  "fmb_test": "/kaggle/input/datasets/eoquiither/fmb-data/FMB/test/test",
+  "b3_init": "/kaggle/input/datasets/eoquiither/q02b-data/sage-q02c-frozen-input/q02b/nvidia/mit-b3",
+  "n_test": 280,
+  "n_clean": 273,
+  "seed_checkpoints_sha256": {
+    "0": "fb1a78d558a220ad1c6a105cc9724e47532d8f6a2c8230159870756c2ddf69f1",
+    "1": "6fdff6a36e3798c33a021eb304e36ddcea7c417e337177c1c1c917c92d74713e",
+    "2": "3f6d306a77baefa70a27c2c7ac60611df8291da72c374da58dac6bc9fb4e18da"
+  },
+  "c3t_test_png_hash": "280/280 match original frozen image manifest",
+  "group_train_seg_sha256": "c7e988c6708150cc4be498a16a403af522d507d5824f77a5c8392289a271b10f",
+  "inference_only": true
+}
