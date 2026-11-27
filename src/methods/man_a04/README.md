@@ -1,7 +1,9 @@
-# `man_a04` – code phương án a04 (Mân)
+# `man_a04` – code phương án MeanRes (Mân)
 
-Method card: [method card a04](../../../docs/methods/man_a04_METHOD_SUMMARY.md) ·
-Kết quả: [kết quả a04](../../../reports/experiments/man_a04/README.md)
+MeanRes có tên mã `a04` / `tbsua_a04` trong code (a = alpha, 04 = 0,4).
+
+Method card: [method card MeanRes](../../../docs/methods/man_a04_METHOD_SUMMARY.md) ·
+Kết quả: [kết quả MeanRes](../../../reports/experiments/man_a04/README.md)
 
 Code ở đây là **bản chép nguyên** từ thư mục làm việc của Mân (`tai_lap/`), chưa gom thành package của repo.
 Đường dẫn bên trong script giữ như lúc chạy thật để SHA256 khớp `FROZEN_MANIFEST.json`, nên **không sửa trực tiếp**.
@@ -10,14 +12,14 @@ Khi đọc script, đổi đường dẫn theo bảng dưới.
 | Thư mục / file | Nội dung |
 |---|---|
 | `goi_test/` | **Gói đã chạy Test FMB** (dataset Kaggle `sage-test-b3-code`, đóng băng 26/11 12:59), đúng từng byte. Gồm manifest chính thức (1.045/175/280, cờ 7 ảnh rò), `tbsua_992.pt`, checkpoint Student SAGE, code dựng ảnh / train / chấm SegFormer-B3 |
-| `goi_test/dung_test.py` | dựng ảnh a04 cho 1.500 ảnh: `Y = TB + 0,4·(tbsua_992 − TB)`, màu = CrCb của VIS |
+| `goi_test/dung_test.py` | dựng ảnh MeanRes cho 1.500 ảnh: `Y = TB + 0,4·(tbsua_992 − TB)`, màu = CrCb của VIS |
 | `goi_test/xuat_anh.py` | xuất ảnh `tbsua_992`, `tb`, `sage` (Student SAGE) |
 | `goi_test/chay_song_song.py`, `train_seg.py`, `eval_seg.py` | train SegFormer-B3 trên ảnh ghép (100 epoch, `last.pt`) và chấm Test |
 | `goi_test/so_sanh_cap.py` | so theo cặp seed + CI bootstrap khối ảnh |
 | `train_tbsua/` | train Student `tbsua_992` (không nhãn, không SAM): `tb_sua.py` + hàm gradient từ `train_student_nosam.py`, lệnh `chay_tbsua992.sh`, log |
-| `dung_alpha.py` | dựng a04 cho Train/Dev (cùng công thức `dung_test.py`) |
+| `dung_alpha.py` | dựng MeanRes cho Train/Dev (cùng công thức `dung_test.py`) |
 | `cham/` | chấm Dev 3 seed, tạo `FROZEN_MANIFEST.json`, xuất bảng CSV, script chép sang repo |
-| `chi_phi/do_chi_phi.py` | đo chi phí (E18 + a04): ms/ảnh, VRAM, giây/bước train |
+| `chi_phi/do_chi_phi.py` | đo chi phí (E18 + MeanRes): ms/ảnh, VRAM, giây/bước train |
 
 ## Đối chiếu đường dẫn trong script
 

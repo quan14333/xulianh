@@ -1,4 +1,6 @@
-# Method card – a04: "Ghép TB + 40 % phần sửa" (phần của Mân)
+# Method card – MeanRes: "Ghép trung bình + phần sửa" (phần của Mân)
+
+*Tên mã trong code, tên run và repo: `a04` / `tbsua_a04` (a = alpha, 04 = 0,4). Giữ nguyên trong code để SHA256 khớp.*
 
 *Khóa 26/11/2026 trên Dev228. Bằng chứng khóa: [`FROZEN_MANIFEST.json`](../../reports/experiments/man_a04/FROZEN_MANIFEST.json).
 Kết quả đầy đủ: [`reports/experiments/man_a04/`](../../reports/experiments/man_a04/README.md).*
@@ -14,8 +16,8 @@ Kết quả đầy đủ: [`reports/experiments/man_a04/`](../../reports/experim
 
 1. Trên FMB, ghép trung bình **TB = (Y_vis + IR)/2** đã cho mIoU downstream cao hơn SAGE (baseline B3 của nhóm: TB 64,4 so với
    SAGE 63,4, 3 seed). Phần SAM của SAGE không phải nguồn của lợi ích phân đoạn.
-   *Nguồn số:* đây là mốc baseline TB/SAGE đo trên Test 273 ảnh, seed 0–2, ngày 18/11 (trước khi có a04), đúng vai trò
-   baseline. Mọi lựa chọn của a04 (công thức, alpha, checkpoint) chỉ dựa trên Train/Dev228; Test của a04 chạy một lần ngày 26/11.
+   *Nguồn số:* đây là mốc baseline TB/SAGE đo trên Test 273 ảnh, seed 0–2, ngày 18/11 (trước khi có MeanRes), đúng vai trò
+   baseline. Mọi lựa chọn của MeanRes (công thức, alpha, checkpoint) chỉ dựa trên Train/Dev228; Test của MeanRes chạy một lần ngày 26/11.
 2. TB giữ cường độ của cả hai nguồn nhưng làm **mờ cạnh** (Q_ABF chỉ ~60–74 % SAGE). Một mạng nhỏ học **phần sửa** trên nền TB
    (không nhãn, không SAM) có thể trả lại cạnh.
 3. Chỉ trộn **một phần** phần sửa (alpha = 0,4) giữ được cường độ "thân thiện phân đoạn" của TB mà vẫn lấy lại chi tiết →
@@ -23,7 +25,7 @@ Kết quả đầy đủ: [`reports/experiments/man_a04/`](../../reports/experim
 
 ## 3. Khác baseline và các bài liên quan ở đâu
 
-| | SAGE (CVPR 2025) | Ghép TB | **a04** |
+| | SAGE (CVPR 2025) | Ghép TB | **MeanRes** |
 |---|---|---|---|
 | Mạng lúc chạy | Student 135.617 tham số | không | **cùng Student**, học lại |
 | Nguồn ngữ nghĩa khi train | SAM ViT-B + X-Decoder + nhãn (L_seg) | – | **không** (chỉ hai ảnh nguồn) |
@@ -73,9 +75,9 @@ Adam 2e-3 cosine, batch 4, crop 192×256 + lật ngang, 100 epoch, seed 0, Stude
 
 ## 6. Kết quả chính (chi tiết trong `reports/experiments/man_a04/`)
 
-**FMB Test, 273 ảnh sạch, 5 seed, mIoU 13 lớp:** a04 **63,73 ± 1,07**, TB 63,90 ± 0,84, SAGE 62,90 ± 0,97.
-- a04 − SAGE **+0,82** (5/5 seed dương, CI ảnh [0,15; 1,43]) → **hơn nhất quán**.
-- a04 − TB −0,17 (3/5 seed dương) → **ngang TB**: CI theo ảnh [−0,47; 0,12] nằm trong ±0,5 điểm; tính thêm dao động seed
+**FMB Test, 273 ảnh sạch, 5 seed, mIoU 13 lớp:** MeanRes **63,73 ± 1,07**, TB 63,90 ± 0,84, SAGE 62,90 ± 0,97.
+- MeanRes − SAGE **+0,82** (5/5 seed dương, CI ảnh [0,15; 1,43]) → **hơn nhất quán**.
+- MeanRes − TB −0,17 (3/5 seed dương) → **ngang TB**: CI theo ảnh [−0,47; 0,12] nằm trong ±0,5 điểm; tính thêm dao động seed
   CI [−0,68; 0,44], chưa khẳng định chặt. Cả hai CI chứa 0 → không phải "thua TB".
 
 **Chi phí (T4):** chạy 53,9 ms/ảnh (SAGE 52,1); train 0,47 giờ, không SAM/nhãn (SAGE ≈ 125 giờ gồm SAM tạo mask).
