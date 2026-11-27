@@ -1,0 +1,190 @@
+{
+ "moi_truong": {
+  "gpu": "Tesla T4",
+  "vram_gb": 14.6,
+  "torch": "2.11.0+cu130",
+  "python": "3.13.16",
+  "ngay": "2026-11-17 18:03"
+ },
+ "tinh": {
+  "tham_so": {
+   "student": 135617,
+   "teacher": 2787025,
+   "sam_vit_b_tong": 93735472,
+   "sam_vit_b_image_encoder": 89670912,
+   "sam_vit_b_prompt_mask_decoder": 4064560,
+   "sam_encoder_2_tang_Lcs": 17918976,
+   "xdecoder_focall_checkpoint": 341628771
+  },
+  "gflops": {
+   "student_600x800": 31.578,
+   "student_768x1024_(co_anh_M3FD,_bai_ghi_52,06)": 51.738,
+   "student_crop_192x256": 3.234,
+   "teacher_crop_192x256": 112.815,
+   "sam_vit_b_image_encoder_1024x1024_(1_lan)": 486.417,
+   "sam_encoder_2_tang_Lcs_crop_192x256_(1_lan)": 4.031
+  },
+  "so_lan_goi_encoder_SAM_moi_Losses_cal": 25,
+  "dung_luong_mb": {
+   "student_checkpoint": 0.6,
+   "sam_vit_b": 357.7,
+   "xdecoder_focall_last": 1303.4
+  }
+ },
+ "chay": {
+  "kich_thuoc": [
+   600,
+   800
+  ],
+  "batch": 1,
+  "so_lan": 300,
+  "student_sage_fp32": {
+   "ms_moi_anh": 54.336,
+   "sd_ms": 0.6,
+   "vram_dinh_mb": 343.8
+  },
+  "ghep_tb": {
+   "ms_moi_anh": 0.05,
+   "sd_ms": 0.003,
+   "vram_dinh_mb": 17.0
+  }
+ },
+ "sam_mask_macdinh": {
+  "so_anh_do": 5,
+  "giay_moi_anh_IR": 5.61,
+  "giay_moi_anh_VIS": 5.55,
+  "giay_moi_cap": 11.16,
+  "uoc_tinh_gio_1220_cap": 3.78,
+  "vram_dinh_mb": 2771.0,
+  "so_mask_IR_VIS_luu": [
+   [
+    29,
+    47,
+    20
+   ],
+   [
+    47,
+    72,
+    20
+   ],
+   [
+    57,
+    90,
+    20
+   ],
+   [
+    43,
+    24,
+    20
+   ],
+   [
+    45,
+    29,
+    20
+   ]
+  ],
+  "uoc_tinh_cache_GB_1220_cap": 21.82,
+  "tham_so_generator": "mặc định segment_anything: points_per_side=32, crop_n_layers=0"
+ },
+ "train": {
+  "so_buoc_do": "20; 10 cho bước Teacher có X-Decoder",
+  "crop": [
+   192,
+   256
+  ],
+  "batch_goc": 4,
+  "buoc_student_moi_epoch": 153,
+  "buoc_teacher_moi_epoch": 152,
+  "epoch": 100,
+  "cach_do": "mỗi loại bước một tiến trình riêng (VRAM đỉnh không lẫn)",
+  "nosam_buoc": {
+   "batch": 4,
+   "giay_moi_buoc": 0.1177,
+   "sd": 0.0012,
+   "vram_dinh_mb": 1123.3
+  },
+  "uoc_tinh_gio_train_nosam": 0.5,
+  "sage_buoc_student": {
+   "batch": 4,
+   "giay_moi_buoc": 1.7976,
+   "sd": 0.035,
+   "vram_dinh_mb": 4796.4
+  },
+  "uoc_tinh_gio_buoc_student_sage": 7.64,
+  "sage_buoc_teacher": {
+   "batch": 4,
+   "loi": "HẾT VRAM",
+   "vram_dinh_mb": 14605.7
+  },
+  "sage_buoc_teacher_b2": {
+   "batch": 2,
+   "loi": "HẾT VRAM",
+   "vram_dinh_mb": 14747.5
+  },
+  "sage_buoc_teacher_b1": {
+   "batch": 1,
+   "giay_moi_buoc": 0.7407,
+   "sd": 0.0036,
+   "vram_dinh_mb": 13754.8
+  },
+  "uoc_tinh_gio_train_sage_chua_xdecoder": {
+   "gio": 20.15,
+   "buoc_teacher": "ngoại suy từ batch 1 (x4/1)"
+  },
+  "sage_buoc_teacher_xdecoder_b2": {
+   "batch": 2,
+   "giay_moi_buoc": 2.2072,
+   "sd": 0.0397,
+   "vram_dinh_mb": 11909.5
+  },
+  "sage_buoc_teacher_xdecoder_b1": {
+   "batch": 1,
+   "giay_moi_buoc": 1.2262,
+   "sd": 0.0111,
+   "vram_dinh_mb": 6721.7
+  },
+  "uoc_tinh_gio_train_sage_co_xdecoder": {
+   "gio": 26.28,
+   "buoc_teacher": "ngoại suy từ batch 2 (x4/2)"
+  }
+ },
+ "sam_mask": {
+  "so_anh_do": 5,
+  "giay_moi_anh_IR": 148.55,
+  "giay_moi_anh_VIS": 144.1,
+  "giay_moi_cap": 292.64,
+  "uoc_tinh_gio_1220_cap": 99.17,
+  "vram_dinh_mb": 2771.2,
+  "so_mask_IR_VIS_luu": [
+   [
+    106,
+    295,
+    20
+   ],
+   [
+    193,
+    508,
+    20
+   ],
+   [
+    235,
+    512,
+    20
+   ],
+   [
+    165,
+    164,
+    20
+   ],
+   [
+    284,
+    244,
+    20
+   ]
+  ],
+  "uoc_tinh_cache_GB_1220_cap": 21.82,
+  "tham_so_generator": "points_per_side=128, crop_n_layers=1, như dataset_teacher_FMB.py",
+  "nguon": "lần 1 (kernel v2, cùng T4, 17/11)"
+ },
+ "ghi_chu_gop": "v3 (kernel v3) + sam_mask cấu hình gốc lấy từ T4_lan1.json. sage_buoc_teacher_b2/_b1 (chưa X-Decoder) đo sau khi batch 4 hết VRAM trong cùng tiến trình -> VRAM bị lẫn, chỉ tham khảo. so_buoc_do: 20 (nosam/student/teacher), 10 (teacher có X-Decoder)."
+}

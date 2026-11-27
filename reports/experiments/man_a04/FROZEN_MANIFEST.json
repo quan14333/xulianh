@@ -1,0 +1,375 @@
+{
+ "ten": "a04 (tbsua_a04) – phương án nhóm, phần của Mân",
+ "ngay_khoa": "2026-11-26 12:59 (giờ VN) – chọn trên Dev228, gói code Test đóng băng trên Kaggle",
+ "ngay_tong_hop_file": "2026-11-27",
+ "khong_chinh_theo_test": "code, config, checkpoint, split, metric giữ nguyên từ lúc khóa; không chạy lại để chọn bản",
+ "phuong_phap": {
+  "cong_thuc": "Y = TB + 0,4·(tbsua_992 − TB); TB = (Y_vis + IR)/2; tbsua_992 = clamp(TB + 0,5·Student(Y_vis, IR), 0, 1); màu: ghép Y với CrCb của VIS (OpenCV)",
+  "tham_so": {
+   "alpha": 0.4,
+   "s": 0.5,
+   "w_tb": 150,
+   "w_g": 27,
+   "epoch": 100,
+   "batch": 4,
+   "crop": [
+    192,
+    256
+   ],
+   "lr": "Adam 2e-3, cosine",
+   "seed": 0,
+   "so_anh_train": 992
+  },
+  "khong_dung": [
+   "SAM",
+   "X-Decoder",
+   "nhãn phân đoạn (khi train mô hình ghép)"
+  ],
+  "tham_so_mo_hinh": 135617
+ },
+ "giao_thuc_cham": {
+  "segformer": {
+   "model": "b3",
+   "init": "nvidia/mit-b3",
+   "epochs": 100,
+   "batch": 8,
+   "crop": 512,
+   "lr": 6e-05,
+   "optimizer": "AdamW wd 0.01, head lr x10",
+   "aug": "scale 0.5-2.0, random crop, hflip",
+   "chon_ckpt": "last (không chọn)",
+   "loss": "CE, nhãn 0 là một lớp",
+   "so_lop": 15,
+   "n_train": 1220
+  },
+  "metric_chinh": "mIoU_co_mat: một ma trận nhầm lẫn 15x15 gộp toàn tập, bỏ pixel nhãn 0, trung bình các lớp có mặt (13 lớp, không bicycle) trên 273 ảnh test sạch (bỏ 7 ảnh rò); kèm 280 ảnh",
+  "so_sanh": "so_sanh_cap.py: hiệu theo cặp seed, CI bootstrap khối 10 ảnh id liền (B=2000); thang 3 mức trong QUY_TAC_CHAM.md",
+  "seed": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "config_khac_nhau_ngoai_seed_bien_the": []
+ },
+ "bang_chung_khoa": {
+  "goi_test_kaggle": "dataset thanhmn123/sage-test-b3-code, lastUpdated 2026-11-26 05:59 UTC (12:59 giờ VN), trước các lượt Test tbsua_a04",
+  "goi_khop_may_nha": true,
+  "manifest_notebook_khop_goi": true,
+  "notebook_assert_md5_tbsua_992": "fb0f5e8be8465ec98474c81a38938d3a"
+ },
+ "goi_test": {
+  "chay_song_song.py": {
+   "sha256": "1f4310b0d6187d44b8c1bd31fced4be3e590792d926988bf46a5171328f452d2",
+   "kaggle_sha256": "1f4310b0d6187d44b8c1bd31fced4be3e590792d926988bf46a5171328f452d2",
+   "khop_kaggle": true
+  },
+  "chung.py": {
+   "sha256": "beb1228cf2238ae2dcce8b808a2024ef153596e0960d36eb7562a08d05ac3c04",
+   "kaggle_sha256": "beb1228cf2238ae2dcce8b808a2024ef153596e0960d36eb7562a08d05ac3c04",
+   "khop_kaggle": true
+  },
+  "dung_a04_cvis.py": {
+   "sha256": "a08d2a350c84f6b9dd957e206368a99b5d7d9d020c3f0dca43e0794f609fe994",
+   "kaggle_sha256": "a08d2a350c84f6b9dd957e206368a99b5d7d9d020c3f0dca43e0794f609fe994",
+   "khop_kaggle": true
+  },
+  "dung_test.py": {
+   "sha256": "75e21db521cb6177f2a68a52bcbe9f76dc22417b326a3019f4753f68bc484011",
+   "kaggle_sha256": "75e21db521cb6177f2a68a52bcbe9f76dc22417b326a3019f4753f68bc484011",
+   "khop_kaggle": true
+  },
+  "eval_seg.py": {
+   "sha256": "c2a7d856b68d119852698003ed7b0bae6cf96429eaff7651af0796fa01adbe0a",
+   "kaggle_sha256": "c2a7d856b68d119852698003ed7b0bae6cf96429eaff7651af0796fa01adbe0a",
+   "khop_kaggle": true
+  },
+  "manifests/dev.csv": {
+   "sha256": "4720243878c093a8717f5c09a907b164618c97e8fb68ffb8dff2db4e93ba6f15",
+   "kaggle_sha256": "4720243878c093a8717f5c09a907b164618c97e8fb68ffb8dff2db4e93ba6f15",
+   "khop_kaggle": true
+  },
+  "manifests/test.csv": {
+   "sha256": "c7bb123c8d6d495561b7a6886875e08f04b8d5820fd90afa6f6600ebaeacd1a2",
+   "kaggle_sha256": "c7bb123c8d6d495561b7a6886875e08f04b8d5820fd90afa6f6600ebaeacd1a2",
+   "khop_kaggle": true
+  },
+  "manifests/train.csv": {
+   "sha256": "86158cdcd02ad08c1143135f35b06c1803489e842c4eda0a79c90198590b3071",
+   "kaggle_sha256": "86158cdcd02ad08c1143135f35b06c1803489e842c4eda0a79c90198590b3071",
+   "khop_kaggle": true
+  },
+  "sage_student/checkpoints.pt": {
+   "sha256": "ecfde477ca4cd65401f207d5dc91ce6c475a49891d768dbdb7a66366255ee836",
+   "kaggle_sha256": "ecfde477ca4cd65401f207d5dc91ce6c475a49891d768dbdb7a66366255ee836",
+   "khop_kaggle": true
+  },
+  "sage_student/model.py": {
+   "sha256": "e9120042916db89a2056a13d1b15552d57390bc1052508af1cbed096b4dcab4d",
+   "kaggle_sha256": "e9120042916db89a2056a13d1b15552d57390bc1052508af1cbed096b4dcab4d",
+   "khop_kaggle": true
+  },
+  "sage_student/tbsua_992.pt": {
+   "sha256": "e92eda309c7f5f7a42bf538b881a2d5d5050707783302d6353a99cea3bcd11f7",
+   "kaggle_sha256": "e92eda309c7f5f7a42bf538b881a2d5d5050707783302d6353a99cea3bcd11f7",
+   "khop_kaggle": true
+  },
+  "so_sanh_cap.py": {
+   "sha256": "9697cbaf1fd301786f76b83ce607a89f62df4bad60d1001ee22f3fec76a651b8",
+   "kaggle_sha256": "9697cbaf1fd301786f76b83ce607a89f62df4bad60d1001ee22f3fec76a651b8",
+   "khop_kaggle": true
+  },
+  "so_sanh_lop_du.py": {
+   "sha256": "708a35256fadd782902840e096b538918224a6f22e2673e20854813a91a02e49",
+   "kaggle_sha256": "708a35256fadd782902840e096b538918224a6f22e2673e20854813a91a02e49",
+   "khop_kaggle": true
+  },
+  "train_seg.py": {
+   "sha256": "c2599f0fa786c008439d6049b8c14521da496c82f1f7129263fa3800fcea01da",
+   "kaggle_sha256": "c2599f0fa786c008439d6049b8c14521da496c82f1f7129263fa3800fcea01da",
+   "khop_kaggle": true
+  },
+  "xuat_anh.py": {
+   "sha256": "29f106b4be2e31ebd49fdcda31c4fbc1542b9c0dc43662f3e357569a2dfd6b8f",
+   "kaggle_sha256": "29f106b4be2e31ebd49fdcda31c4fbc1542b9c0dc43662f3e357569a2dfd6b8f",
+   "khop_kaggle": true
+  }
+ },
+ "manifest_trong_output_notebook": {
+  "thanhmn123/sage-test-a04-nhom1:train.csv": {
+   "sha256": "86158cdcd02ad08c1143135f35b06c1803489e842c4eda0a79c90198590b3071",
+   "khop_goi": true
+  },
+  "thanhmn123/sage-test-a04-nhom1:dev.csv": {
+   "sha256": "4720243878c093a8717f5c09a907b164618c97e8fb68ffb8dff2db4e93ba6f15",
+   "khop_goi": true
+  },
+  "thanhmn123/sage-test-a04-nhom1:test.csv": {
+   "sha256": "c7bb123c8d6d495561b7a6886875e08f04b8d5820fd90afa6f6600ebaeacd1a2",
+   "khop_goi": true
+  },
+  "thanhmn123/sage-test-a04-nhom2:train.csv": {
+   "sha256": "86158cdcd02ad08c1143135f35b06c1803489e842c4eda0a79c90198590b3071",
+   "khop_goi": true
+  },
+  "thanhmn123/sage-test-a04-nhom2:dev.csv": {
+   "sha256": "4720243878c093a8717f5c09a907b164618c97e8fb68ffb8dff2db4e93ba6f15",
+   "khop_goi": true
+  },
+  "thanhmn123/sage-test-a04-nhom2:test.csv": {
+   "sha256": "c7bb123c8d6d495561b7a6886875e08f04b8d5820fd90afa6f6600ebaeacd1a2",
+   "khop_goi": true
+  },
+  "thanhmn123/sage-test-moc-nb:train.csv": {
+   "sha256": "86158cdcd02ad08c1143135f35b06c1803489e842c4eda0a79c90198590b3071",
+   "khop_goi": true
+  },
+  "thanhmn123/sage-test-moc-nb:dev.csv": {
+   "sha256": "4720243878c093a8717f5c09a907b164618c97e8fb68ffb8dff2db4e93ba6f15",
+   "khop_goi": true
+  },
+  "thanhmn123/sage-test-moc-nb:test.csv": {
+   "sha256": "c7bb123c8d6d495561b7a6886875e08f04b8d5820fd90afa6f6600ebaeacd1a2",
+   "khop_goi": true
+  }
+ },
+ "file_ngoai_goi": {
+  "cai_tien/tb_sua.py": {
+   "vai_tro": "train tbsua_992 (không nhãn, không SAM)",
+   "sha256": "5566b12700c81e2b6098f27a8c0358340bd2dd0a1f5bd6d959b5e1ebab861ed5"
+  },
+  "scene_v1/chay_tbsua992.sh": {
+   "vai_tro": "lệnh train tbsua_992: w_tb 150, w_g 27, s 0,5, 100 epoch, seed 0, 992 ảnh",
+   "sha256": "7cf7bc19f7de1a8637f40ee73542a2ccfd98710fbcccd79c7ca36774911f1c70"
+  },
+  "scene_v1/tbsua_992.log": {
+   "vai_tro": "log train tbsua_992 (13,2 phút, RTX 3050)",
+   "sha256": "04d6bce7c354cc3494244c650390fa590e94339da96cf90fd7ce943dd7125d26"
+  },
+  "scene_v1/dung_alpha.py": {
+   "vai_tro": "dựng a04 cho Train/Dev (cùng công thức dung_test.py)",
+   "sha256": "e6c4bc015e3f691517843f9bac3a43d4c7522c209c6028c1d017e87d1bb534b5"
+  },
+  "scene_v1/cham_a04_3s.py": {
+   "vai_tro": "chấm Dev228 3 seed – căn cứ khóa a04",
+   "sha256": "af7c080ccd47b9cc6716fc19139cbf10d0f9367169810579d47b6e95b8ec056d"
+  },
+  "scene_v1/cham_a04_3s.txt": {
+   "vai_tro": "kết quả Dev228 3 seed – căn cứ khóa a04 (26/11)",
+   "sha256": "cbe5ed6d85a37ad8e414b8ee804a57ed6a93110e44151001e6c76eaa5e05d9da"
+  },
+  "scene_v1/cham_a04cvis.txt": {
+   "vai_tro": "a04_cvis rớt luật trên Dev → giữ a04",
+   "sha256": "851e89f17f2d54f9dd6796d6f9f1f2ce79428ed6657049422f4fb1744464c8a2"
+  },
+  "QUY_TAC_CHAM.md": {
+   "vai_tro": "giao thức chấm + câu kết luận ghi trước khi mở số Test",
+   "sha256": "7c0b567aa5300c52a0bc6b4164d064c738111d64b9b08155cac8fb99d43c2dcd"
+  },
+  "b3/so_sanh_cap.py": {
+   "vai_tro": "script chấm cặp seed dùng ở máy nhà",
+   "sha256": "9697cbaf1fd301786f76b83ce607a89f62df4bad60d1001ee22f3fec76a651b8",
+   "khop_goi": true
+  },
+  "b3/sage_student/tbsua_992.pt": {
+   "vai_tro": "checkpoint ở máy nhà (phải trùng bản trong gói)",
+   "sha256": "e92eda309c7f5f7a42bf538b881a2d5d5050707783302d6353a99cea3bcd11f7"
+  },
+  "chi_phi/do_chi_phi.py": {
+   "vai_tro": "đo chi phí (27/11, có a04)",
+   "sha256": "2a6ae36f28af1704d2e67362ccb6bad7f017bf7f3eb1d8341f03674e8a28e22d"
+  },
+  "chi_phi/ket_qua/T4_a04.json": {
+   "vai_tro": "chi phí a04 trên T4",
+   "sha256": "b116d518d46568dafe34c44c04e1423da40bc1cc51723dd5a9a7eded858170f4"
+  }
+ },
+ "runs_test": {
+  "nosam_b3_s0_1220_15lop": {
+   "bien_the": "nosam",
+   "seed": 0,
+   "nguon": "_kaggle_out/runs_gop (mốc seed 0–2, chạy trước 26/11)",
+   "config.json": "196267eb88fd01bf4823392ec68a503a2a3a7b2d1fe1289af0dd0d0b5f32d675",
+   "test_ket_qua_last.json": "33ecc8a30cd3ad7168159d69e6c09034469b12fdb7417ff67bbc9bfa8a8ae0af",
+   "test_nham_last.npz": "4e878b8f8ad592c558b9a74de57b6453deff15d1f8c4fca0e2c8a5ec85e80ce2"
+  },
+  "nosam_b3_s1_1220_15lop": {
+   "bien_the": "nosam",
+   "seed": 1,
+   "nguon": "_kaggle_out/runs_gop (mốc seed 0–2, chạy trước 26/11)",
+   "config.json": "67ab3f01f579c1493bfbcf4006b6c2c4a82bb9ed8daec927c537d5480c5f3d2f",
+   "test_ket_qua_last.json": "0b01a8e7c507727d22947071ea795634c340f1934bf522fe0bcd923431d74242",
+   "test_nham_last.npz": "fc3e6b4651e3e9335fc167f18cbc8177613355b79ecf77d89655fc344fa5d897"
+  },
+  "nosam_b3_s2_1220_15lop": {
+   "bien_the": "nosam",
+   "seed": 2,
+   "nguon": "_kaggle_out/runs_gop (mốc seed 0–2, chạy trước 26/11)",
+   "config.json": "094e55a1c8b55b96a8ba6c050383eb4c4d013ed7be785de0c9da753584386670",
+   "test_ket_qua_last.json": "8153d655d9ead2ac379fb07b6b6b0ce2fe6e4372a19d5d00fa2bd168f03e45c3",
+   "test_nham_last.npz": "f511b27baefb8ee95079051f0e186d94276862401e06ec641a6f61b7df9c07ce"
+  },
+  "sage_b3_s0_1220_15lop": {
+   "bien_the": "sage",
+   "seed": 0,
+   "nguon": "_kaggle_out/runs_gop (mốc seed 0–2, chạy trước 26/11)",
+   "config.json": "60c77aaead1198594d5373624fd9f2b486443ffb21b6b2a374c7710ab05e394b",
+   "test_ket_qua_last.json": "f6951f15f7249f08c86bd47b93a11cb828e98ee2479a8a317e4d2e4196463b2a",
+   "test_nham_last.npz": "ece93941f93cc57c2d2cb9ab1a052812de82fba153dd4391e19fc80ce29b2275"
+  },
+  "sage_b3_s1_1220_15lop": {
+   "bien_the": "sage",
+   "seed": 1,
+   "nguon": "_kaggle_out/runs_gop (mốc seed 0–2, chạy trước 26/11)",
+   "config.json": "7f5d0ef6b731c8ccda5e100016ce25bf9427cf3beb75b133bfb15a0171529ce3",
+   "test_ket_qua_last.json": "f92c50a1eaa2cf5131d88902d864478d5613e19cfd8cfbffe59ce364d46184d2",
+   "test_nham_last.npz": "d62c3c7ffc2e83c124e5be570c17699413ae1d0f9a7f6fc676f7f38d6311901c"
+  },
+  "sage_b3_s2_1220_15lop": {
+   "bien_the": "sage",
+   "seed": 2,
+   "nguon": "_kaggle_out/runs_gop (mốc seed 0–2, chạy trước 26/11)",
+   "config.json": "dee480aec7e40140a52e7da0de622f524db7acfd39fd2a9ab08647a7ecdf73c3",
+   "test_ket_qua_last.json": "e24895e79b0805cf0cbad771ae2dbd39b70cebc6a5ece5c6a0bcc7bfaed880fe",
+   "test_nham_last.npz": "02cd4879d72b8faba2ce8dc2b2be68fb91d0b1e092a565573fa67469b3e5b29f"
+  },
+  "sage_b3_s3_1220_15lop": {
+   "bien_the": "sage",
+   "seed": 3,
+   "nguon": "thanhmn123/sage-test-moc-nb",
+   "config.json": "ed8e45b64ec7044aa4f7041e5ec8e294a723ed4a279352143b28fcf225e04d63",
+   "test_ket_qua_last.json": "ee9a1428332cbce98ee71fde321a8e9310e31016dce14f3ea6024c6b0817e41d",
+   "test_nham_last.npz": "cc57f73392a96629c6835e4c9da101d95d05c918b81d36ebbf6b357c0621d34e"
+  },
+  "sage_b3_s4_1220_15lop": {
+   "bien_the": "sage",
+   "seed": 4,
+   "nguon": "thanhmn123/sage-test-moc-nb",
+   "config.json": "c12ed11720312ac78783c6dfe0d173d34bf851d1f55fb03c1346cd46f6b59eea",
+   "test_ket_qua_last.json": "5ece8bb3869725e9ede49c8bc742d76e451d9122c7d7d6bdb3fa69dc6fb4fef1",
+   "test_nham_last.npz": "70ce9a04b574f256d98f5dd5093714711b6d8b3b847d3b72dfbfb830a7ab6c55"
+  },
+  "tb_b3_s0_1220_15lop": {
+   "bien_the": "tb",
+   "seed": 0,
+   "nguon": "_kaggle_out/runs_gop (mốc seed 0–2, chạy trước 26/11)",
+   "config.json": "5e46030dbf7a0d4eed393254bcef2f42f73a7695d6c695beff8d82e1a4e77f0c",
+   "test_ket_qua_last.json": "ccd213f7d14c8d678e157eda1ea75ee4bdc80ca373bba3c6df87df8c397958a9",
+   "test_nham_last.npz": "6f1b5c30d271c074e63bb56bd119f478b08e32bd95307e9f50057f0ac3e0990d"
+  },
+  "tb_b3_s1_1220_15lop": {
+   "bien_the": "tb",
+   "seed": 1,
+   "nguon": "_kaggle_out/runs_gop (mốc seed 0–2, chạy trước 26/11)",
+   "config.json": "093ca0b2b97a0d00adf3fd454dd80d8016731c4514b91187304866b22160ef49",
+   "test_ket_qua_last.json": "42f215e49630620a234f7e5d8687e36c159913dcbfccf411fa79a3f6788286d7",
+   "test_nham_last.npz": "ed4112adf87591f05d71381aa73cc32322fd2fd8fd183936e7154ee96b5481cd"
+  },
+  "tb_b3_s2_1220_15lop": {
+   "bien_the": "tb",
+   "seed": 2,
+   "nguon": "_kaggle_out/runs_gop (mốc seed 0–2, chạy trước 26/11)",
+   "config.json": "889721c775a8d2015c6ba3f8ce83369138daf7717b9772d73fe8b08abc30a2c0",
+   "test_ket_qua_last.json": "5dfba91e99807032407c2a0971168ad26354b4167a4899dbc8b50d097da7d0f4",
+   "test_nham_last.npz": "25d3951c22068f0b542c4a5e55afd10e7f5fcf945fc2b72caedac0ca41428859"
+  },
+  "tb_b3_s3_1220_15lop": {
+   "bien_the": "tb",
+   "seed": 3,
+   "nguon": "thanhmn123/sage-test-moc-nb",
+   "config.json": "38c96a01046f7473779e481e555c5c02f5e23da654b3905e425af841b821742b",
+   "test_ket_qua_last.json": "4f4e2cdc337c20d53f80087e675514e1e97cf5fd99746af593942d5e521b8a0c",
+   "test_nham_last.npz": "1ec1787ea46e916fe4998b9d732c891d5632cbbab2ce35bb97e854915cfa1df0"
+  },
+  "tb_b3_s4_1220_15lop": {
+   "bien_the": "tb",
+   "seed": 4,
+   "nguon": "thanhmn123/sage-test-moc-nb",
+   "config.json": "bf4e2a5295b59fc5377808e489b6a00c266e75a3cc70277e28ab64018749fe62",
+   "test_ket_qua_last.json": "7b6bc11b13be7591c5e069afc80060fe7ce7b29fed8c0a7bd721ee85fee1d000",
+   "test_nham_last.npz": "fcc72afcc199ee9dbd7e73bb39d917f234753cc89d8fcd9a9aa10093f385e08d"
+  },
+  "tbsua_a04_b3_s0_1220_15lop": {
+   "bien_the": "tbsua_a04",
+   "seed": 0,
+   "nguon": "thanhmn123/sage-test-a04-nhom1",
+   "config.json": "18f48b6a077f3fa88698cfdee289f2f0e44ec802656e623c59a962f0b24e64af",
+   "test_ket_qua_last.json": "509dbef129c5e9b6131fcc706993b3273d67dcd4c2c02c9c836f0b5089954a3d",
+   "test_nham_last.npz": "5fc22f094b47061eedbb331841f03067488d71db48d7332f2a17869d4b1feb2b"
+  },
+  "tbsua_a04_b3_s1_1220_15lop": {
+   "bien_the": "tbsua_a04",
+   "seed": 1,
+   "nguon": "thanhmn123/sage-test-a04-nhom1",
+   "config.json": "3b57774b8c565b63ed23ea16b8ad3ff75387aa9cd54fce5eb1a535da7d6c4ecf",
+   "test_ket_qua_last.json": "b16c93ec10ce83d7394153a5b1c8b8f5bd7df4889faf5179d56e320e53681303",
+   "test_nham_last.npz": "f7799b26426612940f345b84ec07002c793e0e8c28b08a67e24d2a153fc1e6a2"
+  },
+  "tbsua_a04_b3_s2_1220_15lop": {
+   "bien_the": "tbsua_a04",
+   "seed": 2,
+   "nguon": "thanhmn123/sage-test-a04-nhom1",
+   "config.json": "df6854362b7602f3ac9d572e919ef5f048c792556d6e94984fb3c1c830d14ad0",
+   "test_ket_qua_last.json": "6cd21e8e4cfb851d6e3e1a72015d0d71667fa7f3a003ce88dff176ed31d8e771",
+   "test_nham_last.npz": "166a0cc20d4ca7170e4df1ea7d94280c2aee63b1544f01a2d48a003dc2efc7e4"
+  },
+  "tbsua_a04_b3_s3_1220_15lop": {
+   "bien_the": "tbsua_a04",
+   "seed": 3,
+   "nguon": "thanhmn123/sage-test-a04-nhom1",
+   "config.json": "9c87a6710908e55339192413cbbfa7a6bd33edfbc55af92c6a082ecf3d5e8e37",
+   "test_ket_qua_last.json": "47a67c9a0514e6fd9abe6d3f43bf129206804ea05bd6e6d3cb6e157f00eb033e",
+   "test_nham_last.npz": "bb49ca51ff1008a8a06d733b8fec5a0d31d12ed0dd002d5dd9a3a2c22becf635"
+  },
+  "tbsua_a04_b3_s4_1220_15lop": {
+   "bien_the": "tbsua_a04",
+   "seed": 4,
+   "nguon": "thanhmn123/sage-test-a04-nhom2",
+   "config.json": "9271878e5d91ac487c0469595ae80ce0d506aa081507404f742dd071e962a98c",
+   "test_ket_qua_last.json": "305664da4edabdc0756f9584e7bd3bde9486d08022c5be418681728f6cd883dd",
+   "test_nham_last.npz": "672e49fe73b5729c7c4b3a21ff99cf6365508bb5df28df316b669e505acc405a"
+  }
+ },
+ "repo": "sage-huong-khong-sam, commit 7b5a063 (26/11)"
+}

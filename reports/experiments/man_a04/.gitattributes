@@ -1,0 +1,2 @@
+# Giữ nguyên byte (không đổi CRLF/LF) để SHA256 khớp FROZEN_MANIFEST.json
+* -text

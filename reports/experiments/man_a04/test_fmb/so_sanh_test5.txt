@@ -1,0 +1,36 @@
+D:\CS406\DoAn\Sage\tai_lap\b3\so_sanh_cap.py:111: Pandas4Warning: Starting with pandas version 4.0 all arguments of mean will be keyword-only.
+  bang["TB"] = bang.mean(1)
+D:\CS406\DoAn\Sage\tai_lap\b3\so_sanh_cap.py:112: Pandas4Warning: Starting with pandas version 4.0 all arguments of std will be keyword-only.
+  bang["SD"] = bang.iloc[:, :len(seeds)].std(1, ddof=1) if len(seeds) > 1 else np.nan
+b3 | tập test | 273 ảnh (bỏ ảnh rò: 7) | 36 khối | seed [0, 1, 2, 3, 4] | ckpt last
+
+== mIoU_co_mat theo seed
+              s0     s1     s2     s3     s4     TB    SD  mIoU_7_TB
+tbsua_a04  63.65  64.26  65.22  63.04  62.46  63.73  1.07      75.18
+tb         64.27  63.91  65.09  62.94  63.29  63.90  0.84      75.35
+sage       62.62  63.07  64.42  62.64  61.76  62.90  0.97      73.94
+
+== Hiệu số theo cặp seed (B = 2000); kết luận theo thang 3 mức
+           cap  d_tb  d_s0  d_s1  d_s2  d_s3  d_s4  CI_anh_lo  CI_anh_hi  CI_anh_seed_lo  CI_anh_seed_hi  so_seed_duong  d_mIoU7_tb       ket_luan
+  tbsua_a04−tb -0.17 -0.62  0.35  0.14   0.1 -0.83      -0.47       0.12           -0.68            0.44              3       -0.17 chưa phân biệt
+tbsua_a04−sage  0.82  1.03  1.18  0.81   0.4  0.70       0.15       1.43           -0.13            1.52              5        1.24  hơn nhất quán
+       tb−sage  1.00  1.65  0.84  0.67   0.3  1.53       0.20       1.76           -0.17            1.84              5        1.41  hơn nhất quán
+
+== IoU từng lớp (TB seed, bỏ pixel unlabeled) – số phụ
+               tbsua_a04    tb  sage
+road                88.3  88.0  87.7
+sidewalk            44.7  43.8  43.3
+building            84.7  84.8  84.3
+traffic_light       38.2  39.0  41.0
+traffic_sign        79.0  79.1  78.3
+vegetation          87.8  87.9  87.3
+sky                 95.5  95.7  95.4
+person              69.7  69.6  70.2
+car                 79.3  78.6  78.8
+truck               30.6  31.4  31.0
+bus                 37.5  39.4  31.0
+motorcycle          42.1  42.1  38.6
+bicycle              NaN   NaN   NaN
+pole                51.0  51.3  50.9
+
+Ghi ..\_kaggle_out\test_gop5\so_sanh_cap_test_b3.csv

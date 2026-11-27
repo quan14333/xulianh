@@ -1,0 +1,6 @@
+dev: 228 ảnh
+              SCD  MS_SSIM   Q_ABF      EN       SD  MS_SSIM_IR  MS_SSIM_VIS  SCD_%sage  MS_SSIM_%sage  Q_ABF_%sage  qua_cong2
+bien_the                                                                                                                      
+sage       1.6982   1.5689  0.6117  6.6512  36.6650      0.7175       0.8514   100.0000       100.0000     100.0000       True
+tbsua_a04  1.4771   1.6291  0.6477  6.3046  25.3798      0.7658       0.8633    86.9767       103.8399     105.8806      False
+a04_cvis   1.4542   1.6021  0.6598  6.3489  26.2197      0.7391       0.8630    85.6322       102.1136     107.8675      False

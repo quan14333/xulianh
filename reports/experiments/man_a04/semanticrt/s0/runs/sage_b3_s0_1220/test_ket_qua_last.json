@@ -1,0 +1,18 @@
+{
+  "bien_the": "sage",
+  "model": "b3",
+  "seed": 0,
+  "gop_dev": true,
+  "lop0": false,
+  "epochs": 100,
+  "n_train": 1000,
+  "best_dev_miou": null,
+  "ckpt": "last",
+  "tat_ca": {
+    "mIoU_co_mat": 47.837353703079685,
+    "mIoU_fg": 44.33090935048466,
+    "so_lop_co_mat": 13,
+    "pixel_acc": 91.16487223307291,
+    "so_anh": 300
+  }
+}
