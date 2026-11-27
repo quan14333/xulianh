@@ -1,0 +1,64 @@
+{
+ "moi_truong": {
+  "gpu": "Tesla T4",
+  "vram_gb": 14.6,
+  "torch": "2.11.0+cu130",
+  "python": "3.13.16",
+  "ngay": "2026-11-27 08:34"
+ },
+ "chay": {
+  "kich_thuoc": [
+   600,
+   800
+  ],
+  "batch": 1,
+  "so_lan": 300,
+  "a04": {
+   "checkpoint": "tbsua_992.pt",
+   "s": 0.5,
+   "alpha": 0.4
+  },
+  "student_sage_fp32": {
+   "ms_moi_anh": 52.066,
+   "sd_ms": 0.576,
+   "vram_dinh_mb": 335.8
+  },
+  "ghep_tb": {
+   "ms_moi_anh": 0.046,
+   "sd_ms": 0.003,
+   "vram_dinh_mb": 8.4
+  },
+  "a04_fp32": {
+   "ms_moi_anh": 53.9,
+   "sd_ms": 0.506,
+   "vram_dinh_mb": 337.0
+  }
+ },
+ "train": {
+  "so_buoc_do": 20,
+  "crop": [
+   192,
+   256
+  ],
+  "batch_goc": 4,
+  "buoc_student_moi_epoch": 153,
+  "buoc_teacher_moi_epoch": 152,
+  "epoch": 100,
+  "cach_do": "mỗi loại bước một tiến trình riêng (VRAM đỉnh không lẫn)",
+  "nosam_buoc": {
+   "batch": 4,
+   "giay_moi_buoc": 0.1089,
+   "sd": 0.0013,
+   "vram_dinh_mb": 1123.3
+  },
+  "uoc_tinh_gio_train_nosam": 0.463,
+  "tbsua_buoc": {
+   "batch": 4,
+   "giay_moi_buoc": 0.1095,
+   "sd": 0.001,
+   "vram_dinh_mb": 1124.1
+  },
+  "uoc_tinh_gio_train_tbsua_1220": 0.465,
+  "uoc_tinh_gio_train_tbsua_992": 0.377
+ }
+}

@@ -14,6 +14,8 @@ Kết quả đầy đủ: [`reports/experiments/man_a04/`](../../reports/experim
 
 1. Trên FMB, ghép trung bình **TB = (Y_vis + IR)/2** đã cho mIoU downstream cao hơn SAGE (baseline B3 của nhóm: TB 64,4 so với
    SAGE 63,4, 3 seed). Phần SAM của SAGE không phải nguồn của lợi ích phân đoạn.
+   *Nguồn số:* đây là mốc baseline TB/SAGE đo trên Test 273 ảnh, seed 0–2, ngày 18/11 (trước khi có a04), đúng vai trò
+   baseline. Mọi lựa chọn của a04 (công thức, alpha, checkpoint) chỉ dựa trên Train/Dev228; Test của a04 chạy một lần ngày 26/11.
 2. TB giữ cường độ của cả hai nguồn nhưng làm **mờ cạnh** (Q_ABF chỉ ~60–74 % SAGE). Một mạng nhỏ học **phần sửa** trên nền TB
    (không nhãn, không SAM) có thể trả lại cạnh.
 3. Chỉ trộn **một phần** phần sửa (alpha = 0,4) giữ được cường độ "thân thiện phân đoạn" của TB mà vẫn lấy lại chi tiết →
@@ -84,5 +86,5 @@ Adam 2e-3 cosine, batch 4, crop 192×256 + lật ngang, 100 epoch, seed 0, Stude
 
 - **Mạnh:** hơn SAGE nhất quán trên Test; rẻ hơn SAGE khoảng 270 lần khi train; không cần SAM, X-Decoder hay nhãn
   → dùng được cho dữ liệu chưa gán nhãn; lớp bus/motorcycle tăng rõ so với SAGE.
-- **Yếu:** chưa hơn TB (ngang); traffic_light thua SAGE (−2,8) và TB; bus/truck thua TB; SCD 87 % SAGE (giữ tương quan
+- **Yếu:** chưa hơn TB (ngang); traffic_light thua SAGE (−2,7) và TB; bus/truck thua TB; SCD 87 % SAGE (giữ tương quan
   với nguồn kém hơn SAGE); trên Dev luật 8 lớp đặt trước rớt (77,48 < 77,62). Kiểm tổng quát SemanticRT mới có seed 0.

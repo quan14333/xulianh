@@ -1,0 +1,69 @@
+{
+ "kiem": {
+  "giao train∩test = rỗng (id)": true,
+  "giao NHÓM MÁY train∩test = rỗng": true,
+  "không id trùng trong mỗi file": true,
+  "mọi file tồn tại": true,
+  "mọi ảnh test có cos với train < 0.8": true,
+  "đủ số ảnh": true,
+  "mọi ảnh test có ORB inlier với train < 15": true
+ },
+ "tong": 11371,
+ "sau_bo_anh_nho": 11100,
+ "sau_bo_gan_trung": {
+  "train": 6982,
+  "test": 342
+ },
+ "test_bo_vi_ro": 0,
+ "test_bo_vi_orb": 13,
+ "test_bo_vi_orb_theo_may": {
+  "5": 7,
+  "19": 6
+ },
+ "train": 1000,
+ "test": 300,
+ "test_dem": 0.75,
+ "train_dem": 0.782,
+ "nhom_test": [
+  "12",
+  "19",
+  "20",
+  "5"
+ ],
+ "so_anh_co_lop_train": [
+  1000,
+  904,
+  486,
+  382,
+  481,
+  484,
+  822,
+  81,
+  302,
+  302,
+  647,
+  989,
+  731
+ ],
+ "so_anh_co_lop_test": [
+  300,
+  293,
+  254,
+  75,
+  183,
+  100,
+  262,
+  19,
+  98,
+  105,
+  162,
+  286,
+  244
+ ],
+ "cos_test_train_max": 0.5328330397605896,
+ "split_goc_test": {
+  "train": 192,
+  "test": 61,
+  "val": 47
+ }
+}

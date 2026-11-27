@@ -1,0 +1,7 @@
+# a04 – thư viện đã dùng (ghi 27/11/2026)
+# Test FMB / SemanticRT / đo chi phí: Kaggle, Python 3.13, Tesla T4 (theo chi_phi/T4_a04.json)
+torch==2.11.0          # Kaggle: 2.11.0+cu130 ; máy nhà (train tbsua_992, chấm Dev): 2.7.1+cu128
+transformers           # SegFormer nvidia/mit-b3; máy nhà 5.20.1, bản Kaggle không ghi lại
+numpy                  # máy nhà 1.26.4
+opencv-python          # máy nhà 4.9.0
+pandas                 # máy nhà 2.2.2

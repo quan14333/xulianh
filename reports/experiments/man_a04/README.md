@@ -43,6 +43,9 @@ Trên 280 ảnh: a04 − SAGE +0,72 (CI ảnh [−0,05; 1,33], chưa phân biệ
 
 ### IoU theo lớp (trung bình 5 seed, 273 ảnh) – `test_fmb/results_per_class.csv`
 
+Cột `nosam` trong CSV là trung bình **3 seed** (s0–2); cả 3 seed tính lại từ `test_nham_last.npz`. Run nosam s1, s2 không kèm
+`test_iou_lop_last.csv`; IoU từng lớp của chúng lấy từ ma trận nhầm lẫn trong `.npz` (cùng cách tính với mọi run).
+
 | Lớp | a04 | TB | SAGE | a04 − TB | a04 − SAGE |
 |---|---|---|---|---|---|
 | road | 88,3 | 88,0 | 87,7 | +0,3 | +0,6 |
@@ -70,7 +73,13 @@ Trên 280 ảnh: a04 − SAGE +0,72 (CI ảnh [−0,05; 1,33], chưa phân biệ
 
 ## 3. Dev228 – căn cứ khóa (`dev228/`)
 
-3 seed, 228 ảnh Dev (tách khối id liền từ train), mIoU 13 lớp: a04 **60,77**, TB 60,15, SAGE 59,41.
+Split **scene_v1** (nhóm chốt 16–18/11): 992 Train / 228 Dev, tách từ 1.220 ảnh train chính thức **theo cảnh**
+(Dev 175 cũ + 53 ảnh train cùng cảnh chuyển sang; 10 khối id liền). File: `dev228/split_scene_v1/train.csv`, `dev.csv`
+(md5 `e3979a3d…`, `7969b4e3…`), lý do từng nhóm ảnh: `dev228/split_scene_v1/scene_decision.md`.
+**Lưu ý có 2 split:** Dev228 (992/228) dùng để train `tbsua_992` và chọn phương án; Test cuối dùng manifest 1.045/175/280 trong
+`goi_test/manifests/` với `--gop_dev` (SegFormer train trên đủ 1.220 ảnh), nên hai split cho cùng tập train 1.220.
+
+3 seed, 228 ảnh Dev, mIoU 13 lớp: a04 **60,77**, TB 60,15, SAGE 59,41.
 a04 − TB +0,63 (CI ảnh [−0,04; 1,26]), a04 − SAGE +1,36 (CI ảnh [0,06; 3,09]). `a04_cvis` (thêm cổng VIS) rớt luật
 đặt trước (59,41 < 60,69) → giữ a04. **Ghi nhận:** luật phụ 8 lớp phổ biến đặt trước rớt (77,48 < 77,62).
 
@@ -87,13 +96,19 @@ SCD 87 % SAGE: a04 giữ tương quan với từng nguồn kém hơn SAGE (chỉ
 ## 4. SemanticRT – kiểm tổng quát (`semanticrt/`, đang chạy)
 
 Chia lại theo **địa điểm** (split gốc có 347 ảnh test trùng train): 1.000 train / 300 test (75 % ảnh đêm), xem
-`semanticrt/chia_lai_README.md`. Mô hình ghép giữ nguyên (chỉ học trên FMB). mIoU 13 lớp gồm background.
+`semanticrt/chia_lai_README.md`. File split + script chia: `semanticrt/split/` (`train.csv`, `test.csv` là bản chia gốc;
+`kaggle_train.csv`, `kaggle_test.csv` là bản rút gọn cột đưa lên Kaggle, cùng id). `thong_tin.csv` (1,7 MB) không kèm,
+tạo lại bằng `b1_thong_tin.py <thư mục SemanticRT>`.
+Mô hình ghép giữ nguyên (chỉ học trên FMB). mIoU 13 lớp gồm background.
+Tên run có hậu `_1220` chỉ là quy ước tên chung với FMB; SegFormer ở đây train trên **1.000** ảnh SemanticRT.
 
 | | a04 | SAGE | TB | VIS |
 |---|---|---|---|---|
 | seed 0 | **48,31** | 47,84 | 47,79 | 42,39 |
 
-Mới seed 0; luật cần seed 0–2 (seed 1, 2 đang chạy). Số tuyệt đối thấp vì train 1.000 ảnh + test là địa điểm chưa thấy;
+Mới seed 0; luật cần seed 0–2. Tình trạng 27/11: seed 1 (a04 + SAGE) đang chạy (notebook `sage-srt-a04-s1`);
+TB seed 1 và cả seed 2 chạy sau khi quota reset 28/11. Luật đọc đặt trước nằm ở mục SemanticRT của `QUY_TAC_CHAM.md`;
+tên notebook `sage-srt-b3-s{0,1,2}` ghi trong đó là tên cũ (đã xóa, thay bằng `sage-srt-a04-*`), luật giữ nguyên. Số tuyệt đối thấp vì train 1.000 ảnh + test là địa điểm chưa thấy;
 **không so được với bài SemanticRT** (khác split, khác số ảnh train). Chỉ số ghép trên 300 ảnh train
 (`semanticrt/rao_anh_train300.txt`): a04 MS-SSIM 106,7 %, Q_ABF 116,3 %, SCD 93,4 % SAGE.
 
@@ -124,3 +139,7 @@ SAGE có SAM: số train/tạo mask đo ngày 18/11 (`chi_phi/T4.json`); số ch
 - Chấm cặp seed: `python goi_test/so_sanh_cap.py --bien_the tbsua_a04 tb sage --model b3 --hau _1220_15lop` với `SAGE_RUNS` trỏ vào `test_fmb/runs`.
 - Bảng CSV: `src/methods/man_a04/cham/xuat_bang_ket_qua.py`.
 - Run tb/sage seed 0–2 là mốc baseline B3 (cùng cấu hình, `reports/experiments/b3_fmb_seg/`); seed 3, 4 và a04 chạy 26/11.
+- Thư viện: `requirements.txt` (bản Kaggle đã chạy Test: Python 3.13, torch 2.11.0+cu130, Tesla T4).
+- Đo tốc độ: `runtime_benchmark.json` (chép từ `chi_phi/T4_a04.json`, cùng nội dung).
+- Còn thiếu: hình 4–6 ca Test (VIS / IR / nhãn / baseline / a04). Dự đoán SegFormer của từng ảnh không được lưu (chỉ lưu
+  ma trận nhầm lẫn), nên muốn có hình phải chạy lại suy luận một checkpoint.
