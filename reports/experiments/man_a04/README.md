@@ -141,5 +141,27 @@ SAGE có SAM: số train/tạo mask đo ngày 18/11 (`chi_phi/T4.json`); số ch
 - Run tb/sage seed 0–2 là mốc baseline B3 (cùng cấu hình, `reports/experiments/b3_fmb_seg/`); seed 3, 4 và MeanRes chạy 26/11.
 - Thư viện: `requirements.txt` (bản Kaggle đã chạy Test: Python 3.13, torch 2.11.0+cu130, Tesla T4).
 - Đo tốc độ: `runtime_benchmark.json` (chép từ `chi_phi/T4_a04.json`, cùng nội dung).
-- Còn thiếu: hình 4–6 ca Test (VIS / IR / nhãn / baseline / MeanRes). Dự đoán SegFormer của từng ảnh không được lưu (chỉ lưu
-  ma trận nhầm lẫn), nên muốn có hình phải chạy lại suy luận một checkpoint.
+- Hình ca Test: `src/methods/man_a04/hinh/hinh_ca_test.py` (mục 8).
+
+## 8. Hình ca Test (`figures/`)
+
+Mỗi hình: VIS | IR | nhãn GT; ảnh ghép MeanRes | TB | SAGE; mask dự đoán seed 0 của từng bản (**trắng = pixel sai**, vùng nhãn 0
+làm tối vì không chấm). Mask là **đúng lượt Test đã chấm** (không train lại): MeanRes lấy `pred_last/*.png` trong output Kaggle
+`sage-test-a04-nhom1`, TB/SAGE từ output lượt baseline. Kiểm: mask + nhãn → ma trận nhầm lẫn **trùng tuyệt đối** `test_nham_last.npz`
+ở cả 280 ảnh, 3 bản. Ảnh ghép MeanRes dựng lại trên máy bằng đúng công thức `dung_test.py` và `tbsua_992.pt` đã khóa.
+
+Luật chọn ca ghi trong script **trước khi** xem điểm từng ảnh: điểm = mIoU một ảnh (bỏ nhãn 0), trung bình 5 seed, 273 ảnh sạch;
+cải thiện = min(MeanRes − TB, MeanRes − SAGE) lớn nhất; suy giảm = max(...) nhỏ nhất; khó = 00089 (khói, từ audit) + ảnh VIS tối nhất;
+hai ca cách nhau > 10 id. Điểm mọi ảnh: `figures/diem_tung_anh.csv`.
+
+| Hình | Ảnh | MeanRes | TB | SAGE | Ghi chú |
+|---|---|---|---|---|---|
+| `ca1_cai_thien_00381.png` | 00381 | 56,6 | 52,7 | 53,8 | đêm, đám đông trên bậc thang |
+| `ca2_cai_thien_00503.png` | 00503 | 64,6 | 62,0 | 62,3 | phố đêm có xe; vỉa hè bên phải ít sai hơn |
+| `ca3_suy_giam_00794.png` | 00794 | 63,9 | 67,4 | 70,9 | phố cao ốc chạng vạng, nhiều vật nhỏ |
+| `ca4_suy_giam_00716.png` | 00716 | 49,2 | 52,1 | 52,6 | đêm sương; cả 3 sai tòa nhà bên trái, MeanRes mất hẳn mảnh building |
+| `ca5_kho_khoi_00089.png` | 00089 | 90,2 | 91,1 | 87,8 | VIS bị khói, IR thấy 2 người |
+| `ca6_kho_toi_00046.png` | 00046 | 71,2 | 72,2 | 73,6 | ảnh tối (00381 tối hơn nhưng đã là ca 1) |
+
+mIoU một ảnh rất nhiễu (một lớp nhỏ đổi vài trăm pixel là lật), nên hình **chỉ để minh họa**; kết luận vẫn theo mIoU gộp toàn tập (mục 2).
+Ghi chú: notebook Test xóa `last.pt` sau khi chấm (lỗi của bước dọn output, đã sửa ở script sinh notebook), nhưng mask PNG vẫn được lưu.
